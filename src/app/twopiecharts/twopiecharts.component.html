@@ -1,1 +1,21 @@
-<p>twopiecharts works!</p>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rankings</title>
+</head>
+
+<body>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
+        <g transform="translate(200,200) rotate(0)">
+            <rect width="400" height="400" x="-200" y="-200" fill="green" display="none" ></rect>
+            <g *ngFor="let d of paths;let i = index">
+                <path class="arc" [attr.d]="d" [attr.fill]="useColours[i]" opacity="0"></path>
+            </g>
+        </g>
+    </svg>
+</body>
+
+</html>
