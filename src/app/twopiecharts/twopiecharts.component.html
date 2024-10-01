@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html title="Rankins" lang="en">
+<html title="Rankings" lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -8,7 +8,7 @@
 </head>
 
 <body>
-    <svg xmlns="http://www.w3.org/2000/svg" [attr.viewBox]="'0 0 '+boxsize+' '+boxsize">
+    <svg xmlns="http://www.w3.org/2000/svg" [attr.height]="boxsize" [attr.width]="boxsize">
         <g [attr.transform]="'translate('+boxsize/2+','+boxsize/2+') rotate(0)'">
             <rect class="position" [attr.width]="boxsize" [attr.height]="boxsize" [attr.x]="-boxsize/2" [attr.y]="-boxsize/2"></rect>
             <g *ngFor="let d of paths;let i = index">

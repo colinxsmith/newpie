@@ -14,7 +14,7 @@ export class TwopiechartsComponent implements OnInit {
   @Input() colourRange=100;
   @Input() colourStart='red';
   @Input() colourEnd='blue';
-  colours = d3.scaleLinear([0, this.colourRange], [this.colourStart, this.colourEnd]);
+  colours = d3.scaleLinear([0, 100], ['red', 'green']);
   paths: Array<string> = [];
   centres:Array<Array<number>>=[];
   useColours: Array<string> = [];
@@ -35,6 +35,9 @@ export class TwopiechartsComponent implements OnInit {
   .cornerRadius(this.cornerRadius)
   ;
   ngOnInit() {
+    this.outerRadius= this.boxsize*0.8/2;
+    this.colours=d3.scaleLinear([0,this.colourRange],[this.colourStart,this.colourEnd])
+    console.log(this.colourStart,this.colourEnd,this.boxsize);
     this.pie1(this.mockdata.values).forEach((s, i) => {
       this.paths.push(this.figureArcs({
         innerRadius: this.innerRadius,
