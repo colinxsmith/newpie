@@ -79,3 +79,23 @@ export class TwopiechartsComponent implements OnInit {
     },200);
   }
 }
+
+
+
+/*
+
+      svg
+        .attr('tiptitle', label)
+        .style('--back', 'black')
+        .style('--ff', '110%')
+        .style('--xx', xx + 'px')
+        .style('--yy', yy - this.height * 0.15 + 'px')
+        .style('--bx', e.offsetX + 'px')
+        .style('--by', yy + 'px')
+        ;
+    } else {
+      here.style('opacity', 1);
+      svg
+        .attr('tiptitle', null);
+    }
+        /
