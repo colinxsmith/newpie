@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html title="Rankins" lang="en">
 
 <head>
     <meta charset="UTF-8">
@@ -10,13 +10,13 @@
 <body>
     <svg xmlns="http://www.w3.org/2000/svg" [attr.viewBox]="'0 0 '+boxsize+' '+boxsize">
         <g [attr.transform]="'translate('+boxsize/2+','+boxsize/2+') rotate(0)'">
-            <rect [attr.width]="boxsize" [attr.height]="boxsize" [attr.x]="-boxsize/2" [attr.y]="-boxsize/2" fill="green" opacity="0" ></rect>
+            <rect class="position" [attr.width]="boxsize" [attr.height]="boxsize" [attr.x]="-boxsize/2" [attr.y]="-boxsize/2"></rect>
             <g *ngFor="let d of paths;let i = index">
                 <path class="arc" [attr.d]="d" [attr.fill]="useColours[i]" [style.opacity]="1/10"></path>
                 <text [attr.x]="centres[i][0]" [attr.y]="centres[i][1]">{{mockdata.values[i]}}</text>
             </g>
         </g>
-        <text class="title" [attr.x]="boxsize/2-5*5" [attr.y]="boxsize*0.05">TITLE</text>
+        <text class="title" [attr.x]="boxsize/2-5*5" [attr.y]="boxsize*0.075">TITLE</text>
     </svg>
 </body>
 

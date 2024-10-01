@@ -11,18 +11,20 @@ import * as d3 from 'd3';
 })
 export class TwopiechartsComponent implements OnInit {
   constructor(private element: ElementRef) { }
-  colourRange=100;
-  colours = d3.scaleLinear([0, this.colourRange], ['red', 'blue']);
+  @Input() colourRange=100;
+  @Input() colourStart='red';
+  @Input() colourEnd='blue';
+  colours = d3.scaleLinear([0, this.colourRange], [this.colourStart, this.colourEnd]);
   paths: Array<string> = [];
   centres:Array<Array<number>>=[];
   useColours: Array<string> = [];
   @Input() title="Current Ranking Trevor";;
-  boxsize=400;
-  innerRadius= 10;
-  outerRadius= this.boxsize*0.8/2;
-  padAngle=0.02;
-  padRadius=100;
-  cornerRadius=20;
+  @Input() boxsize=400;
+  @Input() innerRadius= 10;
+  @Input() outerRadius= this.boxsize*0.8/2;
+  @Input() padAngle=0.02;
+  @Input() padRadius=100;
+  @Input() cornerRadius=20;
   mockdata = {
     'values': [4, 5, 3, 7, 1, 10, 17]
   };
