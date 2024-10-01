@@ -18,13 +18,14 @@ export class TwopiechartsComponent implements OnInit {
   paths: Array<string> = [];
   centres:Array<Array<number>>=[];
   useColours: Array<string> = [];
-  @Input() title="Current Ranking Trevor";;
+  @Input() title="Ranking Trevor";;
   @Input() boxsize=400;
   @Input() innerRadius= 10;
   @Input() outerRadius= this.boxsize*0.8/2;
   @Input() padAngle=0.02;
   @Input() padRadius=100;
   @Input() cornerRadius=20;
+  @Input() squareBorderOpacity=0;
   mockdata = {
     'values': [4, 5, 3, 7, 1, 10, 17]
   };
