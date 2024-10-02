@@ -42,7 +42,6 @@ export class TwopiechartsComponent implements OnInit {
     console.log(this.colourStart, this.colourEnd, this.boxsize);
 
     this.pie1.forEach((s, i) => {
-
       this.paths.push(this.figureArcs({
         innerRadius: this.innerRadius,
         outerRadius: this.outerRadius,
