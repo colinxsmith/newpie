@@ -1,7 +1,6 @@
 import { Component, OnInit, ElementRef, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import * as d3 from 'd3';
-import { NONE_TYPE } from '@angular/compiler';
 
 @Component({
   selector: 'app-twopiecharts',
