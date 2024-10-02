@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-barchart',
   standalone: true,
-  imports: [CommonModule,AppBarchart],
+  imports: [CommonModule,BarchartComponent],
   templateUrl: './barchart.component.html',
   styleUrl: './barchart.component.scss'
 })
