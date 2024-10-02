@@ -82,7 +82,6 @@ export class TwopiechartsComponent implements OnInit {
   over(e: MouseEvent, i: number, inout = false) {
     const svg = d3.select(this.element.nativeElement).select('div.mainTip');
     const here = d3.select(e.target as HTMLElement & EventTarget);
-    console.log(e, i, svg, here);
     if (inout) {
       const x = e.clientX - 100;
       const y = e.clientY;
