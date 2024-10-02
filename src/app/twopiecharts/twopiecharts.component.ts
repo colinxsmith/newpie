@@ -1,6 +1,7 @@
 import { Component, OnInit, ElementRef, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import * as d3 from 'd3';
+import { NONE_TYPE } from '@angular/compiler';
 
 @Component({
   selector: 'app-twopiecharts',
@@ -29,20 +30,20 @@ export class TwopiechartsComponent implements OnInit {
   @Input() mockdata = {
     'values': [4, 5, 3, 7, 1, 10, 17]
   };
-  pie1 = d3.pie();
-  figureArcs = d3.arc()
+  pie1: Array<d3.PieArcDatum<number | { valueOf(): number; }>> = [];
+  figureArcs=d3.arc();
+  ngOnInit() {
+    this.pie1 = d3.pie().sort(null)(this.mockdata.values);
+    this.figureArcs=d3.arc()
     .padRadius(this.padRadius)
     .padAngle(this.padAngle)
-    .cornerRadius(this.cornerRadius)
-    ;
-  ngOnInit() {
+    .cornerRadius(this.cornerRadius);
     this.outerRadius = this.boxsize * 0.8 / 2;
     this.colours = d3.scaleLinear([0, this.colourRange], [this.colourStart, this.colourEnd])
     console.log(this.colourStart, this.colourEnd, this.boxsize);
-    
-    this.pie1(this.mockdata.values).forEach((s,ii) => {
-      const i=this.mockdata.values.length-1-  ii;
-      
+
+    this.pie1.forEach((s, i) => {
+
       this.paths.push(this.figureArcs({
         innerRadius: this.innerRadius,
         outerRadius: this.outerRadius,
@@ -57,7 +58,6 @@ export class TwopiechartsComponent implements OnInit {
       });
       this.centres.push(cent);
       this.useColours.push(this.colours(this.colourRange * (s.index - 1) / this.mockdata.values.length));
-      console.log(i, this.colours(100 * (s.index - 1) / this.mockdata.values.length), s)
     });
     this.update();
   }
@@ -70,7 +70,7 @@ export class TwopiechartsComponent implements OnInit {
         .transition().duration(1000)
         .styleTween('opacity', () => (t) => `${t}`)
         .attrTween('d', (_, i) => (t) => {
-          const p1 = this.pie1(this.mockdata.values)[i];
+          const p1 = this.pie1[i];
           const path = this.figureArcs({
             startAngle: p1.startAngle,
             endAngle: p1.startAngle - t * (p1.startAngle - p1.endAngle),
@@ -86,15 +86,15 @@ export class TwopiechartsComponent implements OnInit {
     const here = d3.select(e.target as HTMLElement & EventTarget);
     console.log(e, i, svg, here);
     if (inout) {
-      const x=e.clientX-100;
-      const y=e.clientY;
-      here.style('opacity',0.5);
+      const x = e.clientX - 100;
+      const y = e.clientY;
+      here.style('opacity', 0.5);
       svg
         .attr('tiptitle', 'tipper')
-        .style('left',`${x}px`)
-        .style('top',`${y}px`)
+        .style('left', `${x}px`)
+        .style('top', `${y}px`)
         .style('opacity', '1')
-        .html(`${x} ${y} i:${i} rank:${this.pie1(this.mockdata.values)[i].index} value :${this.mockdata.values[i]}`);
+        .html(`(${x},${y})  index:${this.pie1[i].index} value :${this.mockdata.values[i]}`);
       /* .style('--ff', '110%')
        .style('--xx', xx + 'px')
        .style('--yy', yy - this.height * 0.15 + 'px')
@@ -102,7 +102,7 @@ export class TwopiechartsComponent implements OnInit {
        .style('--by', yy + 'px')*/
       ;
     } else {
-      here.style('opacity',1);
+      here.style('opacity', 1);
       svg.style('opacity', 0)
         .attr('tiptitle', null);
     }

@@ -12,6 +12,8 @@ import { BarchartComponent } from "./barchart/barchart.component";
 })
 export class AppComponent {
   title = 'New Charts for Charles Stanley';
-  prop={'values':[4,5,17,15,9,10]};
-  curr={'values':[10,9,14,5,7,15]};
+  k=[3,4,11,6,14,18,9,1,10,8];
+  kb=this.k.map(k=>k).reverse();
+  prop={'values':this.k};
+  curr={'values':this.kb};
 }

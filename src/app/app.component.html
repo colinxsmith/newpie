@@ -155,7 +155,7 @@
         <h1>{{ title }}</h1>
         <div style="display:inline-flex">
             <div>
-            <app-twopiecharts title="Current Ranking"  [mockdata]="curr"  colourStart="orange" colourEnd="#bbc8ce" [boxsize]="500"></app-twopiecharts>
+            <app-twopiecharts title="Current Ranking"  [mockdata]="curr"  [squareBorderOpacity]="1"  colourStart="orange" colourEnd="#bbc8ce" [boxsize]="500"></app-twopiecharts>
             <p style="text-align: center;">Current Ranking</p>
         </div>  <div> 
             <app-twopiecharts title="Proposed Ranking"  [mockdata]="prop"  [squareBorderOpacity]="1" colourStart="#bbc8ce" colourEnd="brown" [boxsize]="500"></app-twopiecharts>
