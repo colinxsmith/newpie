@@ -54,10 +54,14 @@ div.mainTip::after {
     background-color: #bbc8ce;
     color:white;
     font-size: 80%;
+    --x:70%;
+    --y:90%;
+    height: calc(var(--y) - 87%);
     position: absolute;
     padding: 1px 5px 2px 5px;
     bottom: -1.6em;
-    left:0%;
+    left: var(--xx);
+    top:var(--yy);
     white-space: nowrap;
     box-shadow: 1px 1px 1px #222222;
     opacity: 0;
