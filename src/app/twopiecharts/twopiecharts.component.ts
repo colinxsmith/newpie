@@ -61,6 +61,8 @@ export class TwopiechartsComponent implements OnInit {
   }
   update() {
     setTimeout(() => {
+      d3.select(this.element.nativeElement).selectAll('[rogue-title]')
+      .attr('rogue-title',this.title)
       d3.select(this.element.nativeElement).selectAll('text.title')
         .attr('x', this.boxsize / 2 - this.title.length * 4)
         .text(this.title);
