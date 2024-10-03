@@ -43,3 +43,28 @@ div.mainTip::after {
     border-style: groove;
     border-color: #555 transparent transparent transparent;
 }
+
+[rogue-title]:hover:after{
+    opacity: 1;
+    transition: all 0.1s ease 0.5s;
+    visibility: visible;
+}
+[rogue-title]:after{
+    content: attr(rogue-title);
+    background-color: #bbc8ce;
+    color:white;
+    font-size: 80%;
+    position: absolute;
+    padding: 1px 5px 2px 5px;
+    bottom: -1.6em;
+    left:0%;
+    white-space: nowrap;
+    box-shadow: 1px 1px 1px #222222;
+    opacity: 0;
+    border: 1px solid #111111;
+    z-index: 99999;
+    visibility: hidden;
+}
+[rogue-title]{
+    position: relative;
+}
