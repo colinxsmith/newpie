@@ -97,7 +97,7 @@ export class TwopiechartsComponent implements OnInit {
         .style('left', `${x}px`)
         .style('top', `${y}px`)
         .style('opacity', '1')
-        .html(`(${x},${y})  index:${this.pie1[i].index} value :${this.mockdata.values[i]}`);
+        .html(`(${x},${y})  index:${this.pie1[i].index} ranking :${this.mockdata.values[i]}`);
       /* .style('--ff', '110%')
        .style('--xx', xx + 'px')
        .style('--yy', yy - this.height * 0.15 + 'px')
