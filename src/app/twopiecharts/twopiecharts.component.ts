@@ -60,12 +60,14 @@ export class TwopiechartsComponent implements OnInit {
     this.update();
   }
   update() {
-    setTimeout(() => {
-      d3.select(this.element.nativeElement).selectAll('[rogue-title]')
+      d3.select(this.element.nativeElement).select('[rogue-title]')
       .attr('rogue-title',this.title)
       .style('--xx','8%')
       .style('--yy','5%')
-      d3.select(this.element.nativeElement).selectAll('text.title')
+      setTimeout(() => {
+        d3.select(this.element.nativeElement).select('body')
+        .attr('title',this.title);
+      d3.select(this.element.nativeElement).select('text.title')
         .attr('x', this.boxsize / 2 - this.title.length * 4)
         .text(this.title);
       d3.select(this.element.nativeElement).selectAll('path.arc')

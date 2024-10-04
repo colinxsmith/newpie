@@ -44,24 +44,25 @@ div.mainTip::after {
     border-color: #555 transparent transparent transparent;
 }
 
-[rogue-title]:hover:after{
+[rogue-title]:hover:after {
     opacity: 1;
     transition: all 0.1s ease 0.5s;
     visibility: visible;
 }
-[rogue-title]:after{
+
+[rogue-title]:after {
     content: attr(rogue-title);
     background-color: #bbc8ce;
-    color:white;
+    color:black;
     font-size: 80%;
-    --x:70%;
-    --y:90%;
+    --x: 70%;
+    --y: 90%;
     height: 3%;
     position: absolute;
     padding: 1px 5px 2px 5px;
     bottom: -1.6em;
     left: var(--xx);
-    top:var(--yy);
+    top: var(--yy);
     white-space: nowrap;
     box-shadow: 1px 1px 1px #222222;
     opacity: 0;
@@ -69,6 +70,7 @@ div.mainTip::after {
     z-index: 99999;
     visibility: hidden;
 }
-[rogue-title]{
+
+[rogue-title] {
     position: relative;
 }
