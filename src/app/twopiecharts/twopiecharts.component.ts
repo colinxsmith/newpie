@@ -63,7 +63,7 @@ export class TwopiechartsComponent implements OnInit {
       d3.select(this.element.nativeElement).select('[rogue-title]')
       .attr('rogue-title',this.title)
       .style('--xx','8%')
-      .style('--yy','5%')
+      .style('--yy','5%');
       setTimeout(() => {
         d3.select(this.element.nativeElement).select('body')
         .attr('title',this.title);
@@ -89,8 +89,8 @@ export class TwopiechartsComponent implements OnInit {
     const svg = d3.select(this.element.nativeElement).select('div.mainTip');
     const here = d3.select(e.target as HTMLElement & EventTarget);
     if (inout) {
-      const x = e.clientX - 100;
-      const y = e.clientY;
+      const x = e.pageX - 100;
+      const y = e.pageY;
       here.style('opacity', 0.5);
       svg
         .attr('tiptitle', 'tipper')

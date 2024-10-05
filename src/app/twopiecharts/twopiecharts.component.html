@@ -11,9 +11,13 @@
 <body  title="rankings"  rogue-title="rankings" >
     <svg xmlns="http://www.w3.org/2000/svg" [attr.height]="boxsize" [attr.width]="boxsize">
         <g [attr.transform]="'translate('+boxsize/2+','+boxsize/2+') rotate(0)'">
-            <rect class="position" [style.opacity]="squareBorderOpacity" [attr.width]="boxsize" [attr.height]="boxsize" [attr.x]="-boxsize/2" [attr.y]="-boxsize/2"></rect>
+            <rect class="position" [style.opacity]="squareBorderOpacity" [attr.width]="boxsize" [attr.height]="boxsize" [attr.x]="-boxsize/2" [attr.y]="-boxsize/2">
+                <title>border set up</title>
+            </rect>
             <g *ngFor="let d of paths;let i = index">
-                <path class="arc" (mouseenter)="over($event,i,true)" (mouseleave)="over($event,i)" [attr.d]="d" [attr.fill]="useColours[i]" [style.opacity]="1/10"></path>
+                <path class="arc" (mouseenter)="over($event,i,true)" (mouseleave)="over($event,i)" [attr.d]="d" [attr.fill]="useColours[i]" [style.opacity]="1/10">
+                    <title >{{'index: '+i}}</title>
+                </path>
                 <text [attr.x]="centres[i][0]" [attr.y]="centres[i][1]">{{mockdata.values[i]}}</text>
             </g>
         </g>
