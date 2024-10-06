@@ -61,15 +61,19 @@ export class TwopiechartsComponent implements OnInit {
   }
   update() {
       d3.select(this.element.nativeElement).select('[rogue-title]')
-      .attr('rogue-title',this.title)
+      .attr('rogue-title',this.title+' chart')
       .style('--xx','8%')
       .style('--yy','5%');
       setTimeout(() => {
         d3.select(this.element.nativeElement).select('body')
-        .attr('title',this.title);
+        .attr('title',this.title+' chart');
       d3.select(this.element.nativeElement).select('text.title')
         .attr('x', this.boxsize / 2 - this.title.length * 4)
         .text(this.title);
+        d3.select(this.element.nativeElement).selectAll('path.arc').select('title')
+        .text((_,i)=>{
+          return `index is ${i}, value is ${this.mockdata.values[i]}`;
+        });
       d3.select(this.element.nativeElement).selectAll('path.arc')
         .transition().duration(1000)
         .styleTween('opacity', () => (t) => `${t}`)
