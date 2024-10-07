@@ -26,13 +26,11 @@ export class TwopiechartsComponent implements OnInit {
   @Input() padRadius = 100;
   @Input() cornerRadius = 20;
   @Input() squareBorderOpacity = 0;
-  @Input() mockdata = {
-    'values': [4, 5, 3, 7, 1, 10, 17]
-  };
+  @Input() mockdata = [4, 5, 3, 7, 1, 10, 17];
   pie1: Array<d3.PieArcDatum<number | { valueOf(): number; }>> = [];
   figureArcs=d3.arc();
   ngOnInit() {
-    this.pie1 = d3.pie().sort(null)(this.mockdata.values);
+    this.pie1 = d3.pie().sort(null)(this.mockdata);
     this.figureArcs=d3.arc()
     .padRadius(this.padRadius)
     .padAngle(this.padAngle)
@@ -55,7 +53,7 @@ export class TwopiechartsComponent implements OnInit {
         endAngle: s.endAngle
       });
       this.centres.push(cent);
-      this.useColours.push(this.colours(this.colourRange * (s.index - 1) / this.mockdata.values.length));
+      this.useColours.push(this.colours(this.colourRange * (s.index - 1) / this.mockdata.length));
     });
     this.update();
   }
@@ -72,7 +70,7 @@ export class TwopiechartsComponent implements OnInit {
         .text(this.title);
         d3.select(this.element.nativeElement).selectAll('path.arc').select('title')
         .text((_,i)=>{
-          return `index is ${i}, value is ${this.mockdata.values[i]}`;
+          return `index is ${i}, value is ${this.mockdata[i]}`;
         });
       d3.select(this.element.nativeElement).selectAll('path.arc')
         .transition().duration(1000)
@@ -101,7 +99,7 @@ export class TwopiechartsComponent implements OnInit {
         .style('left', `${x}px`)
         .style('top', `${y}px`)
         .style('opacity', '1')
-        .html(`(${x},${y})  index:${this.pie1[i].index} ranking :${this.mockdata.values[i]}`);
+        .html(`(${x},${y})  index:${this.pie1[i].index} ranking :${this.mockdata[i]}`);
       /* .style('--ff', '110%')
        .style('--xx', xx + 'px')
        .style('--yy', yy - this.height * 0.15 + 'px')
