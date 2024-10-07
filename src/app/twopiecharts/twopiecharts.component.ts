@@ -62,7 +62,7 @@ export class TwopiechartsComponent implements OnInit {
   update() {
       d3.select(this.element.nativeElement).select('[rogue-title]')
       .attr('rogue-title',this.title+' chart')
-      .style('--xx','8%')
+      .style('--xx','4%')
       .style('--yy','5%');
       setTimeout(() => {
         d3.select(this.element.nativeElement).select('body')
