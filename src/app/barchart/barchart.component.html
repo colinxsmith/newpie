@@ -13,15 +13,15 @@
 
 <body title="Ranking distribution" rogue-title="Ranking distribution">
     <svg xmlns="http://www.w3.org/2000/svg" [attr.height]="boxsize/2" [attr.width]="boxsize">
-        <g [attr.transform]="'translate('+boxsize/2+','+boxsize/4+') rotate(0)'">
+        <g >
             <rect class="position" [style.opacity]="squareBorderOpacity" [attr.width]="boxsize"
-                [attr.height]="boxsize/2" [attr.x]="-boxsize/2" [attr.y]="-boxsize/4">
+                [attr.height]="boxsize/2" [attr.x]="0" [attr.y]="0">
                 <title>border set up</title>
             </rect>
         </g>
             
         <g  *ngFor="let d of data;let i = index">
-            <rect class="forgraph" [attr.width]="10" [attr.y]="vscaleGraph(Vdomain[0])" [attr.height]="vscaleGraph(d.values)" [attr.x]="hscaleGraph(i)" >
+            <rect class="forgraph" [attr.width]="10" [attr.y]="vscaleGraph(0)-vscaleGraph(Vdomain[1]-d.values)" [attr.height]="vscaleGraph(Vdomain[1]-d.values)" [attr.x]="hscaleGraph(i)" >
                 <title>{{'i:'+i+' id:'+d.id+' value:'+d.values}}</title>
             </rect>
         </g>
