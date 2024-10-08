@@ -23,8 +23,9 @@ export class BarchartComponent implements OnInit {
   vscaleGraph = d3.scaleLinear();
   ngOnInit(): void {
     this.Hrange = [this.boxsize * 1e-1, this.boxsize * 9e-1];
-    this.Vrange = [this.boxsize / 2 * 2e-1, this.boxsize / 2 * 8e-1];
+    this.Vrange = [this.boxsize/2 , 0];
     this.Vdomain = [d3.min(this.data.map(d => d.values)) as number, d3.max(this.data.map(d => d.values)) as number];
+    this.Vdomain=[Math.min(0,this.Vdomain[0]),Math.max(0,this.Vdomain[1])]
     this.vscaleGraph = d3.scaleLinear(this.Vdomain, this.Vrange);
     this.Hdomain = [d3.min(this.data.map(d => d.id)) as number, d3.max(this.data.map(d => d.id)) as number];
     this.hscaleGraph = d3.scaleLinear(this.Hdomain, this.Hrange);
