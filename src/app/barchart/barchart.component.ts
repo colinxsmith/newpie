@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { distribution } from '../app.component';
+import { portfolio } from '../app.component';
 import * as d3 from 'd3';
 @Component({
   selector: 'app-barchart',
@@ -14,7 +14,7 @@ export class BarchartComponent implements OnInit {
   @Input() title = "Ranking Trevor";
   @Input() boxsize = 450;
   @Input() squareBorderOpacity = 1;
-  @Input() data: Array<distribution> = [];
+  @Input() data:portfolio={}as portfolio;
   Hdomain: Array<number> = [];
   Vdomain: Array<number> = [];
   Hrange: Array<number> = [];
@@ -24,9 +24,9 @@ export class BarchartComponent implements OnInit {
   ngOnInit(): void {
     this.Hrange = [this.boxsize * 1e-1, this.boxsize * 5e-1];
     this.Vrange = [this.boxsize / 2*9e-1, this.boxsize/2*1e-1];
-    this.Vdomain = [Math.min(0, d3.min(this.data.map(d => d.values)) as number), Math.max(-1e-1, d3.max(this.data.map(d => d.values)) as number)];
+    this.Vdomain = [Math.min(0, d3.min(this.data.rankingDistribution.map(d => d.value)) as number), Math.max(-1e-1, d3.max(this.data.rankingDistribution.   map(d => d.value)) as number)];
     this.vscaleGraph = d3.scaleLinear(this.Vdomain, this.Vrange);
-    this.Hdomain = [d3.min(this.data.map(d => d.id)) as number, d3.max(this.data.map(d => d.id)) as number];
+    this.Hdomain = [d3.min(this.data.rankingDistribution.map((_,i) => i)) as number, d3.max(this.data.rankingDistribution.  map((_,i) => i)) as number];
     this.hscaleGraph = d3.scaleLinear(this.Hdomain, this.Hrange);
     console.log(this.Hdomain, this.Vdomain);
     console.log(this.hscaleGraph.range(), this.vscaleGraph.range(), this.Vrange, this.vscaleGraph(0))

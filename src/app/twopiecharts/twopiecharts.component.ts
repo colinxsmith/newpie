@@ -1,7 +1,7 @@
 import { Component, OnInit, ElementRef, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import * as d3 from 'd3';
-
+import {  portfolio } from '../app.component';
 @Component({
   selector: 'app-twopiecharts',
   standalone: true,
@@ -11,6 +11,7 @@ import * as d3 from 'd3';
 })
 export class TwopiechartsComponent implements OnInit {
   constructor(private element: ElementRef) { }
+  @Input() portfolioData: portfolio = {} as portfolio;
   @Input() colourRange = 100;
   @Input() colourStart = 'red';
   @Input() colourEnd = 'blue';
@@ -26,15 +27,15 @@ export class TwopiechartsComponent implements OnInit {
   @Input() padRadius = 100;
   @Input() cornerRadius = 20;
   @Input() squareBorderOpacity = 0;
-  @Input() mockdata = [4, 5, 3, 7, 1, 10, 17];
   pie1: Array<d3.PieArcDatum<number | { valueOf(): number; }>> = [];
-  figureArcs=d3.arc();
+  figureArcs = d3.arc();
   ngOnInit() {
-    this.pie1 = d3.pie().sort(null)(this.mockdata);
-    this.figureArcs=d3.arc()
-    .padRadius(this.padRadius)
-    .padAngle(this.padAngle)
-    .cornerRadius(this.cornerRadius);
+    console.log(this.portfolioData);
+    this.pie1 = d3.pie().sort(null)(this.portfolioData.rankingDistribution.map(d => +d.ranking));
+    this.figureArcs = d3.arc()
+      .padRadius(this.padRadius)
+      .padAngle(this.padAngle)
+      .cornerRadius(this.cornerRadius);
     this.outerRadius = this.boxsize * 0.8 / 2;
     this.colours = d3.scaleLinear([0, this.colourRange], [this.colourStart, this.colourEnd])
     console.log(this.colourStart, this.colourEnd, this.boxsize);
@@ -53,24 +54,24 @@ export class TwopiechartsComponent implements OnInit {
         endAngle: s.endAngle
       });
       this.centres.push(cent);
-      this.useColours.push(this.colours(this.colourRange * (s.index - 1) / this.mockdata.length));
+      this.useColours.push(this.colours(this.colourRange * (s.index - 1) / this.portfolioData.rankingDistribution.length));
     });
     this.update();
   }
   update() {
-      d3.select(this.element.nativeElement).select('[rogue-title]')
-      .attr('rogue-title',this.title+' chart')
-      .style('--xx','4%')
-      .style('--yy','5%');
-      setTimeout(() => {
-        d3.select(this.element.nativeElement).select('body')
-        .attr('title',this.title+' chart');
+    d3.select(this.element.nativeElement).select('[rogue-title]')
+      .attr('rogue-title', this.title + ' chart')
+      .style('--xx', '4%')
+      .style('--yy', '5%');
+    setTimeout(() => {
+      d3.select(this.element.nativeElement).select('body')
+        .attr('title', this.title + ' chart');
       d3.select(this.element.nativeElement).select('text.title')
         .attr('x', this.boxsize / 2 - this.title.length * 4)
         .text(this.title);
-        d3.select(this.element.nativeElement).selectAll('path.arc').select('title')
-        .text((_,i)=>{
-          return `index is ${i}, value is ${this.mockdata[i]}`;
+      d3.select(this.element.nativeElement).selectAll('path.arc').select('title')
+        .text((_, i) => {
+          return `${this.portfolioData.rankingDistribution[i].name} index is ${i}, rank is ${this.portfolioData.rankingDistribution[i].ranking}, value is ${this.portfolioData.rankingDistribution[i].value}`;
         });
       d3.select(this.element.nativeElement).selectAll('path.arc')
         .transition().duration(1000)
@@ -99,7 +100,7 @@ export class TwopiechartsComponent implements OnInit {
         .style('left', `${x}px`)
         .style('top', `${y}px`)
         .style('opacity', '1')
-        .html(`(${x},${y})  index:${this.pie1[i].index} ranking :${this.mockdata[i]}`);
+        .html(`(${x},${y})${this.portfolioData.rankingDistribution[i].name}   index:${this.pie1[i].index} ranking :${this.portfolioData.rankingDistribution[i].ranking} value :${this.portfolioData.rankingDistribution[i].value}`);
       /* .style('--ff', '110%')
        .style('--xx', xx + 'px')
        .style('--yy', yy - this.height * 0.15 + 'px')

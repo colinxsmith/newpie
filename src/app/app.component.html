@@ -152,20 +152,20 @@
 
 <main class="main">
     <div>
-        <h1>{{ title }}</h1>
         <div style="width: 100%;">
+            <h1 style="text-align: center;">{{ title }}</h1>
             <div style="display:inline-flex;border: 5px solid red">
                 <div>
-                    <app-twopiecharts title="Current Ranking" [mockdata]="curr" colourStart="magenta" colourEnd="#bbc8ce" [boxsize]="450" [squareBorderOpacity]="0.2"></app-twopiecharts>
-                    <p style="text-align: center;">Current 3.849</p>
+                    <app-twopiecharts title="Current Ranking" [portfolioData]="assetRanking.current" colourStart="magenta" colourEnd="#bbc8ce" [boxsize]="450" [squareBorderOpacity]="0.2"></app-twopiecharts>
+                    <p style="text-align: center;">{{'CURRENT '+assetRanking.current.rankingValue}}</p>
                 </div>
                 <div>
-                    <app-twopiecharts title="Proposed Ranking" [mockdata]="prop" colourStart="#bbc8ce" colourEnd="lightgreen" [boxsize]="450" [squareBorderOpacity]="0.2"></app-twopiecharts>
-                    <p style="text-align: center;">Proposed 3.849</p>
+                    <app-twopiecharts title="Proposed Ranking" [portfolioData]="assetRanking.proposed" colourStart="#bbc8ce" colourEnd="lightgreen" [boxsize]="450" [squareBorderOpacity]="0.2"></app-twopiecharts>
+                    <p style="text-align: center;">{{'PROPOSED '+assetRanking.proposed.rankingValue}}</p>
                 </div>
             </div>
             <div style="display:inline-flex;border: 5px solid red">
-                <app-barchart [data]="dist" title="Ranking distribution" [boxsize]="900"></app-barchart>
+                <app-barchart [data]="assetRanking.proposed" title="Ranking distribution" [boxsize]="900"></app-barchart>
                 <div></div>
             </div>
         </div>

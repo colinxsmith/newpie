@@ -1,9 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component} from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { TwopiechartsComponent } from "./twopiecharts/twopiecharts.component";
 import { BarchartComponent } from "./barchart/barchart.component";
-export interface rankings { id: number; current: number; proposed: number; };
-export interface distribution { id: number; values: number; };
+export interface portfolio {
+  rankingValue: number;
+  rankingDistribution: {
+      ranking: string;
+      name: string;
+      value: number;
+  }[];
+};
+export interface ranking  {
+  current:portfolio;
+  proposed:portfolio;
+};
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -11,21 +21,148 @@ export interface distribution { id: number; values: number; };
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
-export class AppComponent implements OnInit {
+export class AppComponent  {
   title = 'New Charts for Charles Stanley';
-  k = [3, 4, 11, 6, 14, 18, 9, 1, 10, 8,1e-5];
-  kb = this.k.map(k => k).reverse();
-  prop: Array<number> = [];
-  curr: Array<number> = [];
-  dist: Array<distribution> = [];
-  rankdata: Array<rankings> = new Array(this.k.length);
-  ngOnInit(): void {
-    this.k.forEach((d, i) => {
-      const s: rankings = { id: i, current: this.kb[i], proposed: this.k[i] };
-      this.dist.push({ id: i,values: d });
-      this.rankdata[i] = s;
-    });
-    this.curr = this.rankdata.map(d => d.current);
-    this.prop = this.rankdata.map(d => d.proposed);
-  }
+  assetRanking:ranking={
+    "current": {
+        "rankingValue": 3.456,
+        "rankingDistribution": [
+            {
+                "ranking": "6",
+                "name": "Bond",
+                "value": 3.6
+            },
+            {
+                "ranking": "6",
+                "name": "Bond Fund",
+                "value": 2.1
+            },
+            {
+                "ranking": "5",
+                "name": "EQ UK",
+                "value": 9.5
+            },
+            {
+                "ranking": "5",
+                "name": "EQ Intl",
+                "value": 4.5
+            },
+            {
+                "ranking": "5",
+                "name": "Sovereign Bond",
+                "value": 7.5
+            },
+            {
+                "ranking": "5",
+                "name": "MX Fund",
+                "value": 12.5
+            },
+            {
+                "ranking": "4",
+                "name": "PR FUND",
+                "value": 22.5
+            },
+            {
+                "ranking": "4",
+                "name": "EQ FUND",
+                "value": 15.5
+            },
+            {
+                "ranking": "4",
+                "name": "SP",
+                "value": 20
+            },
+            {
+                "ranking": "1",
+                "name": "CASH",
+                "value": 0.3
+            },
+            {
+                "ranking": "1",
+                "name": "ALT",
+                "value": 2
+            }
+        ]
+    },
+    "proposed": {
+        "rankingValue": 3.765,
+        "rankingDistribution": [
+            {
+                "ranking": "6",
+                "name": "Bond",
+                "value": 3.6
+            },
+            {
+                "ranking": "6",
+                "name": "Bond Fund",
+                "value": 2.1
+            },
+            {
+                "ranking": "5",
+                "name": "EQ UK",
+                "value": 9.5
+            },
+            {
+                "ranking": "5",
+                "name": "EQ Intl",
+                "value": 4.5
+            },
+            {
+                "ranking": "5",
+                "name": "Sovereign Bond",
+                "value": 7.5
+            },
+            {
+                "ranking": "5",
+                "name": "EQ IT",
+                "value": 4.5
+            },
+            {
+                "ranking": "5",
+                "name": "MX Fund",
+                "value": 5.2
+            },
+            {
+                "ranking": "5",
+                "name": "MX Fund2",
+                "value": 3.3
+            },
+            {
+                "ranking": "4",
+                "name": "PR FUND",
+                "value": 22.5
+            },
+            {
+                "ranking": "4",
+                "name": "EQ FUND",
+                "value": 15.5
+            },
+            {
+                "ranking": "4",
+                "name": "SP",
+                "value": 10
+            },
+            {
+                "ranking": "4",
+                "name": "SP2",
+                "value": 5
+            },
+            {
+                "ranking": "4",
+                "name": "SP3",
+                "value": 5
+            },
+            {
+                "ranking": "1",
+                "name": "CASH",
+                "value": 0.3
+            },
+            {
+                "ranking": "1",
+                "name": "ALT",
+                "value": 2
+            }
+        ]
+    }
+  };
 }

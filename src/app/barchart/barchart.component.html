@@ -20,9 +20,9 @@
             </rect>
         </g>
             
-        <g *ngFor="let d of data;let i = index">
-            <rect class="forgraph" [attr.width]="10" [attr.y]="vscaleGraph(0)-(Vrange[0]-vscaleGraph(d.values))" [attr.height]="Vrange[0]-vscaleGraph(d.values)" [attr.x]="hscaleGraph(d.id)" >
-                <title>{{'i:'+i+' id:'+d.id+' value:'+d.values}}</title>
+        <g *ngFor="let d of data.rankingDistribution;let i = index">
+            <rect class="forgraph" [attr.width]="10" [attr.y]="vscaleGraph(0)-(Vrange[0]-vscaleGraph(d.value))" [attr.height]="Vrange[0]-vscaleGraph(d.value)" [attr.x]="hscaleGraph(i)" >
+                <title>{{'i:'+i+' id:'+i+' value:'+d.value}}</title>
             </rect>
         </g>
     </svg>
