@@ -13,7 +13,7 @@ export interface distribution { id: number; values: number; };
 })
 export class AppComponent implements OnInit {
   title = 'New Charts for Charles Stanley';
-  k = [3, 4, 11, 6, 14, 18, 9, 1, 10, 8];
+  k = [3, 4, 11, 6, 14, 18, 9, 1, 10, 8,1e-5];
   kb = this.k.map(k => k).reverse();
   prop: Array<number> = [];
   curr: Array<number> = [];

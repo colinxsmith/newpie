@@ -20,8 +20,8 @@
             </rect>
         </g>
             
-        <g  *ngFor="let d of data;let i = index">
-            <rect class="forgraph" [attr.width]="10" [attr.y]="vscaleGraph(0)-vscaleGraph(Vdomain[1]-d.values)" [attr.height]="vscaleGraph(Vdomain[1]-d.values)" [attr.x]="hscaleGraph(i)" >
+        <g *ngFor="let d of data;let i = index">
+            <rect class="forgraph" [attr.width]="10" [attr.y]="vscaleGraph(0)-(Vrange[0]-vscaleGraph(d.values))" [attr.height]="Vrange[0]-vscaleGraph(d.values)" [attr.x]="hscaleGraph(d.id)" >
                 <title>{{'i:'+i+' id:'+d.id+' value:'+d.values}}</title>
             </rect>
         </g>
