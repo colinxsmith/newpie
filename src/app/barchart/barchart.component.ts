@@ -22,29 +22,35 @@ export class BarchartComponent implements OnInit {
   hscaleGraph = d3.scaleLinear();
   vscaleGraph = d3.scaleLinear();
   colours = d3.scaleLinear([0, 100], ['red', 'green']);
+  rankTotals:Array<{ id: number; totalPercent: number }> = [];
   ngOnInit(): void {
-    const ranks = new Map<number, Array<string>>();
+    const ranks = new Map<number, Array<{ value: number, name: string, id: number, colour: string, ranking: number, percent: number }>>();
+    const totalValue = this.data.rankingDistribution.map(d => d.value)
+      .reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+    console.log(totalValue);
     this.colours = d3.scaleLinear([0, this.data.rankingDistribution.length], ['red', 'green']);
-    this.data.rankingDistribution.forEach(d => {
+    this.data.rankingDistribution.forEach((d, i) => {
       if (!ranks.has(+d.ranking)) {
         ranks.set(+d.ranking, []);
       }
-      ranks.get(+d.ranking)?.push(d.name);
+      ranks.get(+d.ranking)?.push({ value: d.value, name: d.name, id: i, colour: this.colours(i), ranking: +d.ranking, percent: d.value / totalValue });
     });
     console.log(ranks);
-    const plotting: Array<{}> = [] as Array<{ name: string; value: number; ranking: number }>;
-    ranks.forEach((value, key) => console.log(key, value));
-    this.data.rankingDistribution.forEach((d, i) => {
-      if (ranks.has(+d.ranking)) {
-        plotting.push({ name: d.name, value: d.value, ranking: +d.ranking });
-      }
+    //const rankTotals: Array<{ id: number; totalPercent: number }> = [];
+    ranks.forEach((val, kk) => {
+      this.rankTotals.push({
+        id: kk, totalPercent: val.map(d => d.percent)
+          .reduce((accumulator, currentValue) => accumulator + currentValue, 0)
+      });
     });
-    console.log(plotting);
+    console.log(this.rankTotals);
+    const grandTotal = this.rankTotals.flatMap((v) => v.totalPercent).reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+    console.log(grandTotal);
     this.Hrange = [this.boxsize * 1e-1, this.boxsize * 5e-1];
     this.Vrange = [this.boxsize / 2 * 9e-1, this.boxsize / 2 * 1e-1];
-    this.Vdomain = [Math.min(0, d3.min(this.data.rankingDistribution.map(d => d.value)) as number), Math.max(-1e-1, d3.max(this.data.rankingDistribution.map(d => d.value)) as number)];
+    this.Vdomain = [Math.min(0, d3.min(this.rankTotals.map(d => d.totalPercent)) as number), Math.max(-1e-1, d3.max(this.rankTotals.map(d => d.totalPercent)) as number)];
     this.vscaleGraph = d3.scaleLinear(this.Vdomain, this.Vrange);
-    this.Hdomain = [d3.min(this.data.rankingDistribution.map((_, i) => i)) as number, d3.max(this.data.rankingDistribution.map((_, i) => i)) as number];
+    this.Hdomain = [d3.min(this.rankTotals.map((_, i) => i)) as number, d3.max(this.rankTotals.map((_, i) => i)) as number];
     this.hscaleGraph = d3.scaleLinear(this.Hdomain, this.Hrange);
     console.log(this.Hdomain, this.Vdomain);
     console.log(this.hscaleGraph.range(), this.vscaleGraph.range(), this.Vrange, this.vscaleGraph(0))
