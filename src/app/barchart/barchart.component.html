@@ -21,9 +21,14 @@
         </g>
             
         <g *ngFor="let d of rankTotals;let i = index">
-            <rect class="forgraph" [attr.width]="10" [attr.y]="vscaleGraph(0)-(Vrange[0]-vscaleGraph(d.totalPercent))" [attr.height]="Vrange[0]-vscaleGraph(d.totalPercent)" [attr.x]="hscaleGraph(i)" >
-                <title>{{'i:'+i+' rankings:'+d.id+' value:'+d.totalPercent}}</title>
+            <rect class="forgraph" [attr.width]="10" [attr.y]="vscaleGraph(0)-(Vrange[0]-vscaleGraph(d.totalPercent))" [attr.height]="(Vrange[0]-vscaleGraph(d.totalPercent))" [attr.x]="hscaleGraph(i)" >
+                <title>{{'i:'+i+' rankings:'+d.id+' total percent:'+d.totalPercent}}</title>
             </rect>
+            <g *ngFor="let data of rankTotals[i].data;let ii=index">
+<rect [style.fill]="data.colour" [attr.width]="10" [attr.y]="vscaleGraph(0)-(Vrange[0]-0.99*vscaleGraph(data.runningPercent))" [attr.height]="(Vrange[0]-0.99*vscaleGraph(data.runningPercent))" [attr.x]="hscaleGraph(i)" >
+    <title>{{'ii:'+ii+' rankings:'+data.ranking+' running value:'+data.runningPercent+'total%'+data.percent}}</title>
+</rect>
+            </g>
         </g>
     </svg>
 </body>

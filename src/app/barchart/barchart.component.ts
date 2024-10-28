@@ -22,29 +22,34 @@ export class BarchartComponent implements OnInit {
   hscaleGraph = d3.scaleLinear();
   vscaleGraph = d3.scaleLinear();
   colours = d3.scaleLinear([0, 100], ['red', 'green']);
-  rankTotals:Array<{ id: number; totalPercent: number }> = [];
+  rankTotals: Array<{ id: number; totalPercent: number; data: Array<{ value: number, name: string, id: number, colour: string, ranking: number, runningPercent: number, percent: number }> }> = [];
   ngOnInit(): void {
-    const ranks = new Map<number, Array<{ value: number, name: string, id: number, colour: string, ranking: number, percent: number }>>();
+    const ranks = new Map<number, Array<{ value: number, name: string, id: number, colour: string, ranking: number, percent: number, runningPercent: number }>>();
     const totalValue = this.data.rankingDistribution.map(d => d.value)
-      .reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+      .reduce((agg, now) => agg + now, 0);
     console.log(totalValue);
-    this.colours = d3.scaleLinear([0, this.data.rankingDistribution.length], ['red', 'green']);
+    const mm=d3.min(this.data.rankingDistribution.map(d=>+d.ranking))as number;
+    const MM=d3.max(this.data.rankingDistribution.map(d=>+d.ranking))as number;
+    this.colours = d3.scaleLinear([mm,MM], ['red', 'black']);
+    const running = new Map<number, number>();
     this.data.rankingDistribution.forEach((d, i) => {
+      const interim=running.get(+d.ranking) ?? 0;
+      running.set(+d.ranking, (interim + d.value / totalValue));
       if (!ranks.has(+d.ranking)) {
         ranks.set(+d.ranking, []);
       }
-      ranks.get(+d.ranking)?.push({ value: d.value, name: d.name, id: i, colour: this.colours(i), ranking: +d.ranking, percent: d.value / totalValue });
+      ranks.get(+d.ranking)?.push({ value: d.value, name: d.name, id: i, colour: this.colours(+d.ranking), ranking: +d.ranking, runningPercent: running.get(+d.ranking) ?? 0, percent: d.value / totalValue });
     });
     console.log(ranks);
-    //const rankTotals: Array<{ id: number; totalPercent: number }> = [];
     ranks.forEach((val, kk) => {
       this.rankTotals.push({
+        data: val,
         id: kk, totalPercent: val.map(d => d.percent)
-          .reduce((accumulator, currentValue) => accumulator + currentValue, 0)
+          .reduce((agg, now) => agg + now, 0)
       });
     });
     console.log(this.rankTotals);
-    const grandTotal = this.rankTotals.flatMap((v) => v.totalPercent).reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+    const grandTotal = this.rankTotals.flatMap((v) => v.totalPercent).reduce((agg, now) => agg + now, 0);
     console.log(grandTotal);
     this.Hrange = [this.boxsize * 1e-1, this.boxsize * 5e-1];
     this.Vrange = [this.boxsize / 2 * 9e-1, this.boxsize / 2 * 1e-1];
@@ -53,10 +58,13 @@ export class BarchartComponent implements OnInit {
     this.Hdomain = [d3.min(this.rankTotals.map((_, i) => i)) as number, d3.max(this.rankTotals.map((_, i) => i)) as number];
     this.hscaleGraph = d3.scaleLinear(this.Hdomain, this.Hrange);
     console.log(this.Hdomain, this.Vdomain);
-    console.log(this.hscaleGraph.range(), this.vscaleGraph.range(), this.Vrange, this.vscaleGraph(0))
-    console.log(1, this.vscaleGraph(1));
-    console.log(2, this.vscaleGraph(2));
-    console.log(3, this.vscaleGraph(3));
+    console.log(this.hscaleGraph.range(), this.vscaleGraph.range());
+    console.log(this.Vdomain, this.Vrange);
+    console.log(0, this.vscaleGraph(0));
+    console.log(0.5, this.vscaleGraph(0.5));
+    console.log(1, this.hscaleGraph(1));
+    console.log(2, this.hscaleGraph(2));
+    console.log(3, this.hscaleGraph(3));
     this.update();
   }
   update() {
