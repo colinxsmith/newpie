@@ -21,24 +21,28 @@ export class BarchartComponent implements OnInit {
   Vrange: Array<number> = [];
   hscaleGraph = d3.scaleLinear();
   vscaleGraph = d3.scaleLinear();
-  colours = d3.scaleLinear([0, 100], ['red', 'green']);
+  hLedge=d3.scaleLinear();
+  vLedge=d3.scaleLinear();
+  percentScale = (t:number) => d3.format('0.003%')(t);
+  colours = (t:number,s=1)=>d3.interpolateOrRd(t/s);
   rankTotals: Array<{ id: number; totalPercent: number; data: Array<{ value: number, name: string, id: number, colour: string, ranking: number, runningPercent: number, percent: number }> }> = [];
   ngOnInit(): void {
     const ranks = new Map<number, Array<{ value: number, name: string, id: number, colour: string, ranking: number, percent: number, runningPercent: number }>>();
     const totalValue = this.data.rankingDistribution.map(d => d.value)
       .reduce((agg, now) => agg + now, 0);
     console.log(totalValue);
-    const mm=d3.min(this.data.rankingDistribution.map(d=>+d.ranking))as number;
-    const MM=d3.max(this.data.rankingDistribution.map(d=>+d.ranking))as number;
-    this.colours = d3.scaleLinear([mm,MM], ['red', 'black']);
+    console.log(this.data.rankingDistribution.map(d=>+d.ranking));
+    const mm = d3.min(this.data.rankingDistribution.map(d => +d.ranking)) as number;
+    const MM = d3.max(this.data.rankingDistribution.map(d => +d.ranking)) as number;
+    //this.colours = d3.scaleLinear([0,this.data.rankingDistribution.length], ['magenta', 'cyan']);
     const running = new Map<number, number>();
     this.data.rankingDistribution.forEach((d, i) => {
-      const interim=running.get(+d.ranking) ?? 0;
+      const interim = running.get(+d.ranking) ?? 0;
       running.set(+d.ranking, (interim + d.value / totalValue));
       if (!ranks.has(+d.ranking)) {
         ranks.set(+d.ranking, []);
       }
-      ranks.get(+d.ranking)?.push({ value: d.value, name: d.name, id: i, colour: this.colours(+d.ranking), ranking: +d.ranking, runningPercent: running.get(+d.ranking) ?? 0, percent: d.value / totalValue });
+      ranks.get(+d.ranking)?.push({ value: d.value, name: d.name, id: i, colour: this.colours(i,this.data.rankingDistribution.length), ranking: +d.ranking, runningPercent: running.get(+d.ranking) ?? 0, percent: d.value / totalValue });
     });
     console.log(ranks);
     ranks.forEach((val, kk) => {
@@ -65,6 +69,8 @@ export class BarchartComponent implements OnInit {
     console.log(1, this.hscaleGraph(1));
     console.log(2, this.hscaleGraph(2));
     console.log(3, this.hscaleGraph(3));
+    this.hLedge=d3.scaleLinear([0,this.data.rankingDistribution.length],[this.boxsize*0.7,this.boxsize*0.7]);
+    this.vLedge=d3.scaleLinear([0,this.data.rankingDistribution.length],[this.boxsize*0.1,this.boxsize*0.4]);
     this.update();
   }
   update() {
