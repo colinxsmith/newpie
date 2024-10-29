@@ -62,7 +62,7 @@ export class TwopiechartsComponent implements OnInit {
         startAngle: s.startAngle,
         endAngle: s.endAngle
       });
-      this.centres.push(cent);
+      this.centres.push([cent[0]-5,cent[1]]); //fiddle to position index number better in a narrow pie slice
       //  this.useColours.push(this.colours(this.colourRange * (s.index - 1) / this.portfolioData.rankingDistribution.length));
     });
     this.update();

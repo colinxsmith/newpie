@@ -19,17 +19,21 @@
                 <title>border set up</title>
             </rect>
         </g>
-            
+        <g *ngFor="let d of [0,1,2,3,4,5]">
+            <text [attr.x]="hscaleGraph(-0.5)" [attr.y]="vscaleGraph(0)-(Vrange[0]-vscaleGraph(d/10))">{{percentScale0(d/10)}}</text>
+            <line class="lines" [attr.y1]="vscaleGraph(0)-(Vrange[0]-vscaleGraph(d/10))" [attr.y2]="vscaleGraph(0)-(Vrange[0]-vscaleGraph(d/10))" [attr.x1]="hscaleGraph(-0.5)" [attr.x2]="hscaleGraph.range()[1]+10"></line> 
+        </g>
         <g *ngFor="let d of rankTotals;let i = index">
             <rect class="forgraph" [attr.width]="10" [attr.y]="vscaleGraph(0)-(Vrange[0]-vscaleGraph(d.totalPercent))" [attr.height]="(Vrange[0]-vscaleGraph(d.totalPercent))" [attr.x]="hscaleGraph(i+0.1)" >
                 <title>{{'i:'+i+' rankings:'+d.id+' total percent:'+percentScale(d.totalPercent)}}</title>
             </rect>
+            <text [attr.x]="hscaleGraph(i)" [attr.y]="vscaleGraph(0)-(Vrange[0]-vscaleGraph(0))+20">{{d.id}}</text>
             <g *ngFor="let dataItem of rankTotals[i].data.reverse()">
-                <rect  class="assetpercent" [style.opacity]="1" [style.fill]="dataItem.colour" [attr.width]="10" [attr.y]="vscaleGraph(0)-(Vrange[0]-vscaleGraph(dataItem.runningPercent))" [attr.height]="(Vrange[0]-vscaleGraph(dataItem.runningPercent))" [attr.x]="hscaleGraph(i)" >
-                    <title>{{dataItem.name+" "+percentScale(dataItem.percent)+" "+dataItem.id+" ranking "+dataItem.ranking+" index "+i}}</title>
+                <rect  class="assetpercent" (mouseenter)="over($event,dataItem,true)"  (mouseleave)="over($event,dataItem)"   [style.opacity]="1" [style.fill]="dataItem.colour" [attr.width]="10" [attr.y]="vscaleGraph(0)-(Vrange[0]-vscaleGraph(dataItem.runningPercent))" [attr.height]="(Vrange[0]-vscaleGraph(dataItem.runningPercent))" [attr.x]="hscaleGraph(i)" >
+                    <title>{{dataItem.name+" "+percentScale(dataItem.percent)+" "+dataItem.id+" ranking "+dataItem.ranking}}</title>
                 </rect>
                 <rect class="stocklegend" [style.fill]="dataItem.colour" [attr.width]="20" [attr.x]="hLedge(dataItem.id)+boxsize*0.24*(dataItem.id%2)" [attr.height]="(vLedge(1)-vLedge(0))*0.9" [attr.y]="vLedge(dataItem.id-dataItem.id%2)-10">
-                <title> {{dataItem.name}}</title>
+                <title> {{dataItem.name+"(asset"+dataItem.id+")"}}</title>
                 </rect>
                 <text  class="stocklegend" [attr.x]="hLedge(dataItem.id)+boxsize*0.24*(dataItem.id%2)+30" [attr.y]="vLedge(dataItem.id-dataItem.id%2)">
                     {{dataItem.name}}

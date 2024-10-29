@@ -14,6 +14,12 @@ rect.forgraph {
     fill: none;
 }
 
+line.lines {
+    stroke: grey;
+    stroke-width: 1px;
+    stroke-dasharray: 2 2;
+}
+
 div.mainTip {
     background: rgb(7, 18, 24);
     color: white;

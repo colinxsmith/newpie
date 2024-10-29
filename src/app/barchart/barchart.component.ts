@@ -23,8 +23,10 @@ export class BarchartComponent implements OnInit {
   vscaleGraph = d3.scaleLinear();
   hLedge = d3.scaleLinear();
   vLedge = d3.scaleLinear();
+  maxRankTotal = 1;
+  percentScale0 = (t: number) => d3.format('0.0%')(t);
   percentScale = (t: number) => d3.format('0.003%')(t);
-  colours = (t: number, s = 1) => d3.interpolateOrRd(t / s);
+  colours = (t: number, s = 1) => d3.interpolateBrBG(t / s);
   rankTotals: Array<{ id: number; totalPercent: number; data: Array<{ value: number, name: string, id: number, colour: string, ranking: number, runningPercent: number, percent: number }> }> = [];
   ngOnInit(): void {
     const ranks = new Map<number, Array<{ value: number, name: string, id: number, colour: string, ranking: number, percent: number, runningPercent: number }>>();
@@ -52,7 +54,9 @@ export class BarchartComponent implements OnInit {
           .reduce((agg, now) => agg + now, 0)
       });
     });
+    this.rankTotals = this.rankTotals.sort(d => d.id).reverse();
     console.log(this.rankTotals);
+    this.maxRankTotal = d3.max(this.rankTotals.map(d => d.totalPercent)) as number;
     const grandTotal = this.rankTotals.flatMap((v) => v.totalPercent).reduce((agg, now) => agg + now, 0);
     console.log(grandTotal);
     this.Hrange = [this.boxsize * 1e-1, this.boxsize * 5e-1];
@@ -81,12 +85,32 @@ export class BarchartComponent implements OnInit {
     setTimeout(() => {
       const percents = d3.select(this.element.nativeElement).selectAll('rect.assetpercent')
       const nodes = percents.nodes();
-      nodes.forEach((d) => {
+      nodes.forEach(d => {
         const rect = d3.select(d);
         const hh = +rect.attr('height');
-        rect.transition().duration(2000).attrTween('height', () => (t) => `${hh * t}`)
+        rect.transition().duration(3000).attrTween('height', () => (t) => `${hh * t}`)
       });
     });
+  }
+  over(e: MouseEvent, a: { value: number, name: string, id: number, colour: string, ranking: number, percent: number, runningPercent: number }, inout = false) {
+    const svg = d3.select(this.element.nativeElement).select('div.mainTip');
+    const here = d3.select(e.target as HTMLElement & EventTarget);
+    if(inout){
+      const x = e.pageX - 100;
+      const y = e.pageY;
+      here.style('opacity', 0.5);
+      svg
+        .attr('tiptitle', 'tipper for bars')
+        .style('left', `${x}px`)
+        .style('top', `${y}px`)
+        .style('opacity', '1')
+        .html(`${a.name}: percent of value ${this.percentScale(a.percent)} asset number ${a.id} rank ${a.ranking}`);
+    }
+    else{      
+      here.style('opacity', 1);
+      svg.style('opacity', 0)
+        .attr('tiptitle', null);
+    }
   }
 }
 
