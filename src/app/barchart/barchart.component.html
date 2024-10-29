@@ -25,13 +25,13 @@
                 <title>{{'i:'+i+' rankings:'+d.id+' total percent:'+percentScale(d.totalPercent)}}</title>
             </rect>
             <g *ngFor="let dataItem of rankTotals[i].data.reverse()">
-                <rect [style.fill]="dataItem.colour" [attr.width]="10" [attr.y]="vscaleGraph(0)-(Vrange[0]-vscaleGraph(dataItem.runningPercent))" [attr.height]="(Vrange[0]-vscaleGraph(dataItem.runningPercent))" [attr.x]="hscaleGraph(i)" >
+                <rect  class="assetpercent" [style.opacity]="1" [style.fill]="dataItem.colour" [attr.width]="10" [attr.y]="vscaleGraph(0)-(Vrange[0]-vscaleGraph(dataItem.runningPercent))" [attr.height]="(Vrange[0]-vscaleGraph(dataItem.runningPercent))" [attr.x]="hscaleGraph(i)" >
                     <title>{{dataItem.name+" "+percentScale(dataItem.percent)+" "+dataItem.id+" ranking "+dataItem.ranking+" index "+i}}</title>
                 </rect>
-                <rect class="legend" [style.fill]="dataItem.colour" [attr.width]="20" [attr.x]="hLedge(dataItem.id)+boxsize*0.24*(dataItem.id%2)" [attr.height]="(vLedge(1)-vLedge(0))*0.9" [attr.y]="vLedge(dataItem.id-dataItem.id%2)-10">
+                <rect class="stocklegend" [style.fill]="dataItem.colour" [attr.width]="20" [attr.x]="hLedge(dataItem.id)+boxsize*0.24*(dataItem.id%2)" [attr.height]="(vLedge(1)-vLedge(0))*0.9" [attr.y]="vLedge(dataItem.id-dataItem.id%2)-10">
                 <title> {{dataItem.name}}</title>
                 </rect>
-                <text  class="legend" [attr.x]="hLedge(dataItem.id)+boxsize*0.24*(dataItem.id%2)+30" [attr.y]="vLedge(dataItem.id-dataItem.id%2)">
+                <text  class="stocklegend" [attr.x]="hLedge(dataItem.id)+boxsize*0.24*(dataItem.id%2)+30" [attr.y]="vLedge(dataItem.id-dataItem.id%2)">
                     {{dataItem.name}}
                 </text>
             </g>
