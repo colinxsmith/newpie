@@ -24,14 +24,14 @@
             <rect class="forgraph" [attr.width]="10" [attr.y]="vscaleGraph(0)-(Vrange[0]-vscaleGraph(d.totalPercent))" [attr.height]="(Vrange[0]-vscaleGraph(d.totalPercent))" [attr.x]="hscaleGraph(i+0.1)" >
                 <title>{{'i:'+i+' rankings:'+d.id+' total percent:'+percentScale(d.totalPercent)}}</title>
             </rect>
-            <g *ngFor="let dataItem of rankTotals[i].data.reverse();let ii=index">
+            <g *ngFor="let dataItem of rankTotals[i].data.reverse()">
                 <rect [style.fill]="dataItem.colour" [attr.width]="10" [attr.y]="vscaleGraph(0)-(Vrange[0]-vscaleGraph(dataItem.runningPercent))" [attr.height]="(Vrange[0]-vscaleGraph(dataItem.runningPercent))" [attr.x]="hscaleGraph(i)" >
-                    <title>{{'ii:'+(rankTotals[i].data.length-1-   ii)+' rankings:'+dataItem.ranking+' running value:'+percentScale(dataItem.runningPercent)+'percent value:'+percentScale(dataItem.percent)}}</title>
+                    <title>{{dataItem.name+" "+percentScale(dataItem.percent)+" "+dataItem.id+" ranking "+dataItem.ranking+" index "+i}}</title>
                 </rect>
-                <rect [style.fill]="dataItem.colour" [attr.width]="20" [attr.x]="hLedge(dataItem.id)" [attr.height]="(vLedge(1)-vLedge(0))*0.9" [attr.y]="vLedge(dataItem.id)-10">
+                <rect class="legend" [style.fill]="dataItem.colour" [attr.width]="20" [attr.x]="hLedge(dataItem.id)+boxsize*0.24*(dataItem.id%2)" [attr.height]="(vLedge(1)-vLedge(0))*0.9" [attr.y]="vLedge(dataItem.id-dataItem.id%2)-10">
                 <title> {{dataItem.name}}</title>
                 </rect>
-                <text [attr.x]="hLedge(dataItem.id)+30" [attr.y]="vLedge(dataItem.id)">
+                <text  class="legend" [attr.x]="hLedge(dataItem.id)+boxsize*0.24*(dataItem.id%2)+30" [attr.y]="vLedge(dataItem.id-dataItem.id%2)">
                     {{dataItem.name}}
                 </text>
             </g>

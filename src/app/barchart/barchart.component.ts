@@ -69,7 +69,7 @@ export class BarchartComponent implements OnInit {
     console.log(1, this.hscaleGraph(1));
     console.log(2, this.hscaleGraph(2));
     console.log(3, this.hscaleGraph(3));
-    this.hLedge=d3.scaleLinear([0,this.data.rankingDistribution.length],[this.boxsize*0.7,this.boxsize*0.7]);
+    this.hLedge=d3.scaleLinear([0,this.data.rankingDistribution.length],[this.boxsize*0.6,this.boxsize*0.6]);
     this.vLedge=d3.scaleLinear([0,this.data.rankingDistribution.length],[this.boxsize*0.1,this.boxsize*0.4]);
     this.update();
   }

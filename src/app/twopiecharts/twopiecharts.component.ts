@@ -18,7 +18,16 @@ export class TwopiechartsComponent implements OnInit {
   colours = d3.scaleLinear([0, 100], ['red', 'green']);
   paths: Array<string> = [];
   centres: Array<Array<number>> = [];
-  useColours: Array<string> = [];
+  useColours: Array<string> = ["rgb(146,208,80)",
+    "rgb(163,209,83)",
+    "rgb(180,210,86)",
+    "rgb(197,212,90)",
+    "rgb(215,213,93)",
+    "rgb(232,215,97)",
+    "rgb(249,216,100)",
+    "rgb(254,188,103)",
+    "rgb(251,147,105)",
+    "rgb(248,105,107)"];
   @Input() title = "Ranking Trevor";
   @Input() boxsize = 400;
   @Input() innerRadius = 10;
@@ -54,7 +63,7 @@ export class TwopiechartsComponent implements OnInit {
         endAngle: s.endAngle
       });
       this.centres.push(cent);
-      this.useColours.push(this.colours(this.colourRange * (s.index - 1) / this.portfolioData.rankingDistribution.length));
+    //  this.useColours.push(this.colours(this.colourRange * (s.index - 1) / this.portfolioData.rankingDistribution.length));
     });
     this.update();
   }
