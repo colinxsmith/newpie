@@ -57,7 +57,7 @@ export class TwopiechartsComponent implements OnInit {
         endAngle: s.endAngle
       }) as string);
       const cent = this.figureArcs.centroid({
-        innerRadius: this.innerRadius,
+        innerRadius: this.outerRadius*.75,
         outerRadius: this.outerRadius,
         startAngle: s.startAngle,
         endAngle: s.endAngle
