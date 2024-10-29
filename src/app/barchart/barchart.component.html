@@ -19,10 +19,11 @@
                 <title>border set up</title>
             </rect>
         </g>
-        <g *ngFor="let d of [0,1,2,3,4,5]">
+        <g *ngFor="let d of [0,1,2,3,4,5,6,7,8,9,10]">
+            <g *ngIf="(vscaleGraph(d/10)>boxsize/2*0.05)&&(vscaleGraph(d/10)<boxsize/2)">
             <text [attr.x]="hscaleGraph(-0.5)" [attr.y]="vscaleGraph(0)-(Vrange[0]-vscaleGraph(d/10))">{{percentScale0(d/10)}}</text>
             <line class="lines" [attr.y1]="vscaleGraph(0)-(Vrange[0]-vscaleGraph(d/10))" [attr.y2]="vscaleGraph(0)-(Vrange[0]-vscaleGraph(d/10))" [attr.x1]="hscaleGraph(-0.5)" [attr.x2]="hscaleGraph.range()[1]+10"></line> 
-        </g>
+        </g></g>
         <g *ngFor="let d of rankTotals;let i = index">
             <rect class="forgraph" [attr.width]="10" [attr.y]="vscaleGraph(0)-(Vrange[0]-vscaleGraph(d.totalPercent))" [attr.height]="(Vrange[0]-vscaleGraph(d.totalPercent))" [attr.x]="hscaleGraph(i+0.1)" >
                 <title>{{'i:'+i+' rankings:'+d.id+' total percent:'+percentScale(d.totalPercent)}}</title>

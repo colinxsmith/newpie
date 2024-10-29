@@ -40,7 +40,15 @@ export class TwopiechartsComponent implements OnInit {
   figureArcs = d3.arc();
   ngOnInit() {
     console.log(this.portfolioData);
-    this.pie1 = d3.pie().sort(null)(this.portfolioData.rankingDistribution.map(d => +d.ranking));
+    const getUniqueValues = (array:Array<number>) => (
+      array.filter((currentValue, index, arr) => (
+        arr.indexOf(currentValue) === index
+      ))
+    );
+
+    const together=/*getUniqueValues*/(this.portfolioData.rankingDistribution.map(d=>+d.ranking));
+    console.log(together)
+    this.pie1 = d3.pie().sort(null)(together);
     this.figureArcs = d3.arc()
       .padRadius(this.padRadius)
       .padAngle(this.padAngle)
