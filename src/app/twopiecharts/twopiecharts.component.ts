@@ -1,7 +1,7 @@
 import { Component, OnInit, ElementRef, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import * as d3 from 'd3';
-import {  portfolio } from '../app.component';
+import { portfolio } from '../app.component';
 @Component({
   selector: 'app-twopiecharts',
   standalone: true,
@@ -57,13 +57,13 @@ export class TwopiechartsComponent implements OnInit {
         endAngle: s.endAngle
       }) as string);
       const cent = this.figureArcs.centroid({
-        innerRadius: this.outerRadius*.75,
+        innerRadius: this.outerRadius * .75,
         outerRadius: this.outerRadius,
         startAngle: s.startAngle,
         endAngle: s.endAngle
       });
       this.centres.push(cent);
-    //  this.useColours.push(this.colours(this.colourRange * (s.index - 1) / this.portfolioData.rankingDistribution.length));
+      //  this.useColours.push(this.colours(this.colourRange * (s.index - 1) / this.portfolioData.rankingDistribution.length));
     });
     this.update();
   }
