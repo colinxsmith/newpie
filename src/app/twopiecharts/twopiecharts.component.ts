@@ -12,10 +12,6 @@ import { portfolio } from '../app.component';
 export class TwopiechartsComponent implements OnInit {
   constructor(private element: ElementRef) { }
   @Input() portfolioData: portfolio = {} as portfolio;
-  @Input() colourRange = 100;
-  @Input() colourStart = 'red';
-  @Input() colourEnd = 'blue';
-  totals: Map<string, number> = new Map();
   colours = d3.scaleLinear([0, 100], ['red', 'green']);
   paths: Array<{ path: string, rank: number, name: string, value: number }> = [];
   centres: Array<Array<number>> = [];
@@ -41,20 +37,15 @@ export class TwopiechartsComponent implements OnInit {
   figureArcs = d3.arc();
   ngOnInit() {
     console.log(this.portfolioData);
-    const getUniqueValues = (array: Array<number>) => (
-      array.filter((currentValue, index, arr) => (
-        arr.indexOf(currentValue) === index
-      ))
-    );
 
     const together = this.portfolioData.rankingDistribution;
-    together.forEach((d, i) => {
-      const interim = this.totals.get(d.ranking) ?? 0;
-      this.totals.set(d.ranking, d.value + interim);
-    });
-    console.log(together, this.totals);
-    const combine = this.portfolioData.rankingDistribution.filter((v, i, c) => i === c.findIndex(t => t.ranking === v.ranking));
-    combine.forEach(d => d.value = this.totals.get(d.ranking) ?? 0);
+    const totals: Map<string, number> = new Map(); //We'll hold the rank totals in a map and declare it here
+    let combine = together
+      .map((d, i) => { totals.set(d.ranking, d.value + (totals.get(d.ranking) ?? 0)); return d; }) //get totals for each rank
+      .filter((v, i, c) => i === c.findIndex(t => t.ranking === v.ranking)) // find repeated ranks
+      .map(dk => { dk.value = totals.get(dk.ranking) ?? 0; return dk; }) // find sums over repeated ranks
+      ;
+    //combine = together; //Don't combine repeated ranks for checking
     console.log(combine);
     this.pie1 = d3.pie().sort(null)(combine.map(d => +d.ranking));
     this.figureArcs = d3.arc()
@@ -62,8 +53,6 @@ export class TwopiechartsComponent implements OnInit {
       .padAngle(this.padAngle)
       .cornerRadius(this.cornerRadius);
     this.outerRadius = this.boxsize * 0.8 / 2;
-    this.colours = d3.scaleLinear([0, this.colourRange], [this.colourStart, this.colourEnd])
-    console.log(this.colourStart, this.colourEnd, this.boxsize);
 
     this.pie1.forEach((s, i) => {
       this.paths.push({
@@ -81,7 +70,6 @@ export class TwopiechartsComponent implements OnInit {
         endAngle: s.endAngle
       });
       this.centres.push([cent[0] - 5, cent[1]]); //fiddle to position index number better in a narrow pie slice
-      //  this.useColours.push(this.colours(this.colourRange * (s.index - 1) / this.portfolioData.rankingDistribution.length));
     });
     this.update();
   }

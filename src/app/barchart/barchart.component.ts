@@ -13,7 +13,7 @@ export class BarchartComponent implements OnInit {
   constructor(private element: ElementRef) { }
   @Input() title = "Ranking Trevor";
   @Input() boxsize = 450;
-  @Input() squareBorderOpacity = 1;
+  @Input() squareBorderOpacity = 0;
   @Input() data: portfolio = {} as portfolio;
   Hdomain: Array<number> = [];
   Vdomain: Array<number> = [];
