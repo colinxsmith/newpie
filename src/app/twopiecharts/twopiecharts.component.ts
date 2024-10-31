@@ -15,8 +15,9 @@ export class TwopiechartsComponent implements OnInit {
   @Input() colourRange = 100;
   @Input() colourStart = 'red';
   @Input() colourEnd = 'blue';
+  totals: Map<string, number> = new Map();
   colours = d3.scaleLinear([0, 100], ['red', 'green']);
-  paths: Array<string> = [];
+  paths: Array<{ path: string, rank: number, name: string, value: number }> = [];
   centres: Array<Array<number>> = [];
   useColours: Array<string> = ["rgb(146,208,80)",
     "rgb(163,209,83)",
@@ -40,15 +41,22 @@ export class TwopiechartsComponent implements OnInit {
   figureArcs = d3.arc();
   ngOnInit() {
     console.log(this.portfolioData);
-    const getUniqueValues = (array:Array<number>) => (
+    const getUniqueValues = (array: Array<number>) => (
       array.filter((currentValue, index, arr) => (
         arr.indexOf(currentValue) === index
       ))
     );
 
-    const together=/*getUniqueValues*/(this.portfolioData.rankingDistribution.map(d=>+d.ranking));
-    console.log(together)
-    this.pie1 = d3.pie().sort(null)(together);
+    const together = this.portfolioData.rankingDistribution;
+    together.forEach((d, i) => {
+      const interim = this.totals.get(d.ranking) ?? 0;
+      this.totals.set(d.ranking, d.value + interim);
+    });
+    console.log(together, this.totals);
+    const combine = this.portfolioData.rankingDistribution.filter((v, i, c) => i === c.findIndex(t => t.ranking === v.ranking));
+    combine.forEach(d => d.value = this.totals.get(d.ranking) ?? 0);
+    console.log(combine);
+    this.pie1 = d3.pie().sort(null)(combine.map(d => +d.ranking));
     this.figureArcs = d3.arc()
       .padRadius(this.padRadius)
       .padAngle(this.padAngle)
@@ -58,19 +66,21 @@ export class TwopiechartsComponent implements OnInit {
     console.log(this.colourStart, this.colourEnd, this.boxsize);
 
     this.pie1.forEach((s, i) => {
-      this.paths.push(this.figureArcs({
-        innerRadius: this.innerRadius,
-        outerRadius: this.outerRadius,
-        startAngle: s.startAngle,
-        endAngle: s.endAngle
-      }) as string);
+      this.paths.push({
+        path: this.figureArcs({
+          innerRadius: this.innerRadius,
+          outerRadius: this.outerRadius,
+          startAngle: s.startAngle,
+          endAngle: s.endAngle
+        }) as string, rank: +combine[i].ranking, name: combine[i].name, value: combine[i].value
+      });
       const cent = this.figureArcs.centroid({
         innerRadius: this.outerRadius * .75,
         outerRadius: this.outerRadius,
         startAngle: s.startAngle,
         endAngle: s.endAngle
       });
-      this.centres.push([cent[0]-5,cent[1]]); //fiddle to position index number better in a narrow pie slice
+      this.centres.push([cent[0] - 5, cent[1]]); //fiddle to position index number better in a narrow pie slice
       //  this.useColours.push(this.colours(this.colourRange * (s.index - 1) / this.portfolioData.rankingDistribution.length));
     });
     this.update();
@@ -88,7 +98,7 @@ export class TwopiechartsComponent implements OnInit {
         .text(this.title);
       d3.select(this.element.nativeElement).selectAll('path.arc').select('title')
         .text((_, i) => {
-          return `${this.portfolioData.rankingDistribution[i].name} index is ${i}, rank is ${this.portfolioData.rankingDistribution[i].ranking}, value is ${this.portfolioData.rankingDistribution[i].value}`;
+          return `${this.paths[i].name} index is ${i}, rank is ${this.paths[i].rank}, value is ${this.paths[i].value}`;
         });
       d3.select(this.element.nativeElement).selectAll('path.arc')
         .transition().duration(1000)
@@ -117,7 +127,7 @@ export class TwopiechartsComponent implements OnInit {
         .style('left', `${x}px`)
         .style('top', `${y}px`)
         .style('opacity', '1')
-        .html(`(${x},${y})${this.portfolioData.rankingDistribution[i].name}   index:${this.pie1[i].index} ranking :${this.portfolioData.rankingDistribution[i].ranking} value :${this.portfolioData.rankingDistribution[i].value}`);
+        .html(`(${x},${y})${this.paths[i].name}   index:${this.pie1[i].index} ranking :${this.paths[i].rank} value :${this.paths[i].value}`);
       /* .style('--ff', '110%')
        .style('--xx', xx + 'px')
        .style('--yy', yy - this.height * 0.15 + 'px')

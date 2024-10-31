@@ -16,10 +16,10 @@
                 <title>border set up</title>
             </rect>
             <g *ngFor="let d of paths;let i = index">
-                <path class="arc" (mouseenter)="over($event,i,true)" (mouseleave)="over($event,i)" [attr.d]="d" [attr.fill]="useColours[+portfolioData.rankingDistribution[i].ranking-1]" [style.opacity]="1/10">
+                <path class="arc" (mouseenter)="over($event,i,true)" (mouseleave)="over($event,i)" [attr.d]="d.path" [attr.fill]="useColours[+d.rank-1]" [style.opacity]="1/10">
                     <title >{{'index: '+i}}</title>
                 </path>
-                <text [attr.x]="centres[i][0]" [attr.y]="centres[i][1]">{{portfolioData.rankingDistribution[i].ranking}}</text>
+                <text [attr.x]="centres[i][0]" [attr.y]="centres[i][1]">{{d.rank}}</text>
             </g>
         </g>
         <text class="title" [attr.x]="boxsize/2-5*5" [attr.y]="boxsize*0.075">TITLE</text>
