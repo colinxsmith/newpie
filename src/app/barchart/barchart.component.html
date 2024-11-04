@@ -33,12 +33,14 @@
                 <rect  class="assetpercent" (mouseenter)="over($event,dataItem,true)"  (mouseleave)="over($event,dataItem)"   [style.opacity]="1" [style.fill]="dataItem.colour" [attr.width]="10" [attr.y]="vscaleGraph(0)-(Vrange[0]-vscaleGraph(dataItem.runningPercent))" [attr.height]="(Vrange[0]-vscaleGraph(dataItem.runningPercent))" [attr.x]="hscaleGraph(i)" >
                     <title>{{dataItem.name+" "+percentScale(dataItem.percent)+" "+dataItem.id+" ranking "+dataItem.ranking}}</title>
                 </rect>
-                <rect class="stocklegend" [style.fill]="dataItem.colour" [attr.width]="20" [attr.x]="hLedge(dataItem.id)+boxsize*0.24*(dataItem.id%2)" [attr.height]="(vLedge(1)-vLedge(0))*0.9" [attr.y]="vLedge(dataItem.id-dataItem.id%2)-10">
-                <title> {{dataItem.name+"(asset"+dataItem.id+")"}}</title>
-                </rect>
-                <text  class="stocklegend" [attr.x]="hLedge(dataItem.id)+boxsize*0.24*(dataItem.id%2)+30" [attr.y]="vLedge(dataItem.id-dataItem.id%2)">
-                    {{dataItem.name}}
-                </text>
+                <g class="stockLegend" [attr.transform]="transform(hLedge(dataItem.id)+boxsize*0.24*(dataItem.id%2),0.5*vLedge(dataItem.id-dataItem.id%2))">
+                    <rect class="stocklegend" [style.fill]="dataItem.colour" [attr.width]="20" [attr.x]="0" [attr.height]="(vLedge(1)-vLedge(0))*0.9" [attr.y]="-15">
+                    <title> {{dataItem.name+"(asset"+dataItem.id+")"}}</title>
+                    </rect>
+                    <text  class="stocklegend" [attr.x]="30" [attr.y]="0">
+                        {{dataItem.name}}
+                    </text>
+                </g>
             </g>
         </g>
     </svg>

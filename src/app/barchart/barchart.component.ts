@@ -15,6 +15,7 @@ export class BarchartComponent implements OnInit {
   @Input() boxsize = 450;
   @Input() squareBorderOpacity = 0;
   @Input() data: portfolio = {} as portfolio;
+  @Input() animate=false;
   Hdomain: Array<number> = [];
   Vdomain: Array<number> = [];
   Hrange: Array<number> = [];
@@ -24,6 +25,7 @@ export class BarchartComponent implements OnInit {
   hLedge = d3.scaleLinear();
   vLedge = d3.scaleLinear();
   maxRankTotal = 1;
+  transform = (x: number, y: number, r = 0) => `translate(${x},${y}) rotate(${r})`;
   percentScale0 = (t: number) => d3.format('0.0%')(t);
   percentScale = (t: number) => d3.format('0.003%')(t);
   colours = (t: number, s = 1) => d3.interpolateBrBG(t / s);
@@ -75,7 +77,7 @@ export class BarchartComponent implements OnInit {
     console.log(3, this.hscaleGraph(3));
     this.hLedge = d3.scaleLinear([0, this.data.rankingDistribution.length], [this.boxsize * 0.6, this.boxsize * 0.6]);
     this.vLedge = d3.scaleLinear([0, this.data.rankingDistribution.length], [this.boxsize * 0.1, this.boxsize * 0.4]);
-    this.update();
+    if(this.animate)this.update();
   }
   update() {
     d3.select(this.element.nativeElement).select('[rogue-title]')
@@ -90,15 +92,27 @@ export class BarchartComponent implements OnInit {
         const ww = +rect.attr('width');
         const hh = +rect.attr('height');
         rect.transition().ease(d3.easeBounce).duration(3000)
-        .attrTween('height', () => (t) => `${hh * t}`)
-        .attrTween('width', () => (t) => `${ww * t}`)
+          .attrTween('height', () => (t) => `${hh * t}`)
+          .attrTween('width', () => (t) => `${ww * t}`)
+      });
+
+      const legs = d3.select(this.element.nativeElement).selectAll('g.stockLegend')
+      legs.nodes().forEach(d => {
+        const g = d3.select(d);
+        const transform = g.attr('transform');
+        g.transition().duration(1000)
+          .attrTween('transform', () => (t) => `${transform} rotate(${360*t})`)
+          ;
+          g.select('rect').transition().duration(400)
+          .styleTween('opacity',()=>(t)=>`${t}`)
+          ;
       });
     });
   }
   over(e: MouseEvent, a: { value: number, name: string, id: number, colour: string, ranking: number, percent: number, runningPercent: number }, inout = false) {
     const svg = d3.select(this.element.nativeElement).select('div.mainTip');
     const here = d3.select(e.target as HTMLElement & EventTarget);
-    if(inout){
+    if (inout) {
       const x = e.pageX - 100;
       const y = e.pageY;
       here.style('opacity', 0.5);
@@ -109,7 +123,7 @@ export class BarchartComponent implements OnInit {
         .style('opacity', '1')
         .html(`${a.name}: percent of value ${this.percentScale(a.percent)} asset number ${a.id} rank ${a.ranking}`);
     }
-    else{      
+    else {
       here.style('opacity', 1);
       svg.style('opacity', 0)
         .attr('tiptitle', null);

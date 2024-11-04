@@ -33,6 +33,7 @@ export class TwopiechartsComponent implements OnInit {
   @Input() padRadius = 100;
   @Input() cornerRadius = 20;
   @Input() squareBorderOpacity = 0;
+  @Input() animate=false;
   pie1: Array<d3.PieArcDatum<number | { valueOf(): number; }>> = [];
   figureArcs = d3.arc();
   ngOnInit() {
@@ -71,7 +72,7 @@ export class TwopiechartsComponent implements OnInit {
       });
       this.centres.push([cent[0] - 5, cent[1]]); //fiddle to position index number better in a narrow pie slice
     });
-    this.update();
+    if(this.animate)this.update();
   }
   update() {
     d3.select(this.element.nativeElement).select('[rogue-title]')
