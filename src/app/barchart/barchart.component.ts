@@ -15,6 +15,9 @@ export class BarchartComponent implements OnInit {
   @Input() boxsize = 450;
   @Input() squareBorderOpacity = 0;
   @Input() data: portfolio = {} as portfolio;
+  /**
+   * Set false to stop animation with pdf renderer
+   */
   @Input() animate=false;
   Hdomain: Array<number> = [];
   Vdomain: Array<number> = [];

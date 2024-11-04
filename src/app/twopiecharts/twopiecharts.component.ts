@@ -33,6 +33,9 @@ export class TwopiechartsComponent implements OnInit {
   @Input() padRadius = 100;
   @Input() cornerRadius = 20;
   @Input() squareBorderOpacity = 0;
+  /**
+   * Set false to stop animation with pdf renderer
+   */
   @Input() animate=false;
   pie1: Array<d3.PieArcDatum<number | { valueOf(): number; }>> = [];
   figureArcs = d3.arc();
