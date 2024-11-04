@@ -87,8 +87,11 @@ export class BarchartComponent implements OnInit {
       const nodes = percents.nodes();
       nodes.forEach(d => {
         const rect = d3.select(d);
+        const ww = +rect.attr('width');
         const hh = +rect.attr('height');
-        rect.transition().duration(3000).attrTween('height', () => (t) => `${hh * t}`)
+        rect.transition().ease(d3.easeBounce).duration(3000)
+        .attrTween('height', () => (t) => `${hh * t}`)
+        .attrTween('width', () => (t) => `${ww * t}`)
       });
     });
   }
