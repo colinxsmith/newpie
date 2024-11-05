@@ -37,8 +37,8 @@ export class BarchartComponent implements OnInit {
     const ranks = new Map<number, Array<{ value: number, name: string, id: number, colour: string, ranking: number, percent: number, runningPercent: number }>>();
     const totalValue = this.data.rankingDistribution.map(d => d.value)
       .reduce((agg, now) => agg + now, 0);
-    console.log(totalValue);
-    console.log(this.data.rankingDistribution.map(d => +d.ranking));
+  //  console.log(totalValue);
+  //  console.log(this.data.rankingDistribution.map(d => +d.ranking));
     const mm = d3.min(this.data.rankingDistribution.map(d => +d.ranking)) as number;
     const MM = d3.max(this.data.rankingDistribution.map(d => +d.ranking)) as number;
     //this.colours = d3.scaleLinear([0,this.data.rankingDistribution.length], ['magenta', 'cyan']);
@@ -51,7 +51,7 @@ export class BarchartComponent implements OnInit {
       }
       ranks.get(+d.ranking)?.push({ value: d.value, name: d.name, id: i, colour: this.colours(i, this.data.rankingDistribution.length), ranking: +d.ranking, runningPercent: running.get(+d.ranking) ?? 0, percent: d.value / totalValue });
     });
-    console.log(ranks);
+//    console.log(ranks);
     ranks.forEach((val, kk) => {
       this.rankTotals.push({
         data: val,
@@ -60,10 +60,10 @@ export class BarchartComponent implements OnInit {
       });
     });
     this.rankTotals = this.rankTotals.sort(d => d.id).reverse();
-    console.log(this.rankTotals);
+  //  console.log(this.rankTotals);
     this.maxRankTotal = d3.max(this.rankTotals.map(d => d.totalPercent)) as number;
     const grandTotal = this.rankTotals.flatMap((v) => v.totalPercent).reduce((agg, now) => agg + now, 0);
-    console.log(grandTotal);
+  //  console.log(grandTotal);
     this.Hrange = [this.boxsize * 1e-1, this.boxsize * 7.5e-1];
     this.Vrange = [this.boxsize / 2 * 9e-1, this.boxsize / 2 * 1e-1];
     this.Vdomain = [Math.min(0, d3.min(this.rankTotals.map(d => d.totalPercent)) as number), Math.max(-1e-1, d3.max(this.rankTotals.map(d => d.totalPercent)) as number)];
