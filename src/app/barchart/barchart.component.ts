@@ -64,22 +64,22 @@ export class BarchartComponent implements OnInit {
     this.maxRankTotal = d3.max(this.rankTotals.map(d => d.totalPercent)) as number;
     const grandTotal = this.rankTotals.flatMap((v) => v.totalPercent).reduce((agg, now) => agg + now, 0);
     console.log(grandTotal);
-    this.Hrange = [this.boxsize * 1e-1, this.boxsize * 5e-1];
+    this.Hrange = [this.boxsize * 1e-1, this.boxsize * 7.5e-1];
     this.Vrange = [this.boxsize / 2 * 9e-1, this.boxsize / 2 * 1e-1];
     this.Vdomain = [Math.min(0, d3.min(this.rankTotals.map(d => d.totalPercent)) as number), Math.max(-1e-1, d3.max(this.rankTotals.map(d => d.totalPercent)) as number)];
     this.vscaleGraph = d3.scaleLinear(this.Vdomain, this.Vrange);
     this.Hdomain = [d3.min(this.rankTotals.map((_, i) => i)) as number, d3.max(this.rankTotals.map((_, i) => i)) as number];
     this.hscaleGraph = d3.scaleLinear(this.Hdomain, this.Hrange);
-    console.log(this.Hdomain, this.Vdomain);
+/*    console.log(this.Hdomain, this.Vdomain);
     console.log(this.hscaleGraph.range(), this.vscaleGraph.range());
     console.log(this.Vdomain, this.Vrange);
     console.log(0, this.vscaleGraph(0));
     console.log(0.5, this.vscaleGraph(0.5));
     console.log(1, this.hscaleGraph(1));
     console.log(2, this.hscaleGraph(2));
-    console.log(3, this.hscaleGraph(3));
-    this.hLedge = d3.scaleLinear([0, this.data.rankingDistribution.length], [this.boxsize * 0.6, this.boxsize * 0.6]);
-    this.vLedge = d3.scaleLinear([0, this.data.rankingDistribution.length], [this.boxsize * 0.1, this.boxsize * 0.4]);
+    console.log(3, this.hscaleGraph(3));*/
+    this.hLedge = d3.scaleLinear([0, this.data.rankingDistribution.length], [this.boxsize * 0.8, this.boxsize * 0.8]);
+    this.vLedge = d3.scaleLinear([0, this.data.rankingDistribution.length], [this.boxsize * 0.04, this.boxsize * 0.5]);
     if(this.animate)this.update();
   }
   update() {
