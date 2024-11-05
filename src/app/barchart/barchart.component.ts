@@ -18,7 +18,7 @@ export class BarchartComponent implements OnInit {
   /**
    * Set false to stop animation with pdf renderer
    */
-  @Input() animate=false;
+  @Input() animate = false;
   Hdomain: Array<number> = [];
   Vdomain: Array<number> = [];
   Hrange: Array<number> = [];
@@ -37,8 +37,8 @@ export class BarchartComponent implements OnInit {
     const ranks = new Map<number, Array<{ value: number, name: string, id: number, colour: string, ranking: number, percent: number, runningPercent: number }>>();
     const totalValue = this.data.rankingDistribution.map(d => d.value)
       .reduce((agg, now) => agg + now, 0);
-  //  console.log(totalValue);
-  //  console.log(this.data.rankingDistribution.map(d => +d.ranking));
+    //  console.log(totalValue);
+    //  console.log(this.data.rankingDistribution.map(d => +d.ranking));
     const mm = d3.min(this.data.rankingDistribution.map(d => +d.ranking)) as number;
     const MM = d3.max(this.data.rankingDistribution.map(d => +d.ranking)) as number;
     //this.colours = d3.scaleLinear([0,this.data.rankingDistribution.length], ['magenta', 'cyan']);
@@ -51,36 +51,59 @@ export class BarchartComponent implements OnInit {
       }
       ranks.get(+d.ranking)?.push({ value: d.value, name: d.name, id: i, colour: this.colours(i, this.data.rankingDistribution.length), ranking: +d.ranking, runningPercent: running.get(+d.ranking) ?? 0, percent: d.value / totalValue });
     });
-//    console.log(ranks);
-    ranks.forEach((val, kk) => {
-      this.rankTotals.push({
-        data: val,
-        id: kk, totalPercent: val.map(d => d.percent)
-          .reduce((agg, now) => agg + now, 0)
+        console.log(ranks);
+    const nnew= true;
+    if (nnew) {
+      for (let ii = 0; ii < 11; ++ii) {
+        let val: {
+          value: number;
+          name: string;
+          id: number;
+          colour: string;
+          ranking: number;
+          percent: number;
+          runningPercent: number;
+        }[] | undefined;
+        if (ranks.has(ii)) val = ranks.get(ii);
+        if (val !== undefined) {
+          this.rankTotals.push({
+            data: val,
+            id: ii, totalPercent: val.map(d => d.percent)
+              .reduce((agg, now) => agg + now, 0)
+          });
+        }else this.rankTotals.push({data:[],id:ii===0?-1:ii,totalPercent:0});
+      }
+    } else {
+      ranks.forEach((val, kk) => {
+        this.rankTotals.push({
+          data: val,
+          id: kk, totalPercent: val.map(d => d.percent)
+            .reduce((agg, now) => agg + now, 0)
+        });
       });
-    });
-    this.rankTotals = this.rankTotals.sort(d => d.id).reverse();
-  //  console.log(this.rankTotals);
+    }
+    this.rankTotals = this.rankTotals.sort(d => d.id);
+      console.log(this.rankTotals);
     this.maxRankTotal = d3.max(this.rankTotals.map(d => d.totalPercent)) as number;
     const grandTotal = this.rankTotals.flatMap((v) => v.totalPercent).reduce((agg, now) => agg + now, 0);
-  //  console.log(grandTotal);
+    //  console.log(grandTotal);
     this.Hrange = [this.boxsize * 1e-1, this.boxsize * 7.5e-1];
     this.Vrange = [this.boxsize / 2 * 9e-1, this.boxsize / 2 * 1e-1];
     this.Vdomain = [Math.min(0, d3.min(this.rankTotals.map(d => d.totalPercent)) as number), Math.max(-1e-1, d3.max(this.rankTotals.map(d => d.totalPercent)) as number)];
     this.vscaleGraph = d3.scaleLinear(this.Vdomain, this.Vrange);
     this.Hdomain = [d3.min(this.rankTotals.map((_, i) => i)) as number, d3.max(this.rankTotals.map((_, i) => i)) as number];
     this.hscaleGraph = d3.scaleLinear(this.Hdomain, this.Hrange);
-/*    console.log(this.Hdomain, this.Vdomain);
-    console.log(this.hscaleGraph.range(), this.vscaleGraph.range());
-    console.log(this.Vdomain, this.Vrange);
-    console.log(0, this.vscaleGraph(0));
-    console.log(0.5, this.vscaleGraph(0.5));
-    console.log(1, this.hscaleGraph(1));
-    console.log(2, this.hscaleGraph(2));
-    console.log(3, this.hscaleGraph(3));*/
-    this.hLedge = d3.scaleLinear([0, this.data.rankingDistribution.length], [this.boxsize * 0.8, this.boxsize * 0.8]);
+    /*    console.log(this.Hdomain, this.Vdomain);
+        console.log(this.hscaleGraph.range(), this.vscaleGraph.range());
+        console.log(this.Vdomain, this.Vrange);
+        console.log(0, this.vscaleGraph(0));
+        console.log(0.5, this.vscaleGraph(0.5));
+        console.log(1, this.hscaleGraph(1));
+        console.log(2, this.hscaleGraph(2));
+        console.log(3, this.hscaleGraph(3));*/
+    this.hLedge = d3.scaleLinear([0, this.data.rankingDistribution.length], [this.boxsize * 0.78, this.boxsize * 0.78]);
     this.vLedge = d3.scaleLinear([0, this.data.rankingDistribution.length], [this.boxsize * 0.04, this.boxsize * 0.5]);
-    if(this.animate)this.update();
+    if (this.animate) this.update();
   }
   update() {
     d3.select(this.element.nativeElement).select('[rogue-title]')
@@ -104,10 +127,10 @@ export class BarchartComponent implements OnInit {
         const g = d3.select(d);
         const transform = g.attr('transform');
         g.transition().duration(1000)
-          .attrTween('transform', () => (t) => `${transform} rotate(${360*t})`)
+          .attrTween('transform', () => (t) => `${transform} rotate(${360 * t})`)
           ;
-          g.select('rect').transition().duration(400)
-          .styleTween('opacity',()=>(t)=>`${t}`)
+        g.select('rect').transition().duration(400)
+          .styleTween('opacity', () => (t) => `${t}`)
           ;
       });
     });

@@ -3,7 +3,7 @@ import { RouterOutlet } from '@angular/router';
 import { TwopiechartsComponent } from "./twopiecharts/twopiecharts.component";
 import { BarchartComponent } from "./barchart/barchart.component";
 export interface portfolio {
-  rankingValue: number;
+  rankingValue: number|null;
   rankingDistribution: {
       ranking: string;
       name: string;
@@ -23,6 +23,218 @@ export interface ranking  {
 })
 export class AppComponent  {
   title = 'New Charts for Charles Stanley';
+  assetRanking1:ranking={
+    "current": {
+        "rankingValue": null,
+        "rankingDistribution": [
+            {
+                "ranking": "-1",
+                "name": "International Equity",
+                "value": 0
+            },
+            {
+                "ranking": "6",
+                "name": "Property",
+                "value": 2.68
+            },
+            {
+                "ranking": "-1",
+                "name": "Alternatives",
+                "value": 0
+            },
+            {
+                "ranking": "-1",
+                "name": "UK Equity",
+                "value": 0
+            },
+            {
+                "ranking": "-1",
+                "name": "Fixed Income",
+                "value": 0
+            },
+            {
+                "ranking": "-1",
+                "name": "Cash",
+                "value": 0
+            },
+            {
+                "ranking": "6",
+                "name": "International Equity",
+                "value": 7.13
+            },
+            {
+                "ranking": "5",
+                "name": "International Equity",
+                "value": 28.82
+            },
+            {
+                "ranking": "6",
+                "name": "Fixed Income",
+                "value": 2.25
+            },
+            {
+                "ranking": "4",
+                "name": "Alternatives",
+                "value": 10.08
+            },
+            {
+                "ranking": "5",
+                "name": "Fixed Income",
+                "value": 3.09
+            },
+            {
+                "ranking": "5",
+                "name": "Alternatives",
+                "value": 4.47
+            },
+            {
+                "ranking": "4",
+                "name": "Fixed Income",
+                "value": 6.93
+            },
+            {
+                "ranking": "-1",
+                "name": "Property",
+                "value": 0
+            },
+            {
+                "ranking": "6",
+                "name": "Alternatives",
+                "value": 5.43
+            },
+            {
+                "ranking": "3",
+                "name": "Fixed Income",
+                "value": 11.53
+            },
+            {
+                "ranking": "1",
+                "name": "Cash",
+                "value": 3.67
+            },
+            {
+                "ranking": "5",
+                "name": "UK Equity",
+                "value": 10.57
+            },
+            {
+                "ranking": "6",
+                "name": "UK Equity",
+                "value": 1.63
+            },
+            {
+                "ranking": "3",
+                "name": "Alternatives",
+                "value": 1.71
+            }
+        ]
+    },
+    "proposed": {
+        "rankingValue": null,
+        "rankingDistribution": [
+            {
+                "ranking": "-1",
+                "name": "International Equity",
+                "value": 0
+            },
+            {
+                "ranking": "6",
+                "name": "Property",
+                "value": 2.68
+            },
+            {
+                "ranking": "-1",
+                "name": "Alternatives",
+                "value": 0
+            },
+            {
+                "ranking": "-1",
+                "name": "UK Equity",
+                "value": 0
+            },
+            {
+                "ranking": "-1",
+                "name": "Fixed Income",
+                "value": 0
+            },
+            {
+                "ranking": "-1",
+                "name": "Cash",
+                "value": 0
+            },
+            {
+                "ranking": "6",
+                "name": "International Equity",
+                "value": 7.13
+            },
+            {
+                "ranking": "5",
+                "name": "International Equity",
+                "value": 28.82
+            },
+            {
+                "ranking": "6",
+                "name": "Fixed Income",
+                "value": 2.25
+            },
+            {
+                "ranking": "4",
+                "name": "Alternatives",
+                "value": 10.08
+            },
+            {
+                "ranking": "5",
+                "name": "Fixed Income",
+                "value": 3.09
+            },
+            {
+                "ranking": "5",
+                "name": "Alternatives",
+                "value": 4.47
+            },
+            {
+                "ranking": "4",
+                "name": "Fixed Income",
+                "value": 6.93
+            },
+            {
+                "ranking": "-1",
+                "name": "Property",
+                "value": 0
+            },
+            {
+                "ranking": "6",
+                "name": "Alternatives",
+                "value": 5.43
+            },
+            {
+                "ranking": "3",
+                "name": "Fixed Income",
+                "value": 11.53
+            },
+            {
+                "ranking": "1",
+                "name": "Cash",
+                "value": 3.67
+            },
+            {
+                "ranking": "5",
+                "name": "UK Equity",
+                "value": 10.57
+            },
+            {
+                "ranking": "6",
+                "name": "UK Equity",
+                "value": 1.63
+            },
+            {
+                "ranking": "3",
+                "name": "Alternatives",
+                "value": 1.71
+            }
+        ]
+    }
+};
   assetRanking:ranking={
     "current": {
         "rankingValue": 3.456,
