@@ -54,7 +54,8 @@ export class BarchartComponent implements OnInit {
         console.log(ranks);
     const nnew= true;
     if (nnew) {
-      for (let ii = 0; ii < 11; ++ii) {
+      for (let i= 0; i < 11; ++i) {
+        const ii=i==0?-1:i;
         let val: {
           value: number;
           name: string;
@@ -68,10 +69,10 @@ export class BarchartComponent implements OnInit {
         if (val !== undefined) {
           this.rankTotals.push({
             data: val,
-            id: ii, totalPercent: val.map(d => d.percent)
+            id: val[0].ranking, totalPercent: val.map(d => d.percent)
               .reduce((agg, now) => agg + now, 0)
           });
-        }else this.rankTotals.push({data:[],id:ii===0?-1:ii,totalPercent:0});
+        }else this.rankTotals.push({data:[],id:ii,totalPercent:0});
       }
     } else {
       ranks.forEach((val, kk) => {

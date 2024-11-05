@@ -160,6 +160,9 @@
                     <p *ngIf="assetRanking.current.rankingValue!==null" style="text-align: center;">{{'CURRENT '+assetRanking.current.rankingValue}}</p>
                 </div>
                 <div>
+                    <app-pctbar></app-pctbar>
+                </div>
+                <div>
                     <app-twopiecharts title="Proposed Ranking" [animate]="true" [portfolioData]="assetRanking.proposed" [boxsize]="450" [cornerRadius]="5" [squareBorderOpacity]="0.2"></app-twopiecharts>
                     <p *ngIf="assetRanking.proposed.rankingValue!==null" style="text-align: center;">{{'PROPOSED '+assetRanking.proposed.rankingValue}}</p>
                 </div>
