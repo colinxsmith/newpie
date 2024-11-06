@@ -11,6 +11,16 @@ export interface portfolio {
         value: number;
     }[];
 };
+export interface pctEvDiverse {
+    current: {
+        pctEquityVol: number;
+        weightedPctEquityVol: number;
+    };
+    proposed: {
+        pctEquityVol: number;
+        weightedPctEquityVol: number;
+    };
+};
 export interface ranking {
     current: portfolio;
     proposed: portfolio;

@@ -160,12 +160,12 @@
                     <p *ngIf="assetRanking.current.rankingValue!==null" style="text-align: center;">{{'CURRENT '+assetRanking.current.rankingValue}}</p>
                 </div>
                 <div>
-                    <app-pctbar></app-pctbar>
-                </div>
-                <div>
                     <app-twopiecharts title="Proposed Ranking" [animate]="true" [portfolioData]="assetRanking.proposed" [boxsize]="450" [cornerRadius]="5" [squareBorderOpacity]="0.2"></app-twopiecharts>
                     <p *ngIf="assetRanking.proposed.rankingValue!==null" style="text-align: center;">{{'PROPOSED '+assetRanking.proposed.rankingValue}}</p>
                 </div>
+            </div>
+            <div style="display:inline-flex;border: 5px solid #00ff73">
+                <app-pctbar [data]="pctEvDiverse" title="% Of Equity Volatility and Diversification" [boxsize]="900"  [squareBorderOpacity]="0.2"></app-pctbar>
             </div>
             <div style="display:inline-flex;border: 5px solid #00ff73">
                 <app-barchart [data]="assetRanking.proposed" title="Ranking distribution" [boxsize]="900" [animate]="true" [squareBorderOpacity]="0.2"></app-barchart>

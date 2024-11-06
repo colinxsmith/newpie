@@ -35,10 +35,10 @@
                         <title>{{dataItem.name+" "+percentScale(dataItem.percent)+" "+dataItem.id+" ranking "+dataItem.ranking}}</title>
                     </rect>
                     <g *ngIf="d.id===dataItem.ranking" class="stockLegend" [attr.transform]="transform(hLedge(0)+0*boxsize*0.24*(dataItem.id%2),vLedge(dataItem.id-0*dataItem.id%2))">
-                        <rect class="stocklegend" [style.fill]="dataItem.colour" [attr.width]="20" [attr.x]="0" [attr.height]="(vLedge(1)-vLedge(0))*0.9" [attr.y]="-15">
+                        <rect class="stocklegend" [style.fill]="dataItem.colour" [attr.width]="20*boxsize/900" [attr.x]="0" [attr.height]="(vLedge(1)-vLedge(0))*0.9" [attr.y]="-15">
                         <title> {{dataItem.name+"(id"+dataItem.id}}</title>
                         </rect>
-                        <text  class="stocklegend" [attr.x]="30" [attr.y]="0">
+                        <text  class="stocklegend" [attr.x]="30*boxsize" [attr.y]="0">
                             {{dataItem.name}}
                         </text>
                 </g>
