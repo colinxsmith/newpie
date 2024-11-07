@@ -26,7 +26,7 @@ export class PctbarComponent implements OnInit{
   transform = (x: number, y: number, r = 0) => `translate(${x},${y}) rotate(${r})`;
   constructor(private element: ElementRef) { }
   ngOnInit(): void {
-    this.Hrange = [this.boxsize * 2e-1, this.boxsize * 6e-1];
+    this.Hrange = [this.boxsize * 2e-1, this.boxsize * 7e-1];
     this.Vrange = [this.boxsize / 2 * 9e-1, this.boxsize / 2 * 1e-1];
     this.Vdomain = [0,2];
     this.vscaleGraph = d3.scaleLinear(this.Vdomain, this.Vrange);

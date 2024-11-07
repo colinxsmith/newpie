@@ -8,13 +8,21 @@ rect.position {
     stroke-width: 15px;
     opacity: 1;
 }
+text.xleg{
+    font-size: larger;
+}
 text.leftleg{
     text-anchor: end;
+    font-size: x-large;
+}
+text.bars{
+    text-anchor:middle;
+    font-size: xx-large;
 }
 
 text.title {
     stroke:inherit;
-    font-size: x-large;
+    font-size: xx-large;
     font-style: normal;
     text-anchor: middle;
 }

@@ -11,35 +11,46 @@
 
 <div class="mainTip"></div>
 <body title="Equity Volatility and Diversification" rogue-title="Equity Volatility and Diversification">
-    <h1 style="text-align: center;text-transform: uppercase;">{{title}}</h1>
     <svg xmlns="http://www.w3.org/2000/svg" [attr.height]="boxsize/2" [attr.width]="boxsize">
         <g >
-            <! -- text class="title" [attr.x]="boxsize/2" [attr.y]="boxsize*0.075" >{{title}}<! --/text>
+            <text class="title" [attr.x]="boxsize/2" [attr.y]="boxsize*0.04" >{{title}}</text>
             <rect class="position" [style.opacity]="squareBorderOpacity" [attr.width]="boxsize"
                 [attr.height]="boxsize/2" [attr.x]="0" [attr.y]="0">
                 <title>border set up</title>
             </rect>
             <g *ngFor="let xx of [0,0.5,1,1.5,2]">
-                <text  [attr.x]="hscaleGraph(xx)" [attr.y]="vscaleGraph(0)">{{percentScale0(xx)}}</text>
+                <text class="xleg" [attr.x]="hscaleGraph(xx)" [attr.y]="vscaleGraph(0)">{{percentScale0(xx)}}</text>
             </g>
-            <text class="leftleg" [attr.x]="hscaleGraph(-1e-1)" [attr.y]="vscaleGraph(2)">Current</text>
-            <rect [style.fill]="'pink'" [attr.width]="hscaleGraph((data.current.pctEquityVol+data.current.weightedPctEquityVol)/100)-hscaleGraph(0)" [attr.height]="20" [attr.x]="hscaleGraph(0)" [attr.y]="vscaleGraph(2)">
-                <title>{{"Total:"+(data.current.pctEquityVol+data.current.weightedPctEquityVol)}}</title>
-            </rect>
-            <rect [style.fill]="'orange'" [attr.width]="hscaleGraph(data.current.weightedPctEquityVol*1e-2)-hscaleGraph(0)" [attr.height]="20" [attr.x]="hscaleGraph(0)" [attr.y]="vscaleGraph(2)">
-                <title>{{data.current.pctEquityVol}}</title>
-            </rect>
-            <text class="leftleg" [attr.x]="hscaleGraph(-1e-1)" [attr.y]="vscaleGraph(1)">Proposed</text>
-            <rect [style.fill]="'pink'" [attr.width]="hscaleGraph((data.proposed.pctEquityVol+data.proposed.weightedPctEquityVol)/100)-hscaleGraph(0)" [attr.height]="20" [attr.x]="hscaleGraph(0)" [attr.y]="vscaleGraph(1)">
-                <title>{{"Total:"+(data.proposed.pctEquityVol+data.proposed.weightedPctEquityVol)}}</title>
-            </rect>
-            <rect [style.fill]="'orange'" [attr.width]="hscaleGraph(data.proposed.weightedPctEquityVol*1e-2)-hscaleGraph(0)" [attr.height]="20" [attr.x]="hscaleGraph(0)" [attr.y]="vscaleGraph(1)">
-                <title>{{data.proposed.pctEquityVol}}</title>
-            </rect>
-            <text class="leftleg" [attr.x]="hscaleGraph(2)+200" [attr.y]="vscaleGraph(1.3)">Portfolio</text>
-            <text class="leftleg" [attr.x]="hscaleGraph(2)+200" [attr.y]="vscaleGraph(0.7)">Diverifised Risk</text>
-            <rect [style.fill]="'orange'" [attr.x]="hscaleGraph(2)+200" [attr.y]="vscaleGraph(1.3)-10" [attr.width]="20" [attr.height]="20"></rect>
-            <rect [style.fill]="'pink'" [attr.x]="hscaleGraph(2)+200" [attr.y]="vscaleGraph(0.7)-10" [attr.width]="20" [attr.height]="20"></rect>
+            <text class="leftleg" [attr.x]="hscaleGraph(-1e-1)" [attr.y]="vscaleGraph(1.5)+30*boxsize/900">Current</text>
+            <g [attr.transform]="transform(hscaleGraph(data.current.pctEquityVol/100),vscaleGraph(1.5))">
+                <rect [style.fill]="'pink'" [attr.width]="hscaleGraph((data.current.weightedPctEquityVol)/100)-hscaleGraph(0)" [attr.height]="40*boxsize/900" [attr.x]="0" [attr.y]="0">
+                    <title>{{"Total:"+(data.current.pctEquityVol/100+data.current.weightedPctEquityVol/100)}}</title>
+                </rect>
+                <text class="bars"  [attr.x]="(hscaleGraph((data.current.weightedPctEquityVol)/100/2)-hscaleGraph(0))" [attr.y]="30*boxsize/900">{{percentScale0(data.current.weightedPctEquityVol/100)}}</text>
+            </g>
+            <g [attr.transform]="transform(hscaleGraph(0),vscaleGraph(1.5))">
+                <rect [style.fill]="'orange'" [attr.width]="hscaleGraph(data.current.pctEquityVol*1e-2)-hscaleGraph(0)" [attr.height]="40*boxsize/900" [attr.x]="0" [attr.y]="0">
+                    <title>{{data.current.pctEquityVol/100}}</title>
+                </rect>
+                <text class="bars"  [attr.x]="(hscaleGraph((data.current.pctEquityVol)/100/2)-hscaleGraph(0))" [attr.y]="30*boxsize/900">{{percentScale0(data.current.pctEquityVol/100)}}</text>
+            </g>
+            <text class="leftleg" [attr.x]="hscaleGraph(-1e-1)" [attr.y]="vscaleGraph(1)+30*boxsize/900">Proposed</text>
+            <g [attr.transform]="transform(hscaleGraph(data.proposed.pctEquityVol/100),vscaleGraph(1))">
+                <rect [style.fill]="'pink'" [attr.width]="hscaleGraph((data.proposed.weightedPctEquityVol)/100)-hscaleGraph(0)" [attr.height]="40*boxsize/900" [attr.x]="0" [attr.y]="0">
+                    <title>{{"Total:"+(data.proposed.pctEquityVol/100+data.proposed.weightedPctEquityVol/100)}}</title>
+                </rect>
+                <text class="bars"  [attr.x]="(hscaleGraph((data.proposed.weightedPctEquityVol)/100/2)-hscaleGraph(0))" [attr.y]="30*boxsize/900">{{percentScale0(data.proposed.weightedPctEquityVol/100)}}</text>
+            </g>
+            <g [attr.transform]="transform(hscaleGraph(0),vscaleGraph(1))">
+                <rect [style.fill]="'orange'" [attr.width]="hscaleGraph(data.proposed.pctEquityVol*1e-2)-hscaleGraph(0)" [attr.height]="40*boxsize/900" [attr.x]="0" [attr.y]="0">
+                    <title>{{data.proposed.pctEquityVol/100}}</title>
+                </rect>
+                <text class="bars"  [attr.x]="(hscaleGraph((data.proposed.pctEquityVol)/100/2)-hscaleGraph(0))" [attr.y]="30*boxsize/900">{{percentScale0(data.proposed.pctEquityVol/100)}}</text>
+            </g>
+            <text class="leftleg" [attr.x]="hscaleGraph(2)+200*boxsize/900" [attr.y]="vscaleGraph(0.5)">Portfolio</text>
+            <text class="leftleg" [attr.x]="hscaleGraph(2)+200*boxsize/900" [attr.y]="vscaleGraph(0.3)">Diverifised Risk</text>
+            <rect [style.fill]="'orange'" [attr.x]="hscaleGraph(2)+200*boxsize/900" [attr.y]="vscaleGraph(0.5)-20*boxsize/900" [attr.width]="30*boxsize/900" [attr.height]="30*boxsize/900"></rect>
+            <rect [style.fill]="'pink'" [attr.x]="hscaleGraph(2)+200*boxsize/900" [attr.y]="vscaleGraph(0.3)-20*boxsize/900" [attr.width]="30*boxsize/900" [attr.height]="30*boxsize/900"></rect>
         </g>
     </svg>
 </body>
