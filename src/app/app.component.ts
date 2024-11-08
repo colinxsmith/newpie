@@ -36,12 +36,12 @@ export class AppComponent {
     title = 'New Charts for Charles Stanley';
     pctEvDiverse = {
         'current': {
-            'pctEquityVol': 66.10093854393133,
-            'weightedPctEquityVol': 79.94474863206082
+            'pctEquityVol': 20,
+            'weightedPctEquityVol': 40
         },
         'proposed': {
-            'pctEquityVol': 66.10093854393133,
-            'weightedPctEquityVol': 79.94474863206082
+            'pctEquityVol': 50,
+            'weightedPctEquityVol':100
         }
     };
     assetRanking: ranking = {

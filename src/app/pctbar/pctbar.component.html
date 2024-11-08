@@ -18,31 +18,34 @@
                 [attr.height]="boxsize/2" [attr.x]="0" [attr.y]="0">
                 <title>border set up</title>
             </rect>
-            <g *ngFor="let xx of [0,0.5,1,1.5,2]">
-                <text class="xleg" [attr.x]="hscaleGraph(xx)" [attr.y]="vscaleGraph(0)">{{percentScale0(xx)}}</text>
+            <g *ngFor="let xx of [0,0.2,0.4,0.6,0.8,1.0,1.2,1.4,1.6,1.8,2]">
+                <g [attr.transform]="transform(hscaleGraph(xx),vscaleGraph(0))">
+                    <text class="xleg"  [attr.transform]="'rotate('+(-90)+')'">{{percentScale0(xx)}}</text>
+                    <line [attr.x1]="0" [attr.x2]="0" [attr.y1]="0" [attr.y2]="vscaleGraph(1.5)-vscaleGraph(0)"></line>
+                </g>
             </g>
             <text class="leftleg" [attr.x]="hscaleGraph(-1e-1)" [attr.y]="vscaleGraph(1.5)+30*boxsize/900">Current</text>
             <g [attr.transform]="transform(hscaleGraph(data.current.pctEquityVol/100),vscaleGraph(1.5))">
-                <rect [style.fill]="'pink'" [attr.width]="hscaleGraph((data.current.weightedPctEquityVol)/100)-hscaleGraph(0)" [attr.height]="40*boxsize/900" [attr.x]="0" [attr.y]="0">
+                <rect [attr.tip]="data.current.weightedPctEquityVol/100" (mouseenter)="over($event,true)" (mouseleave)="over($event)" class="diverse" [attr.width]="hscaleGraph((data.current.weightedPctEquityVol)/100)-hscaleGraph(0)" [attr.height]="40*boxsize/900" [attr.x]="0" [attr.y]="0">
                     <title>{{"Total:"+(data.current.pctEquityVol/100+data.current.weightedPctEquityVol/100)}}</title>
                 </rect>
                 <text class="bars"  [attr.x]="(hscaleGraph((data.current.weightedPctEquityVol)/100/2)-hscaleGraph(0))" [attr.y]="30*boxsize/900">{{percentScale0(data.current.weightedPctEquityVol/100)}}</text>
             </g>
             <g [attr.transform]="transform(hscaleGraph(0),vscaleGraph(1.5))">
-                <rect [style.fill]="'orange'" [attr.width]="hscaleGraph(data.current.pctEquityVol*1e-2)-hscaleGraph(0)" [attr.height]="40*boxsize/900" [attr.x]="0" [attr.y]="0">
+                <rect [attr.tip]="data.current.pctEquityVol/100"(mouseenter)="over($event,true)" (mouseleave)="over($event)" class="portfolio" [attr.width]="hscaleGraph(data.current.pctEquityVol*1e-2)-hscaleGraph(0)" [attr.height]="40*boxsize/900" [attr.x]="0" [attr.y]="0">
                     <title>{{data.current.pctEquityVol/100}}</title>
                 </rect>
                 <text class="bars"  [attr.x]="(hscaleGraph((data.current.pctEquityVol)/100/2)-hscaleGraph(0))" [attr.y]="30*boxsize/900">{{percentScale0(data.current.pctEquityVol/100)}}</text>
             </g>
             <text class="leftleg" [attr.x]="hscaleGraph(-1e-1)" [attr.y]="vscaleGraph(1)+30*boxsize/900">Proposed</text>
             <g [attr.transform]="transform(hscaleGraph(data.proposed.pctEquityVol/100),vscaleGraph(1))">
-                <rect [style.fill]="'pink'" [attr.width]="hscaleGraph((data.proposed.weightedPctEquityVol)/100)-hscaleGraph(0)" [attr.height]="40*boxsize/900" [attr.x]="0" [attr.y]="0">
+                <rect [attr.tip]="data.proposed.weightedPctEquityVol/100" (mouseenter)="over($event,true)" (mouseleave)="over($event)" class="diverse" [attr.width]="hscaleGraph((data.proposed.weightedPctEquityVol)/100)-hscaleGraph(0)" [attr.height]="40*boxsize/900" [attr.x]="0" [attr.y]="0">
                     <title>{{"Total:"+(data.proposed.pctEquityVol/100+data.proposed.weightedPctEquityVol/100)}}</title>
                 </rect>
                 <text class="bars"  [attr.x]="(hscaleGraph((data.proposed.weightedPctEquityVol)/100/2)-hscaleGraph(0))" [attr.y]="30*boxsize/900">{{percentScale0(data.proposed.weightedPctEquityVol/100)}}</text>
             </g>
             <g [attr.transform]="transform(hscaleGraph(0),vscaleGraph(1))">
-                <rect [style.fill]="'orange'" [attr.width]="hscaleGraph(data.proposed.pctEquityVol*1e-2)-hscaleGraph(0)" [attr.height]="40*boxsize/900" [attr.x]="0" [attr.y]="0">
+                <rect [attr.tip]="data.proposed.pctEquityVol/100" (mouseenter)="over($event,true)" (mouseleave)="over($event)" class="portfolio"[attr.width]="hscaleGraph(data.proposed.pctEquityVol*1e-2)-hscaleGraph(0)" [attr.height]="40*boxsize/900" [attr.x]="0" [attr.y]="0">
                     <title>{{data.proposed.pctEquityVol/100}}</title>
                 </rect>
                 <text class="bars"  [attr.x]="(hscaleGraph((data.proposed.pctEquityVol)/100/2)-hscaleGraph(0))" [attr.y]="30*boxsize/900">{{percentScale0(data.proposed.pctEquityVol/100)}}</text>
