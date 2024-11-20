@@ -2,7 +2,7 @@
 
 <body title="fanchart" rogue-title="fanchart">
     <svg xmlns="http://www.w3.org/2000/svg" [attr.height]="boxsizeV" [attr.width]="boxsizeH">
-        <g [attr.transform]="'translate('+boxsizeH/2+','+boxsizeV/2+') rotate(0)'">
+        <g [attr.transform]="transform(boxsizeH/2,boxsizeV/2)">
             <rect class="position" [style.opacity]="squareBorderOpacity" [attr.width]="boxsizeH" [attr.height]="boxsizeV" [attr.x]="-boxsizeH/2" [attr.y]="-boxsizeV/2">
                 <title>border set up</title>
             </rect>
