@@ -3,6 +3,7 @@ import { RouterOutlet } from '@angular/router';
 import { TwopiechartsComponent } from './twopiecharts/twopiecharts.component';
 import { BarchartComponent } from './barchart/barchart.component';
 import { PctbarComponent } from './pctbar/pctbar.component';
+import {FanchartComponent}from './fanchart/fanchart.component';
 export interface portfolio {
     rankingValue: number | null;
     rankingDistribution: {
@@ -28,7 +29,7 @@ export interface ranking {
 @Component({
     selector: 'app-root',
     standalone: true,
-    imports: [RouterOutlet, TwopiechartsComponent, PctbarComponent, BarchartComponent],
+    imports: [RouterOutlet, TwopiechartsComponent, PctbarComponent, BarchartComponent,FanchartComponent],
     templateUrl: './app.component.html',
     styleUrl: './app.component.scss'
 })
