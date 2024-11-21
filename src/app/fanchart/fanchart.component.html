@@ -43,7 +43,7 @@
                 <line  class="tick"  [attr.y1]="10"></line>
             </g>
             <g [attr.transform]="transform(scaleX.range()[0],scaleY(p*10*intVal((scaleY.domain()[1]-scaleY.domain()[0])/50+10)))">
-                <text class="axis v" [attr.x]="-25" [attr.y]="5">{{p*10*intVal(scaleY.domain()[1]/50+10)}}</text>
+                <text class="axis v" [attr.x]="-15" [attr.y]="5">{{p*10*intVal(scaleY.domain()[1]/50+10)}}</text>
             </g>
         </g>
     </svg>

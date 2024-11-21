@@ -43,7 +43,7 @@ export class FanchartComponent implements OnInit {
     console.log(this.minY, this.maxY);
     this.scaleX.domain([this.minX, this.maxX]);
     this.scaleY.domain([this.minY, this.maxY]);
-    this.scaleX.range([15e-2 * this.boxsizeH, 95e-2 * this.boxsizeH]);
+    this.scaleX.range([5e-2 * this.boxsizeH, 95e-2 * this.boxsizeH]);
     this.scaleY.range([90e-2 * this.boxsizeV, 10e-2 * this.boxsizeV]);
     this.plotPoints = (i, values, pos) => {
       let back = 0;
