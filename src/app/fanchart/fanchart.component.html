@@ -4,8 +4,47 @@
     <svg xmlns="http://www.w3.org/2000/svg" [attr.height]="boxsizeV" [attr.width]="boxsizeH">
         <g [attr.transform]="transform(boxsizeH/2,boxsizeV/2)">
             <rect class="position" [style.opacity]="squareBorderOpacity" [attr.width]="boxsizeH" [attr.height]="boxsizeV" [attr.x]="-boxsizeH/2" [attr.y]="-boxsizeV/2">
-                <title>border set up</title>
+                <title >border set up</title>
             </rect>
+        </g>
+        <text class="title" [attr.x]="boxsizeH/2" [attr.y]="boxsizeV*9e-2">{{title}}</text>        
+        <g *ngFor="let areas of DATA.areas;let ia=index;">
+            <g *ngFor="let lines of areas;let il=index">
+                <g *ngFor="let points of lines.values;let i = index;">
+                    <g *ngIf="i>0">
+                        <line  [attr.rogue-title]="lines.legend" class="lines" [style.stroke]="lines.colour" [attr.x1]="plotPoints(i,lines.values,0)" [attr.x2]="plotPoints(i,lines.values,1)" [attr.y1]="plotPoints(i,lines.values,2)" [attr.y2]="plotPoints(i,lines.values,2)">
+                            <title>{{lines.legend+" "+points}}</title>
+                        </line>
+                    </g>
+                </g>
+            </g>
+        </g>
+        <g *ngFor="let lines of DATA.lines;let il=index">
+            <g *ngFor="let points of lines.values;let i = index;">
+                <g *ngIf="i>0">
+                    <line [attr.rogue-title]="lines.legend" [attr.class]="il===0?'lines m':'lines t'" [style.stroke]="lines.colour" [attr.x1]="plotPoints(i,lines.values,0)" [attr.x2]="plotPoints(i,lines.values,1)" [attr.y1]="plotPoints(i,lines.values,2)" [attr.y2]="plotPoints(i,lines.values,2)">
+                         <title>{{lines.legend+" "+points}}</title>
+                    </line>
+                </g>
+            </g>
+        </g>
+        <g [attr.transform]="transform(scaleX.range()[0],scaleY.range()[0])">
+            <line [attr.y2]="scaleY.range()[1]-scaleY.range()[0]" class="axis"></line>
+            <line [attr.x2]="scaleX.range()[1]-scaleX.range()[0]" class="axis"></line>
+        </g>
+        <g *ngFor="let p of [1,2,3,4]">
+            <g [attr.transform]="transform(scaleX(p*intVal(scaleX.domain()[1]/5+1)),scaleY.range()[0])">
+                <text class="axis" [attr.y]="25" >Year {{p*intVal(scaleX.domain()[1]/5+1)}}</text>
+                <line  class="tick"  [attr.y1]="-10"></line>
+            </g>
+        </g>
+        <g *ngFor="let p of [1,2,3,4]">
+            <g [attr.transform]="transform(scaleX.range()[0],scaleY(p*10*intVal((scaleY.domain()[1]-scaleY.domain()[0])/50+10)),-90)">
+                <line  class="tick"  [attr.y1]="10"></line>
+            </g>
+            <g [attr.transform]="transform(scaleX.range()[0],scaleY(p*10*intVal((scaleY.domain()[1]-scaleY.domain()[0])/50+10)))">
+                <text class="axis v" [attr.x]="-25" [attr.y]="5">{{p*10*intVal(scaleY.domain()[1]/50+10)}}</text>
+            </g>
         </g>
     </svg>
 </body>

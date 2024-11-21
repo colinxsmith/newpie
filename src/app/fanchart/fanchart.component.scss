@@ -5,9 +5,43 @@ rect.position {
     opacity: 1;
 }
 
+line.lines {
+    stroke-width: 3;
+}
+
+line.axis {
+    stroke-width: 3;
+    stroke: black;
+}
+
+line.tick {
+    stroke-width: 2;
+    stroke: black;
+}
+
+text.axis {
+    text-anchor: middle;
+    font-size: 20px;
+}
+
+text.axis.v {
+    text-anchor: end;
+    font-size: 20px;
+}
+
+line.lines.m {
+    stroke-width: 8;
+}
+
+line.lines.t {
+    stroke-width: 5;
+    stroke-dasharray: 6;
+}
+
 text.title {
     stroke: black;
-    font-style: oblique;
+    text-anchor: middle;
+    font-size: 50px;
 }
 
 div.mainTip {
