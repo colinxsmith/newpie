@@ -7,14 +7,23 @@
                 <title >border set up</title>
             </rect>
         </g>
-        <text class="title" [attr.x]="boxsizeH/2" [attr.y]="boxsizeV*9e-2">{{title}}</text>        
+        <text class="title" [attr.x]="boxsizeH/2" [attr.y]="boxsizeV*9e-2">{{title}}</text>    
+        <g *ngFor="let plot of plotPath;let i =index">
+            <g >
+                <path [attr.transform]="transform(0,0)" (mouseenter)="over($event,i,true)"    (mouseleave)="over($event,i)"              [attr.d]="plot" [style.fill]="DATA.areas[i][0].colour" class="path">
+                    <title>{{i+" "+DATA.areas[i][0].legend+" "+" "+DATA.areas[i][0].colour}}</title>
+                </path>
+            </g>
+        </g>    
         <g *ngFor="let areas of DATA.areas;let ia=index;">
-            <g *ngFor="let lines of areas;let il=index">
-                <g *ngFor="let points of lines.values;let i = index;">
-                    <g *ngIf="i>0">
-                        <line  [attr.rogue-title]="lines.legend" class="lines" [style.stroke]="lines.colour" [attr.x1]="plotPoints(i,lines.values,0)" [attr.x2]="plotPoints(i,lines.values,1)" [attr.y1]="plotPoints(i,lines.values,2)" [attr.y2]="plotPoints(i,lines.values,3)">
-                            <title>{{lines.legend+" "+points}}</title>
-                        </line>
+            <g *ngIf="ia<0">
+                <g *ngFor="let lines of areas;let il=index">
+                    <g *ngFor="let points of lines.values;let i = index;">
+                        <g *ngIf="i>0">
+                            <line  [attr.rogue-title]="lines.legend" class="lines" [style.stroke]="lines.colour" [attr.x1]="plotPoints(i,lines.values,0)" [attr.x2]="plotPoints(i,lines.values,1)" [attr.y1]="plotPoints(i,lines.values,2)" [attr.y2]="plotPoints(i,lines.values,3)">
+                                <title>{{lines.legend+" "+points+" "+lines.colour}}</title>
+                            </line>
+                        </g>
                     </g>
                 </g>
             </g>
