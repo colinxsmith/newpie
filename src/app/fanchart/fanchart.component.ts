@@ -72,10 +72,9 @@ export class FanchartComponent implements OnInit {
         else if (j !== 0) path += `L${this.plotPoints(j, plot, 1)} ${this.plotPoints(j, plot, 3)} `;
       });
       area[0].values.forEach((val, j, plot) => {
-        const jm = plot.length - j - 1;
-        const pm = plot;//plot.map(d=>d).reverse();
-        if (jm === 1) path += `L${this.plotPoints(jm, [], 0)} ${this.plotPoints(jm, pm, 2)} `;
-        else if (jm !== 0) path += `L${this.plotPoints(jm, [], 1)} ${this.plotPoints(jm, pm, 3)} `;
+        const jm = plot.length - j - 1; // We go backwards
+        if (jm === 1) path += `L${this.plotPoints(jm, [], 0)} ${this.plotPoints(jm, plot, 2)} `;
+        else if (jm !== 0) path += `L${this.plotPoints(jm, [], 1)} ${this.plotPoints(jm, plot, 3)} `;
       });
       path += ' Z';
       this.plotPath.push(path);

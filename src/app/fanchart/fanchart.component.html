@@ -20,7 +20,7 @@
                 <g *ngFor="let lines of areas;let il=index">
                     <g *ngFor="let points of lines.values;let i = index;">
                         <g *ngIf="i>0">
-                            <line  [attr.rogue-title]="lines.legend" class="lines" [style.stroke]="lines.colour" [attr.x1]="plotPoints(i,lines.values,0)" [attr.x2]="plotPoints(i,lines.values,1)" [attr.y1]="plotPoints(i,lines.values,2)" [attr.y2]="plotPoints(i,lines.values,3)">
+                            <line  class="lines" [style.stroke]="lines.colour" [attr.x1]="plotPoints(i,lines.values,0)" [attr.x2]="plotPoints(i,lines.values,1)" [attr.y1]="plotPoints(i,lines.values,2)" [attr.y2]="plotPoints(i,lines.values,3)">
                                 <title>{{lines.legend+" "+points+" "+lines.colour}}</title>
                             </line>
                         </g>
@@ -31,7 +31,7 @@
         <g *ngFor="let lines of DATA.lines;let il=index">
             <g *ngFor="let points of lines.values;let i = index;">
                 <g *ngIf="i>0">
-                    <line [attr.rogue-title]="lines.legend" [attr.class]="il===0?'lines m':'lines t'" [style.stroke]="lines.colour" [attr.x1]="plotPoints(i,lines.values,0)" [attr.x2]="plotPoints(i,lines.values,1)" [attr.y1]="plotPoints(i,lines.values,2)" [attr.y2]="plotPoints(i,lines.values,3)">
+                    <line  [attr.class]="il===0?'lines m':'lines t'" [style.stroke]="lines.colour" [attr.x1]="plotPoints(i,lines.values,0)" [attr.x2]="plotPoints(i,lines.values,1)" [attr.y1]="plotPoints(i,lines.values,2)" [attr.y2]="plotPoints(i,lines.values,3)">
                          <title>{{lines.legend+" "+points}}</title>
                     </line>
                 </g>
