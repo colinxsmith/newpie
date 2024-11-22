@@ -6,7 +6,7 @@ import * as d3 from 'd3';
 @Component({
   selector: 'app-fanchart',
   standalone: true,
-  imports: [CommonModule, FanchartComponent],
+  imports: [CommonModule],
   templateUrl: './fanchart.component.html',
   styleUrl: './fanchart.component.scss'
 })
@@ -86,13 +86,13 @@ export class FanchartComponent implements OnInit {
     const svg = d3.select(this.element.nativeElement).select('div.mainTip');
     const here = d3.select(e.target as HTMLElement & EventTarget);
     if (inout) {
-      const x = e.screenX + 200;
-      const y = e.screenY;
+      const x = e.clientX;
+      const y = e.clientY;
       here.style('opacity', 0.5);
       svg
         .attr('tiptitle', 'tipper')
-        .style('left', `${x / this.boxsizeH * 100}%`)
-        .style('top', `${y / this.boxsizeV * 100}%`)
+        .style('left', `${x}px`)
+        .style('top', `${y}px`)
         .style('opacity', '1')
         .html(`${this.DATA.areas[i][0].legend}`);
       /* .style('--ff', '110%')

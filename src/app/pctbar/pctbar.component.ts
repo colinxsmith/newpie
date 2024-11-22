@@ -6,7 +6,7 @@ import { animate } from '@angular/animations';
 @Component({
   selector: 'app-pctbar',
   standalone: true,
-  imports: [CommonModule, PctbarComponent],
+  imports: [CommonModule],
   templateUrl: './pctbar.component.html',
   styleUrl: './pctbar.component.scss'
 })

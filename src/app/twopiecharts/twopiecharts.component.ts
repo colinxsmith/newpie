@@ -5,7 +5,7 @@ import { portfolio } from '../app.component';
 @Component({
   selector: 'app-twopiecharts',
   standalone: true,
-  imports: [CommonModule, TwopiechartsComponent],
+  imports: [CommonModule],
   templateUrl: './twopiecharts.component.html',
   styleUrl: './twopiecharts.component.scss'
 })

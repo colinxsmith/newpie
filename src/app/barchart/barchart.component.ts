@@ -5,7 +5,7 @@ import * as d3 from 'd3';
 @Component({
   selector: 'app-barchart',
   standalone: true,
-  imports: [CommonModule, BarchartComponent],
+  imports: [CommonModule],
   templateUrl: './barchart.component.html',
   styleUrl: './barchart.component.scss'
 })
