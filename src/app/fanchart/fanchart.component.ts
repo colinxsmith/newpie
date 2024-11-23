@@ -14,6 +14,7 @@ export class FanchartComponent implements OnInit {
   @Input() boxsizeV = 900;
   @Input() boxsizeH = 900;
   @Input() squareBorderOpacity = 1;
+  @Input() differentColours = false;
   @Input() DATA = {} as fchart;
   @Input() title = "fanchart";
   @Input() orderAreas = true;
@@ -23,12 +24,14 @@ export class FanchartComponent implements OnInit {
   minX = 0;
   scaleX = d3.scaleLinear();
   scaleY = d3.scaleLinear();
+  colours = d3.interpolateRdGy;
   plotPath = [] as Array<string>;
   intVal = (i: number) => Math.floor(i);
   plotPoints: (i: number, array: Array<number>, pos: number) => number = (i, a, p) => 0;
   transform = (x: number, y: number, r = 0) => `translate(${x},${y}) rotate(${r})`;
   constructor(private element: ElementRef) { }
   ngOnInit(): void {
+    if (this.differentColours) this.DATA.areas.forEach((d, i, dd) => dd[i][0].colour = this.colours((i + 1) / d[0].values.length));
     if (this.orderAreas) {
       console.log('Before Sort', this.DATA.areas.map(d => d[0].legend), this.DATA.areas.map(d => d[1].legend), this.DATA.areas.map(d => (d[0].values[d[0].values.length - 1] - d[1].values[d[1].values.length - 1])));
       this.DATA.areas = this.DATA.areas.sort((a, b) => (a[0].values[a[0].values.length - 1] - a[1].values[a[1].values.length - 1]
@@ -66,11 +69,11 @@ export class FanchartComponent implements OnInit {
       }
       return back;
     };
-    console.log(this.DATA.lines[0].values);
-    console.log(this.plotPoints(1, [], 0),
-      this.plotPoints(1, this.DATA.lines[0].values, 1),
-      this.plotPoints(1, this.DATA.lines[0].values, 2),
-      this.plotPoints(1, this.DATA.lines[0].values, 3));
+    /* console.log(this.DATA.lines[0].values);
+     console.log(this.plotPoints(1, [], 0),
+       this.plotPoints(1, this.DATA.lines[0].values, 1),
+       this.plotPoints(1, this.DATA.lines[0].values, 2),
+       this.plotPoints(1, this.DATA.lines[0].values, 3));*/
     this.DATA.areas.forEach(area => {
       let path = ``;
       area[1].values.forEach((val, j, plot) => {
@@ -118,23 +121,25 @@ export class FanchartComponent implements OnInit {
       .style('--xx', '4%')
       .style('--yy', '5%');
     setTimeout(() => {
-      d3.select(this.element.nativeElement).selectAll('path')
-        .transition()
-        .duration(1000)
-        .styleTween('opacity', () => (t) => `${t}`)
-        .attrTween('transform', () => (t) => `rotate(${60 * (1 - t)})`)
-        ;
+      d3.select(this.element.nativeElement).selectAll('path').nodes().forEach((d, i) => {
+        d3.select(d)
+          .transition()
+          .duration(2000)
+          .styleTween('opacity', () => (t) => `${t}`)
+          .attrTween('transform', () => (t) => `rotate(${60 * ((i + 1)%2===1?-1:1 )* (1 - t)})`)
+          ;
+      });
       d3.select(this.element.nativeElement).selectAll('line.lines.m')
         .transition()
         .duration(2000)
         .styleTween('opacity', () => (t) => `${t}`)
-        .attrTween('transform', () => (t) => `rotate(${60 * (1 - t)})`)
+        .attrTween('transform', () => (t) => `rotate(${30 * (1 - t)})`)
         ;
       d3.select(this.element.nativeElement).selectAll('line.lines.t')
         .transition()
         .duration(2000)
         .styleTween('opacity', () => (t) => `${t}`)
-        .attrTween('transform', () => (t) => `rotate(${-60 * (1 - t)})`)
+        .attrTween('transform', () => (t) => `rotate(${-30 * (1 - t)})`)
         ;
     }, 200);
   }
