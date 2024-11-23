@@ -16,6 +16,7 @@ export class FanchartComponent implements OnInit {
   @Input() squareBorderOpacity = 1;
   @Input() DATA = {} as fchart;
   @Input() title = "fanchart";
+  @Input() orderAreas = true;
   maxY = -1e9;
   maxX = 0;
   minY = 1e9;
@@ -28,7 +29,12 @@ export class FanchartComponent implements OnInit {
   transform = (x: number, y: number, r = 0) => `translate(${x},${y}) rotate(${r})`;
   constructor(private element: ElementRef) { }
   ngOnInit(): void {
-    console.log(this.DATA);
+    if (this.orderAreas) {
+      console.log('Before Sort', this.DATA.areas.map(d => d[0].legend), this.DATA.areas.map(d => d[1].legend), this.DATA.areas.map(d => (d[0].values[d[0].values.length - 1] - d[1].values[d[1].values.length - 1])));
+      this.DATA.areas = this.DATA.areas.sort((a, b) => (a[0].values[a[0].values.length - 1] - a[1].values[a[1].values.length - 1]
+        - b[0].values[b[0].values.length - 1] + b[1].values[b[1].values.length - 1]));
+      console.log('After Sort', this.DATA.areas.map(d => d[0].legend), this.DATA.areas.map(d => d[1].legend), this.DATA.areas.map(d => (d[0].values[d[0].values.length - 1] - d[1].values[d[1].values.length - 1])));
+    }
     this.DATA.lines.forEach(d => {
       this.minY = d3.min([this.minY, d3.min(d.values) ?? 0]) ?? 0;
       this.maxY = d3.max([this.maxY, d3.max(d.values) ?? 0]) ?? 0;
@@ -118,18 +124,18 @@ export class FanchartComponent implements OnInit {
         .styleTween('opacity', () => (t) => `${t}`)
         .attrTween('transform', () => (t) => `rotate(${60 * (1 - t)})`)
         ;
-        d3.select(this.element.nativeElement).selectAll('line.lines.m')
-          .transition()
-          .duration(2000)
-          .styleTween('opacity', () => (t) => `${t}`)
-          .attrTween('transform', () => (t) => `rotate(${60 * (1 - t)})`)
-          ;
-          d3.select(this.element.nativeElement).selectAll('line.lines.t')
-            .transition()
-            .duration(2000)
-            .styleTween('opacity', () => (t) => `${t}`)
-            .attrTween('transform', () => (t) => `rotate(${-60 * (1 - t)})`)
-            ;
+      d3.select(this.element.nativeElement).selectAll('line.lines.m')
+        .transition()
+        .duration(2000)
+        .styleTween('opacity', () => (t) => `${t}`)
+        .attrTween('transform', () => (t) => `rotate(${60 * (1 - t)})`)
+        ;
+      d3.select(this.element.nativeElement).selectAll('line.lines.t')
+        .transition()
+        .duration(2000)
+        .styleTween('opacity', () => (t) => `${t}`)
+        .attrTween('transform', () => (t) => `rotate(${-60 * (1 - t)})`)
+        ;
     }, 200);
   }
 }
