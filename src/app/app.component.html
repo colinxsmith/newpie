@@ -154,11 +154,11 @@
     <div>
         <div style="width: 100%;">
             <h1 style="text-align: center;">{{ title }}</h1>
-            <div style="display:inline-flex;border: 5px solid #00ff73">
-                <div>
+             <div>
                     <app-fanchart title="SAA UL performence fan chart" [DATA]="fanChart" [boxsizeH]="1800" [boxsizeV]="900"></app-fanchart>
                 </div>
-                <div>
+            <div style="display:inline-flex;border: 5px solid #00ff73">
+                   <div>
                     <app-twopiecharts title="Current Ranking" [animate]="true" [portfolioData]="assetRanking.current" [boxsize]="450" [cornerRadius]="5" [squareBorderOpacity]="0.2"></app-twopiecharts>
                     <p *ngIf="assetRanking.current.rankingValue!==null" style="text-align: center;">{{'CURRENT '+assetRanking.current.rankingValue}}</p>
                 </div>
