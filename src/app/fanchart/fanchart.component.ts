@@ -90,7 +90,7 @@ export class FanchartComponent implements OnInit {
     });
     this.update();
   }
-  over(e: MouseEvent, i: number, inout = false) {
+  over(e: MouseEvent, i: number,legend:string='', inout = false) {
     const svg = d3.select(this.element.nativeElement).select('div.mainTip');
     const here = d3.select(e.target as HTMLElement & EventTarget);
     if (inout) {
@@ -102,12 +102,7 @@ export class FanchartComponent implements OnInit {
         .style('left', `${x}px`)
         .style('top', `${y}px`)
         .style('opacity', '1')
-        .html(`${this.DATA.areas[i][0].legend}`);
-      /* .style('--ff', '110%')
-       .style('--xx', xx + 'px')
-       .style('--yy', yy - this.height * 0.15 + 'px')
-       .style('--bx', e.offsetX + 'px')
-       .style('--by', yy + 'px')*/
+        .html(`${legend}`);
       ;
     } else {
       here.style('opacity', 1);
@@ -126,7 +121,7 @@ export class FanchartComponent implements OnInit {
           .transition()
           .duration(2000)
           .styleTween('opacity', () => (t) => `${t}`)
-          .attrTween('transform', () => (t) => `rotate(${60 * ((i + 1)%2===1?-1:1 )* (1 - t)})`)
+          .attrTween('transform', () => (t) => `rotate(${10 * ((i + 1)%2===0?-10:1 )* (1 - t)})`)
           ;
       });
       d3.select(this.element.nativeElement).selectAll('line.lines.m')

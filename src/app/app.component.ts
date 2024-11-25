@@ -177,7 +177,7 @@ export class AppComponent {
         'lines': [
             {
                 'legend': 'Mean Line',
-                'colour': '#ed1b2c',
+                'colour': '#ffffff',
                 'type': 'thick',
                 'values': [
                     100, 101.3791144, 102.7887534, 104.2007943, 105.6476765, 107.1027879, 108.5972258, 110.1083862, 111.629564, 113.138157,

@@ -10,7 +10,7 @@
         <text class="title" [attr.x]="boxsizeH/2" [attr.y]="boxsizeV*9e-2">{{title}}</text>    
         <g *ngFor="let plot of plotPath;let i =index">
             <g >
-                <path [attr.transform]="transform(0,0)" (mouseenter)="over($event,i,true)"    (mouseleave)="over($event,i)"              [attr.d]="plot" [style.fill]="DATA.areas[i][0].colour" class="path">
+                <path [attr.transform]="transform(0,0)" (mouseenter)="over($event,i,DATA.areas[i][0].legend,true)"    (mouseleave)="over($event,i)"              [attr.d]="plot" [style.fill]="DATA.areas[i][0].colour" class="path">
                     <title>{{i+" "+DATA.areas[i][0].legend+" "+" "+DATA.areas[i][0].colour}}</title>
                 </path>
             </g>
@@ -30,8 +30,8 @@
         </g>
         <g *ngFor="let lines of DATA.lines;let il=index">
             <g *ngFor="let points of lines.values;let i = index;">
-                <g *ngIf="i>0">
-                    <line  [attr.class]="il===0?'lines m':'lines t'" [style.stroke]="lines.colour" [attr.x1]="plotPoints(i,lines.values,0)" [attr.x2]="plotPoints(i,lines.values,1)" [attr.y1]="plotPoints(i,lines.values,2)" [attr.y2]="plotPoints(i,lines.values,3)">
+                <g *ngIf="i>0" >
+                    <line (mouseenter)="over($event,i,lines.legend,true)"    (mouseleave)="over($event,i)" [attr.class]="il===0?'lines m':'lines t'" [style.stroke]="lines.colour" [attr.x1]="plotPoints(i,lines.values,0)" [attr.x2]="plotPoints(i,lines.values,1)" [attr.y1]="plotPoints(i,lines.values,2)" [attr.y2]="plotPoints(i,lines.values,3)">
                          <title>{{lines.legend+" "+points}}</title>
                     </line>
                 </g>
@@ -41,9 +41,9 @@
             <line [attr.y2]="scaleY.range()[1]-scaleY.range()[0]" class="axis"></line>
             <line [attr.x2]="scaleX.range()[1]-scaleX.range()[0]" class="axis"></line>
         </g>
-        <g *ngFor="let p of [1,2,3,4]">
-            <g [attr.transform]="transform(scaleX(p*intVal(scaleX.domain()[1]/5+1)),scaleY.range()[0])">
-                <text class="axis" [attr.y]="25" >Year {{p*intVal(scaleX.domain()[1]/5+1)}}</text>
+        <g *ngFor="let p of [1,2,3,4,5]">
+            <g [attr.transform]="transform(scaleX(p*intVal(scaleX.domain()[1]/6+1)),scaleY.range()[0])">
+                <text class="axis" [attr.y]="25" >Year {{p*intVal(0.25*scaleX.domain()[1]/6+1)}}</text>
                 <line  class="tick"  [attr.y1]="-10"></line>
             </g>
         </g>
