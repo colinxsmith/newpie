@@ -24,14 +24,14 @@ export class FanchartComponent implements OnInit {
   minX = 0;
   scaleX = d3.scaleLinear();
   scaleY = d3.scaleLinear();
-  colours = d3.interpolateRdGy;
+  colours = (t: number, s = 1) => d3.interpolateReds(t / s);
   plotPath = [] as Array<string>;
   intVal = (i: number) => Math.floor(i);
   plotPoints: (i: number, array: Array<number>, pos: number) => number = (i, a, p) => 0;
   transform = (x: number, y: number, r = 0) => `translate(${x},${y}) rotate(${r})`;
   constructor(private element: ElementRef) { }
   ngOnInit(): void {
-    if (this.differentColours) this.DATA.areas.forEach((d, i, dd) => dd[i][0].colour = this.colours((i + 1) / d[0].values.length));
+    if (this.differentColours) this.DATA.areas.forEach((d, i, dd) => dd[i][0].colour = this.colours(i,this.DATA.areas.length));
     if (this.orderAreas) {
       console.log('Before Sort', this.DATA.areas.map(d => d[0].legend), this.DATA.areas.map(d => d[1].legend), this.DATA.areas.map(d => (d[0].values[d[0].values.length - 1] - d[1].values[d[1].values.length - 1])));
       this.DATA.areas = this.DATA.areas.sort((a, b) => (a[0].values[a[0].values.length - 1] - a[1].values[a[1].values.length - 1]
