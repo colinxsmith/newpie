@@ -36,11 +36,11 @@ export class TwopiechartsComponent implements OnInit {
   /**
    * Set false to stop animation with pdf renderer
    */
-  @Input() animate=false;
+  @Input() animate = false;
   pie1: Array<d3.PieArcDatum<number | { valueOf(): number; }>> = [];
   figureArcs = d3.arc();
   ngOnInit() {
-//    console.log(this.portfolioData);
+    //    console.log(this.portfolioData);
 
     const together = this.portfolioData.rankingDistribution;
     const totals: Map<string, number> = new Map(); //We'll hold the rank totals in a map and declare it here
@@ -50,8 +50,8 @@ export class TwopiechartsComponent implements OnInit {
       .map(dk => { dk.value = totals.get(dk.ranking) ?? 0; return dk; }) // find sums over repeated ranks
       ;
     //combine = together; //Don't combine repeated ranks for checking
-//    console.log(combine);
-    this.pie1 = d3.pie().sort(null)(combine.sort((a,b)=>(+a.ranking-+b.ranking)).map(d => d.value));
+    //    console.log(combine);
+    this.pie1 = d3.pie().sort(null)(combine.sort((a, b) => (+a.ranking - +b.ranking)).map(d => d.value));
     this.figureArcs = d3.arc()
       .padRadius(this.padRadius)
       .padAngle(this.padAngle)
@@ -75,7 +75,7 @@ export class TwopiechartsComponent implements OnInit {
       });
       this.centres.push([cent[0] - 5, cent[1]]); //fiddle to position index number better in a narrow pie slice
     });
-    if(this.animate)this.update();
+    if (this.animate) this.update();
   }
   update() {
     d3.select(this.element.nativeElement).select('[rogue-title]')
