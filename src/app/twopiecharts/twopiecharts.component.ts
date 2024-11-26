@@ -51,7 +51,7 @@ export class TwopiechartsComponent implements OnInit {
       ;
     //combine = together; //Don't combine repeated ranks for checking
 //    console.log(combine);
-    this.pie1 = d3.pie().sort(null)(combine.map(d => +d.ranking));
+    this.pie1 = d3.pie().sort(null)(combine.sort((a,b)=>(+a.ranking-+b.ranking)).map(d => d.value));
     this.figureArcs = d3.arc()
       .padRadius(this.padRadius)
       .padAngle(this.padAngle)
