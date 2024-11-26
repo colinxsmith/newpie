@@ -40,6 +40,7 @@ div.mainTip {
     margin-left: -2px;
     border-width: 2px;
     border-style: solid;
+    transform: translate(-29.8%, -100%);
     border-color: orchid rgb(119, 247, 119) rgb(96, 96, 230) rgb(201, 81, 81);
 }
 
@@ -67,7 +68,7 @@ div.mainTip::after {
     font-size: 80%;
     --x: 70%;
     --y: 90%;
-    height: 3%;
+    height: fit-content;
     position: absolute;
     padding: 1px 5px 2px 5px;
     bottom: -1.6em;
