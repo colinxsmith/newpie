@@ -18,9 +18,9 @@ export class FanchartComponent implements OnInit {
   @Input() DATA = {} as fchart;
   @Input() title = "fanchart";
   @Input() orderAreas = true;
-  maxY = -1e9;
+  @Input() maxY = -1e9;
   maxX = 0;
-  minY = 1e9;
+  @Input() minY = 1e9;
   minX = 0;
   scaleX = d3.scaleLinear();
   scaleY = d3.scaleLinear();
