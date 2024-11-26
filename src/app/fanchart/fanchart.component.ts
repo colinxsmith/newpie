@@ -119,6 +119,7 @@ export class FanchartComponent implements OnInit {
       d3.select(this.element.nativeElement).selectAll('path').nodes().forEach((d, i) => {
         d3.select(d)
           .transition()
+          .ease(d3.easeBounce)
           .duration(2000)
           .styleTween('opacity', () => (t) => `${t}`)
           .attrTween('transform', () => (t) => `rotate(${10 * ((i + 1)%2===0?-10:1 )* (1 - t)})`)
