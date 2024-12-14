@@ -11,8 +11,8 @@ import * as d3 from 'd3';
   styleUrl: './fanchart.component.scss'
 })
 export class FanchartComponent implements OnInit {
-  @Input() boxsizeV = 900;
-  @Input() boxsizeH = 900;
+  @Input() boxsizeV = 0;
+  @Input() boxsizeH = 0;
   @Input() squareBorderOpacity = 1;
   @Input() differentColours = false;
   @Input() DATA = {} as fchart;
@@ -51,10 +51,6 @@ export class FanchartComponent implements OnInit {
     this.maxX = this.DATA.lines[0].values.length;
     console.log(this.minX, this.maxX);
     console.log(this.minY, this.maxY);
-    this.scaleX.domain([this.minX, this.maxX]);
-    this.scaleY.domain([this.minY, this.maxY]);
-    this.scaleX.range([5e-2 * this.boxsizeH, 95e-2 * this.boxsizeH]);
-    this.scaleY.range([90e-2 * this.boxsizeV, 10e-2 * this.boxsizeV]);
     this.plotPoints = (i, values, pos) => {
       if (i == 0) return -1;
       let back = 0;
@@ -69,6 +65,21 @@ export class FanchartComponent implements OnInit {
       }
       return back;
     };
+    this.update();
+  }
+  newVert(){
+   // const boxsizeH=this.element.nativeElement.offsetWidth;
+  const boxsize=(this.element.nativeElement as HTMLElement).parentElement?.getBoundingClientRect();
+  console.log(boxsize);
+  const boxsizeH=boxsize?.width??0;
+    const boxsizeV=boxsizeH*0.5;
+    this.boxsizeH=boxsizeH;
+    this.boxsizeV=boxsizeV;
+    console.log(this.boxsizeH,this.boxsizeV);
+    this.scaleX.domain([this.minX, this.maxX]);
+    this.scaleY.domain([this.minY, this.maxY]);
+    this.scaleY.range([90e-2 * boxsizeV, 10e-2 * boxsizeV]);
+    this.scaleX.range([5e-2 * boxsizeH, 95e-2 * boxsizeH]);
     /* console.log(this.DATA.lines[0].values);
      console.log(this.plotPoints(1, [], 0),
        this.plotPoints(1, this.DATA.lines[0].values, 1),
@@ -88,7 +99,6 @@ export class FanchartComponent implements OnInit {
       path += ' Z';
       this.plotPath.push(path);
     });
-    this.update();
   }
   over(e: MouseEvent, i: number,legend:string='', inout = false) {
     const svg = d3.select(this.element.nativeElement).select('div.mainTip');
@@ -113,16 +123,19 @@ export class FanchartComponent implements OnInit {
   update() {
     d3.select(this.element.nativeElement).select('[rogue-title]')
       .attr('rogue-title', this.title)
+
       .style('--xx', '4%')
       .style('--yy', '5%');
+      
     setTimeout(() => {
+      this.newVert();
       d3.select(this.element.nativeElement).selectAll('path').nodes().forEach((d, i) => {
         d3.select(d)
           .transition()
           .ease(d3.easeBounce)
           .duration(2000)
           .styleTween('opacity', () => (t) => `${t}`)
-          .attrTween('transform', () => (t) => `rotate(${10 * ((i + 1)%2===0?-10:1 )* (1 - t)})`)
+          .attrTween('transform', () => (t) => `rotate(${20 *(i+1)* ((i + 1)%2===0?-10:1 )* (1 - t)})`)
           ;
       });
       d3.select(this.element.nativeElement).selectAll('line.lines.m')

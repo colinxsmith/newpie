@@ -116,6 +116,6 @@ div.mainTip::after {
 }
 
 svg {
-    width: auto;
-    height: auto;
+    width: 100%;
+    height: min-content;
 }
