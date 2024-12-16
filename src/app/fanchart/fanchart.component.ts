@@ -68,13 +68,17 @@ export class FanchartComponent implements OnInit {
     this.update();
   }
   newVert(){
-   // const boxsizeH=this.element.nativeElement.offsetWidth;
+ 
   const boxsize=(this.element.nativeElement as HTMLElement).parentElement?.getBoundingClientRect();
   console.log(boxsize);
   const boxsizeH=boxsize?.width??0;
     const boxsizeV=boxsizeH*0.5;
     this.boxsizeH=boxsizeH;
     this.boxsizeV=boxsizeV;
+    d3.select( this.element.nativeElement). select ('svg')
+    .attr('width',boxsizeH)
+    .attr('height',boxsizeV)
+    ;
     console.log(this.boxsizeH,this.boxsizeV);
     this.scaleX.domain([this.minX, this.maxX]);
     this.scaleY.domain([this.minY, this.maxY]);
