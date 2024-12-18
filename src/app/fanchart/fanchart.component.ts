@@ -51,6 +51,10 @@ export class FanchartComponent implements OnInit {
     this.maxX = this.DATA.lines[0].values.length;
     console.log(this.minX, this.maxX);
     console.log(this.minY, this.maxY);
+    this.newVert();
+    this.update();
+  }
+  newVert(leave=false){
     this.plotPoints = (i, values, pos) => {
       if (i == 0) return -1;
       let back = 0;
@@ -65,9 +69,6 @@ export class FanchartComponent implements OnInit {
       }
       return back;
     };
-    this.update();
-  }
-  newVert(){
  
   const boxsize=(this.element.nativeElement as HTMLElement).parentElement?.getBoundingClientRect();
   console.log(boxsize);
@@ -76,14 +77,15 @@ export class FanchartComponent implements OnInit {
     this.boxsizeH=boxsizeH;
     this.boxsizeV=boxsizeV;
     d3.select( this.element.nativeElement). select ('svg')
-    .attr('width',boxsizeH)
-    .attr('height',boxsizeV)
+    .attr('width',this.boxsizeH)
+    .attr('height',this.boxsizeV)
     ;
     console.log(this.boxsizeH,this.boxsizeV);
     this.scaleX.domain([this.minX, this.maxX]);
     this.scaleY.domain([this.minY, this.maxY]);
     this.scaleY.range([90e-2 * boxsizeV, 10e-2 * boxsizeV]);
     this.scaleX.range([5e-2 * boxsizeH, 95e-2 * boxsizeH]);
+    if(leave)return;
     /* console.log(this.DATA.lines[0].values);
      console.log(this.plotPoints(1, [], 0),
        this.plotPoints(1, this.DATA.lines[0].values, 1),
@@ -130,7 +132,7 @@ export class FanchartComponent implements OnInit {
 
       .style('--xx', '4%')
       .style('--yy', '5%');
-      
+      this.newVert(true);
     setTimeout(() => {
       this.newVert();
       d3.select(this.element.nativeElement).selectAll('path').nodes().forEach((d, i) => {

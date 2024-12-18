@@ -97,7 +97,8 @@ div.mainTip::after {
     background-color: #bbc8ce;
     color: black;
     font-size: 80%;
-    height: min-content;
+    height: fit-content;
+    width:fit-content;
     position: absolute;
     padding: 1px 5px 2px 5px;
     bottom: -1.6em;
