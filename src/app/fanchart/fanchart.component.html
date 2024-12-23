@@ -1,59 +1,44 @@
 <div class="mainTip"></div>
 
-<body title="fanchart" rogue-title="fanchart">
-    <svg xmlns="http://www.w3.org/2000/svg" [attr.height]="boxsizeV" [attr.width]="boxsizeH">
-        <g [attr.transform]="transform(boxsizeH/2,boxsizeV/2)">
-            <rect class="position" [style.opacity]="squareBorderOpacity" [attr.width]="boxsizeH" [attr.height]="boxsizeV" [attr.x]="-boxsizeH/2" [attr.y]="-boxsizeV/2">
-                <title >border set up</title>
-            </rect>
-        </g>
-        <text class="title" [attr.x]="boxsizeH/2" [attr.y]="boxsizeV*9e-2">{{title}}</text>    
-        <g *ngFor="let plot of plotPath;let i =index">
-            <g >
-                <path [attr.transform]="transform(0,0)" (mouseenter)="over($event,i,DATA.areas[i][0].legend,true)"    (mouseleave)="over($event,i)"              [attr.d]="plot" [style.fill]="DATA.areas[i][0].colour" class="path">
-                    <title>{{i+" "+DATA.areas[i][0].legend+" "+" "+DATA.areas[i][0].colour}}</title>
+
+<div *ngIf="DATA" title="fanchart" rogue-title="fanchart" style="margin: 2px;">
+
+
+    <svg xmlns="http://www.w3.org/2000/svg">
+        <text class="title"  [style.font-size]="40*boxsizeH/900" [attr.x]="boxsizeH/2" [attr.y]="boxsizeV*9e-2">{{title}}</text>
+        <g *ngFor="let plot of plotPath;let i =index" >
+            <g>
+                <path [attr.transform]="transform(0,0)" (mouseenter)="over($event,i,DATA.areas[i][0].legend,DATA.areas[i][1].legend,true)"    (mouseleave)="over($event,i)"              [attr.d]="plot" [style.fill]="DATA.areas[i][0].colour" class="path">
+                    <title>{{"AREA"+i+": From "+DATA.areas[i][0].legend+" to "+DATA.areas[i][1].legend}}</title>
                 </path>
-            </g>
-        </g>    
-        <g *ngFor="let areas of DATA.areas;let ia=index;">
-            <g *ngIf="ia<0">
-                <g *ngFor="let lines of areas;let il=index">
-                    <g *ngFor="let points of lines.values;let i = index;">
-                        <g *ngIf="i>0">
-                            <line  class="lines" [style.stroke]="lines.colour" [attr.x1]="plotPoints(i,lines.values,0)" [attr.x2]="plotPoints(i,lines.values,1)" [attr.y1]="plotPoints(i,lines.values,2)" [attr.y2]="plotPoints(i,lines.values,3)">
-                                <title>{{lines.legend+" "+points+" "+lines.colour}}</title>
-                            </line>
-                        </g>
-                    </g>
-                </g>
             </g>
         </g>
         <g *ngFor="let lines of DATA.lines;let il=index">
             <g *ngFor="let points of lines.values;let i = index;">
                 <g *ngIf="i>0" >
-                    <line (mouseenter)="over($event,i,lines.legend,true)"    (mouseleave)="over($event,i)" [attr.class]="il===0?'lines m':'lines t'" [style.stroke]="lines.colour" [attr.x1]="plotPoints(i,lines.values,0)" [attr.x2]="plotPoints(i,lines.values,1)" [attr.y1]="plotPoints(i,lines.values,2)" [attr.y2]="plotPoints(i,lines.values,3)">
+                    <line (mouseenter)="over($event,i,lines.legend,'',true)"    (mouseleave)="over($event,i)" [attr.class]="il===0?'lines m':'lines t'" [style.stroke]="lines.colour" [attr.x1]="plotPoints(i,lines.values,0)" [attr.x2]="plotPoints(i,lines.values,1)" [attr.y1]="plotPoints(i,lines.values,2)" [attr.y2]="plotPoints(i,lines.values,3)">
                          <title>{{lines.legend+" "+points}}</title>
                     </line>
                 </g>
             </g>
         </g>
-        <g [attr.transform]="transform(scaleX.range()[0],scaleY.range()[0])">
-            <line [attr.y2]="scaleY.range()[1]-scaleY.range()[0]" class="axis"></line>
-            <line [attr.x2]="scaleX.range()[1]-scaleX.range()[0]" class="axis"></line>
-        </g>
-        <g *ngFor="let p of [1,2,3,4,5]">
-            <g [attr.transform]="transform(scaleX(p*intVal(scaleX.domain()[1]/6+1)),scaleY.range()[0])">
-                <text class="axis" [attr.y]="25" >Year {{p*intVal(0.25*scaleX.domain()[1]/6+1)}}</text>
+        <g *ngFor="let p of [1,2,3,4,5,6]">
+            <g [attr.transform]="transform(scaleX((p-1)),scaleY.range()[0])">
+                <text class="axis" [style.font-size]="18*boxsizeH/900" [attr.y]="25*boxsizeH/900" >Year {{p-1}}</text>
                 <line  class="tick"  [attr.y1]="-10"></line>
             </g>
         </g>
+        <g [attr.transform]="transform(scaleX.range()[0],scaleY.range()[0])">
+            <line [attr.y1]="0" [attr.y2]="scaleY.range()[1]-scaleY.range()[0]" class="axis"></line>
+            <line [attr.x2]="scaleX.range()[1]-scaleX.range()[0]" class="axis"></line>
+        </g>
         <g *ngFor="let p of [1,2,3,4]">
-            <g [attr.transform]="transform(scaleX.range()[0],scaleY(p*10*intVal((scaleY.domain()[1]-scaleY.domain()[0])/50+10)),-90)">
+            <g *ngIf="yNumber(p)<=maxY && yNumber(p)>=minY" [attr.transform]="transform(scaleX.range()[0],scaleY(yNumber(p)),-90)">
                 <line  class="tick"  [attr.y1]="10"></line>
             </g>
-            <g [attr.transform]="transform(scaleX.range()[0],scaleY(p*10*intVal((scaleY.domain()[1]-scaleY.domain()[0])/50+10)))">
-                <text class="axis v" [attr.x]="-15" [attr.y]="5">{{p*10*intVal(scaleY.domain()[1]/50+10)}}</text>
+            <g *ngIf="yNumber(p)<=maxY && yNumber(p)>=minY" [attr.transform]="transform(scaleX.range()[0],scaleY(yNumber(p)))">
+                <text class="axis v" [style.font-size]="15*boxsizeH/900" [attr.x]="-15*boxsizeH/900" [attr.y]="5*boxsizeV/900">{{yNumber(p)}}</text>
             </g>
         </g>
     </svg>
-</body>
+</div>

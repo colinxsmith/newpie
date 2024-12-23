@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component,ElementRef,AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common'
 import { RouterOutlet } from '@angular/router';
 import { TwopiechartsComponent } from './twopiecharts/twopiecharts.component';
 import { BarchartComponent } from './barchart/barchart.component';
 import { PctbarComponent } from './pctbar/pctbar.component';
 import { FanchartComponent } from './fanchart/fanchart.component';
+import * as d3 from 'd3';
 export interface portfolio {
     rankingValue: number | null;
     rankingDistribution: {
@@ -48,7 +49,31 @@ export interface fchart {
     templateUrl: './app.component.html',
     styleUrl: './app.component.scss'
 })
-export class AppComponent {
+export class AppComponent implements AfterViewInit{
+    constructor(private element: ElementRef) { }
+    xmax=0;
+    ymax=-1e9;
+    ymin=1e9;
+    www=0;
+    hhh=0;
+    ngAfterViewInit(): void {
+        this.www=this.element.nativeElement.getBoundingClientRect().width;
+        this.hhh=this.element.nativeElement.getBoundingClientRect().height;
+        console.log(this.www,this.hhh);
+        this.xmax=d3.max([this.fanChart.lines[0].values.length/4,this.xmax])??0;
+        this.fanChart.lines.forEach(d=>{
+            this.ymin=Math.min(d3.min(d.values)??0,this.ymin);
+            this.ymax=Math.max(d3.max(d.values)??0,this.ymax);
+        })
+        this.fanChart.areas.forEach(d=>{
+            d.forEach(dd=>{
+                this.ymin=Math.min(this.ymin,d3.min(dd.values)??0);
+                this.ymax=Math.max(this.ymax,d3.max(dd.values)??0);
+            })
+        })
+    }
+
+    
     title = 'New Charts for Charles Stanley';
     fanChart = {
         'areas': [

@@ -1,10 +1,3 @@
-rect.position {
-    fill: none;
-    stroke: #bbc8ce;
-    stroke-width: 15px;
-    opacity: 1;
-}
-
 line.lines {
     stroke-width: 3;
 }
@@ -26,12 +19,10 @@ path {
 
 text.axis {
     text-anchor: middle;
-    font-size: 20px;
 }
 
 text.axis.v {
     text-anchor: end;
-    font-size: 20px;
 }
 
 line.lines.m {
@@ -46,18 +37,19 @@ line.lines.t {
 text.title {
     stroke: black;
     text-anchor: middle;
-    font-size: 50px;
 }
 
 div.mainTip {
     background: rgb(7, 18, 24);
     color: white;
+    height: fit-content;
+    width: fit-content;
     position: absolute;
     text-align: center;
     font-size: 100%;
     padding: 1px 5px 2px 5px;
     border: 8px;
-    border-radius: 1px;
+    border-radius: 4px;
     bottom: inherit;
     box-shadow: 1px 1px 3px #222222;
     font-weight: bold;
@@ -66,8 +58,6 @@ div.mainTip {
     overflow: none;
     z-index: 3;
     opacity: 0;
-    width: fit-content;
-    height: fit-content;
     margin-left: -2px;
     border-width: 2px;
     border-style: solid;
@@ -116,6 +106,7 @@ div.mainTip::after {
 }
 
 svg {
-    width: auto;
-    height: auto;
+    width: 100%;
+    height: min-content;
+    font-size: 100%;
 }
