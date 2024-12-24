@@ -1,4 +1,4 @@
-import { Component,ElementRef,ChangeDetectionStrategy,OnInit } from '@angular/core';
+import { Component, ElementRef, ChangeDetectionStrategy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common'
 import { RouterOutlet } from '@angular/router';
 import { TwopiechartsComponent } from './twopiecharts/twopiecharts.component';
@@ -50,32 +50,31 @@ export interface fchart {
     styleUrl: './app.component.scss',
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit {
     constructor(private element: ElementRef) { }
-    xmax=0;
-    ymax=-1e9;
-    ymin=1e9;
-    www=0;
-    hhh=0;
+    xmax = 0;
+    ymax = -1e9;
+    ymin = 1e9;
+    www = 0;
+    hhh = 0;
     ngOnInit(): void {
-        
-        this.xmax=d3.max([this.fanChart.lines[0].values.length/4,this.xmax])??0;
-        this.fanChart.lines.forEach(d=>{
-            this.ymin=Math.min(d3.min(d.values)??0,this.ymin);
-            this.ymax=Math.max(d3.max(d.values)??0,this.ymax);
+        this.xmax = d3.max([this.fanChart.lines[0].values.length / 4, this.xmax]) ?? 0;
+        this.fanChart.lines.forEach(d => {
+            this.ymin = Math.min(d3.min(d.values) ?? 0, this.ymin);
+            this.ymax = Math.max(d3.max(d.values) ?? 0, this.ymax);
         })
-        this.fanChart.areas.forEach(d=>{
-            d.forEach(dd=>{
-                this.ymin=Math.min(this.ymin,d3.min(dd.values)??0);
-                this.ymax=Math.max(this.ymax,d3.max(dd.values)??0);
+        this.fanChart.areas.forEach(d => {
+            d.forEach(dd => {
+                this.ymin = Math.min(this.ymin, d3.min(dd.values) ?? 0);
+                this.ymax = Math.max(this.ymax, d3.max(dd.values) ?? 0);
             })
         })
-        this.www=this.element.nativeElement.getBoundingClientRect().width;
-        this.hhh=this.element.nativeElement.getBoundingClientRect().height;
-        console.log(this.element.nativeElement.getBoundingClientRect(),this.www,this.hhh);
+        this.www = this.element.nativeElement.getBoundingClientRect().width;
+        this.hhh = this.element.nativeElement.getBoundingClientRect().height;
+        console.log(this.element.nativeElement.getBoundingClientRect(), this.www, this.hhh);
     }
 
-    
+
     title = 'New Charts for Charles Stanley';
     fanChart = {
         'areas': [
