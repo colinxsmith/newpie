@@ -1,4 +1,4 @@
-import { Component,ElementRef,AfterViewInit,ChangeDetectionStrategy,OnInit } from '@angular/core';
+import { Component,ElementRef,ChangeDetectionStrategy,OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common'
 import { RouterOutlet } from '@angular/router';
 import { TwopiechartsComponent } from './twopiecharts/twopiecharts.component';
@@ -48,9 +48,9 @@ export interface fchart {
     imports: [RouterOutlet, CommonModule, TwopiechartsComponent, PctbarComponent, BarchartComponent, FanchartComponent],
     templateUrl: './app.component.html',
     styleUrl: './app.component.scss',
-    changeDetection: ChangeDetectionStrategy.Default
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AppComponent implements AfterViewInit,OnInit{
+export class AppComponent implements OnInit{
     constructor(private element: ElementRef) { }
     xmax=0;
     ymax=-1e9;
@@ -72,16 +72,7 @@ export class AppComponent implements AfterViewInit,OnInit{
         })
         this.www=this.element.nativeElement.getBoundingClientRect().width;
         this.hhh=this.element.nativeElement.getBoundingClientRect().height;
-        console.log(this.www,this.hhh);
-    }
-    ngAfterViewInit(): void {
-        setTimeout(()=>{
-            this.www=this.element.nativeElement.getBoundingClientRect().width;
-            this.hhh=this.element.nativeElement.getBoundingClientRect().height;
-        })
-        console.log(this.www,this.hhh);
-
-
+        console.log(this.element.nativeElement.getBoundingClientRect(),this.www,this.hhh);
     }
 
     
