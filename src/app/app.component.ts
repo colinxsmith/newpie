@@ -1,4 +1,4 @@
-import { Component,ElementRef,AfterViewInit } from '@angular/core';
+import { Component,ElementRef,AfterViewInit,ChangeDetectionStrategy,OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common'
 import { RouterOutlet } from '@angular/router';
 import { TwopiechartsComponent } from './twopiecharts/twopiecharts.component';
@@ -47,19 +47,18 @@ export interface fchart {
     standalone: true,
     imports: [RouterOutlet, CommonModule, TwopiechartsComponent, PctbarComponent, BarchartComponent, FanchartComponent],
     templateUrl: './app.component.html',
-    styleUrl: './app.component.scss'
+    styleUrl: './app.component.scss',
+    changeDetection: ChangeDetectionStrategy.Default
 })
-export class AppComponent implements AfterViewInit{
+export class AppComponent implements AfterViewInit,OnInit{
     constructor(private element: ElementRef) { }
     xmax=0;
     ymax=-1e9;
     ymin=1e9;
     www=0;
     hhh=0;
-    ngAfterViewInit(): void {
-        this.www=this.element.nativeElement.getBoundingClientRect().width;
-        this.hhh=this.element.nativeElement.getBoundingClientRect().height;
-        console.log(this.www,this.hhh);
+    ngOnInit(): void {
+        
         this.xmax=d3.max([this.fanChart.lines[0].values.length/4,this.xmax])??0;
         this.fanChart.lines.forEach(d=>{
             this.ymin=Math.min(d3.min(d.values)??0,this.ymin);
@@ -71,6 +70,18 @@ export class AppComponent implements AfterViewInit{
                 this.ymax=Math.max(this.ymax,d3.max(dd.values)??0);
             })
         })
+        this.www=this.element.nativeElement.getBoundingClientRect().width;
+        this.hhh=this.element.nativeElement.getBoundingClientRect().height;
+        console.log(this.www,this.hhh);
+    }
+    ngAfterViewInit(): void {
+        setTimeout(()=>{
+            this.www=this.element.nativeElement.getBoundingClientRect().width;
+            this.hhh=this.element.nativeElement.getBoundingClientRect().height;
+        })
+        console.log(this.www,this.hhh);
+
+
     }
 
     
