@@ -48,7 +48,7 @@ export interface fchart {
     imports: [RouterOutlet, CommonModule, TwopiechartsComponent, PctbarComponent, BarchartComponent, FanchartComponent],
     templateUrl: './app.component.html',
     styleUrl: './app.component.scss',
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.Default
 })
 export class AppComponent implements OnInit {
     constructor(private element: ElementRef) { }
