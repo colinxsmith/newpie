@@ -18,7 +18,11 @@ div.mainTip {
     --solid-colour: green;
     --tip-position: absolute;
     --button-colour: #a214be;
-    border-image: fill 0 / / var(--triangle-height) conic-gradient(var(--accent-colour) 0 0);
+    border-image-source: conic-gradient(var(--accent-colour) 0 0);
+    border-image-slice: fill 0;
+    border-image-width: 1;
+    border-image-outset: var(--triangle-height);
+ /*   border-image: fill 0 / / var(--triangle-height) conic-gradient(var(--accent-colour) 0 0);*/
     clip-path: polygon( 0% 100%, 0% 0%, 100% 0%, 100% 100%, min(var(--triangle-left) + var(--triangle-base) / 2, 100%) 100%, var(--triangle-left) calc(100% + var(--triangle-height)), max(var(--triangle-left) - var(--triangle-base) / 2, 0px) 100%);
     background: rgb(7, 18, 24);
     color: white;
