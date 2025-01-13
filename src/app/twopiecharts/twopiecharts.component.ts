@@ -38,6 +38,7 @@ export class TwopiechartsComponent implements OnInit {
    */
   @Input() animate = false;
   pie1: Array<d3.PieArcDatum<number | { valueOf(): number; }>> = [];
+  percentFormat = (z: number) => d3.format('.2%')(z / 100);
   figureArcs = d3.arc();
   ngOnInit() {
     //    console.log(this.portfolioData);
@@ -90,7 +91,7 @@ export class TwopiechartsComponent implements OnInit {
         .text(this.title);
       d3.select(this.element.nativeElement).selectAll('path.arc').select('title')
         .text((_, i) => {
-          return `${this.paths[i].name} index is ${i}, rank is ${this.paths[i].rank}, value is ${this.paths[i].value}`;
+          return `${this.paths[i].name} index is ${i}, rank is ${this.paths[i].rank}, value is ${this.percentFormat(this.paths[i].value)}`;
         });
       d3.select(this.element.nativeElement).selectAll('path.arc')
         .transition().duration(1000)
@@ -111,7 +112,7 @@ export class TwopiechartsComponent implements OnInit {
     const svg = d3.select(this.element.nativeElement).select('div.mainTip');
     const here = d3.select(e.target as HTMLElement & EventTarget);
     if (inout) {
-      const x = e.pageX - 100;
+      const x = e.pageX;
       const y = e.pageY;
       here.style('opacity', 0.5);
       svg
@@ -119,7 +120,11 @@ export class TwopiechartsComponent implements OnInit {
         .style('left', `${x}px`)
         .style('top', `${y}px`)
         .style('opacity', '1')
-        .html(`(${x},${y})${this.paths[i].name}   index:${this.pie1[i].index} ranking :${this.paths[i].rank} value :${this.paths[i].value}`);
+        .style('--accent-colour', 'black')
+        .style('--triangle-base', '11px')
+        .style('--triangle-height', '11px')
+        .style('--triangle-left', `50%`)
+        .html(`(${x},${y})${this.paths[i].name}   index:${this.pie1[i].index} ranking :${this.paths[i].rank} value :${this.percentFormat(this.paths[i].value)}`);
       /* .style('--ff', '110%')
        .style('--xx', xx + 'px')
        .style('--yy', yy - this.height * 0.15 + 'px')

@@ -11,43 +11,46 @@ text.title {
 }
 
 div.mainTip {
+    --triangle-base: 15px;
+    --triangle-height: 15px;
+    --triangle-left: 50%;
+    --accent-colour: #bbc8ce;
+    --solid-colour: green;
+    --tip-position: absolute;
+    --button-colour: #a214be;
+    border-image: fill 0 / / var(--triangle-height) conic-gradient(var(--accent-colour) 0 0);
+    clip-path: polygon( 0% 100%, 0% 0%, 100% 0%, 100% 100%, min(var(--triangle-left) + var(--triangle-base) / 2, 100%) 100%, var(--triangle-left) calc(100% + var(--triangle-height)), max(var(--triangle-left) - var(--triangle-base) / 2, 0px) 100%);
     background: rgb(7, 18, 24);
     color: white;
     position: absolute;
+    left: 0;
+    top: 0;
     text-align: center;
     font-size: 100%;
     padding: 1px 5px 2px 5px;
-    border: 8px;
-    border-radius: 4px;
     bottom: inherit;
     box-shadow: 1px 1px 3px #222222;
     font-weight: bold;
     font-family: Open Sans, sans-serif;
     pointer-events: none;
     overflow: none;
-    z-index: 3;
-    opacity: 0;
     margin-left: -2px;
-    border-width: 2px;
-    border-style: solid;
-    border-color: orchid rgb(119, 247, 119) rgb(96, 96, 230) rgb(201, 81, 81);
+    z-index: 10;
+    opacity: 0;
+    transform: translate(-50%, -20px);
 }
 
-div.mainTip::after {
-    content: '';
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    margin-left: -10px;
-    border-width: 10px;
-    border-style: groove;
-    border-color: #555 transparent transparent transparent;
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
 }
 
 [rogue-title]:hover:after {
     opacity: 1;
     transition: all 0.1s ease 0.5s;
     visibility: visible;
+    height: fit-content;
 }
 
 [rogue-title]:after {
