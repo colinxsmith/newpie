@@ -1,0 +1,89 @@
+text.title {
+    stroke: black;
+    text-anchor: middle;
+}
+
+rect.position {
+    fill: none;
+    stroke: rgb(187, 200, 206);
+    stroke-width: 15px;
+    opacity: 1;
+}
+
+div.mainTip {
+    --triangle-base: 15px;
+    --triangle-height: 15px;
+    --triangle-left: 50%;
+    --accent-colour: #bbc8ce;
+    --solid-colour: green;
+    --tip-position: absolute;
+    --button-colour: #a214be;
+    border-image-source: conic-gradient(var(--accent-colour) 0 0);
+    border-image-slice: fill 0;
+    border-image-width: 1;
+    border-image-outset: var(--triangle-height);
+    /*   border-image: fill 0 / / var(--triangle-height) conic-gradient(var(--accent-colour) 0 0);*/
+    clip-path: polygon( 0% 100%, 0% 0%, 100% 0%, 100% 100%, min(var(--triangle-left) + var(--triangle-base) / 2, 100%) 100%, var(--triangle-left) calc(100% + var(--triangle-height)), max(var(--triangle-left) - var(--triangle-base) / 2, 0px) 100%);
+    background: rgb(7, 18, 24);
+    color: white;
+    position: absolute;
+    left: 0;
+    top: 0;
+    text-align: center;
+    font-size: 100%;
+    padding: 1px 5px 2px 5px;
+    bottom: inherit;
+    box-shadow: 1px 1px 3px #222222;
+    font-weight: bold;
+    font-family: Open Sans, sans-serif;
+    pointer-events: none;
+    overflow: none;
+    margin-left: -2px;
+    z-index: 10;
+    opacity: 0;
+    transform: translate(-50%, -20px);
+}
+
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+[rogue-title]:hover:after {
+    opacity: 1;
+    transition: all 0.1s ease 0.5s;
+    visibility: visible;
+    height: fit-content;
+}
+
+[rogue-title]:after {
+    content: attr(rogue-title);
+    background-color: #bbc8ce;
+    color: black;
+    font-size: 80%;
+    --x: 70%;
+    --y: 90%;
+    height: 3%;
+    position: absolute;
+    padding: 1px 5px 2px 5px;
+    bottom: -1.6em;
+    left: var(--xx);
+    top: var(--yy);
+    white-space: nowrap;
+    box-shadow: 1px 1px 1px #222222;
+    opacity: 0;
+    border: 1px solid #111111;
+    z-index: 99999;
+    visibility: hidden;
+}
+
+[rogue-title] {
+    position: relative;
+}
+
+svg {
+    width: 100%;
+    height: min-content;
+    font-size: 100%;
+}

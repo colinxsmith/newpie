@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Response</title>
+</head>
+
+<div class="mainTip"></div>
+<div *ngIf="DATA" title="histogram" rogue-title="response histogram" style="margin: 2px;">
+    <svg xmlns="http://www.w3.org/2000/svg">
+        <text class="title"  [style.font-size]="'large'" [attr.x]="boxsizeH/2" [attr.y]="boxsizeV*9e-2">{{title}}</text>
+        <g >
+            <rect class="position" [style.opacity]="squareBorderOpacity" [attr.width]="boxsizeH"
+                [attr.height]="boxsizeV" [attr.x]="0" [attr.y]="0">
+                <title>border set up</title>
+            </rect>
+        </g>
+    </svg>
+</div>
+
+</html>
