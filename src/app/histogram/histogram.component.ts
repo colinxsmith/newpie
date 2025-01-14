@@ -15,26 +15,28 @@ export class HistogramComponent implements OnInit {
   boxsizeH = 900;
   scaleX = d3.scaleLinear();
   scaleY = d3.scaleLinear();
-  title='Response Histogram';
-  squareBorderOpacity=1;
+  heightToWidth = 0.35;
+  title = 'Response Histogram';
+  squareBorderOpacity = 1;
   ngOnInit(): void {
     console.log(this.DATA)
-    setTimeout(()=>{
+    setTimeout(() => {
       this.newDimensions();
-    },0);
+    }, 0);
   }
-  newDimensions(){
+  newDimensions() {
     const drawthis = d3.select(this.element.nativeElement);
-    console.log(this.element.nativeElement.offsetWidth,this.element.nativeElement.offsetHeight)
     const here = (drawthis.node().parentElement as HTMLElement).getBoundingClientRect();
+    //  const boxsizeH =((drawthis.select('#histo').node() as HTMLElement).parentElement?.parentElement?.parentElement as HTMLElement).getBoundingClientRect().width;// here.width;
+    // const boxsizeV = ((drawthis.select('#histo').node() as HTMLElement).parentElement?.parentElement?.parentElement as HTMLElement).getBoundingClientRect().height;//Math.max(boxsizeH * this.heightToWidth, here.height);
     const boxsizeH = here.width;
-    const boxsizeV = here.height;
+    const boxsizeV = Math.max(boxsizeH * this.heightToWidth, here.height);
     this.boxsizeH = boxsizeH;
-    this.boxsizeV = boxsizeH*0.5;
+    this.boxsizeV = boxsizeV;
     drawthis.select('svg')
       .attr('height', boxsizeV)
       .attr('width', boxsizeH);
-    
-    console.log('Box dimensions:',boxsizeH,boxsizeV)
+
+    console.log('Box dimensions:', boxsizeH, boxsizeV)
   }
 }

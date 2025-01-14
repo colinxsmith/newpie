@@ -8,7 +8,7 @@
 </head>
 
 <div class="mainTip"></div>
-<div *ngIf="DATA" title="histogram" rogue-title="response histogram" style="margin: 2px;">
+<div *ngIf="DATA" id="histo" title="histogram"  rogue-title="response histogram" style="margin: 2px;">
     <svg xmlns="http://www.w3.org/2000/svg">
         <text class="title"  [style.font-size]="'large'" [attr.x]="boxsizeH/2" [attr.y]="boxsizeV*9e-2">{{title}}</text>
         <g >

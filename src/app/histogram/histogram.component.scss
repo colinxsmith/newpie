@@ -6,7 +6,7 @@ text.title {
 rect.position {
     fill: none;
     stroke: rgb(187, 200, 206);
-    stroke-width: 15px;
+    stroke-width: 5px;
     opacity: 1;
 }
 
@@ -83,7 +83,7 @@ div.mainTip {
 }
 
 svg {
-    width: 100%;
+    width:auto;
     height: min-content;
     font-size: 100%;
 }
