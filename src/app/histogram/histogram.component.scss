@@ -6,7 +6,7 @@ text.title {
 rect.position {
     fill: none;
     stroke: rgb(187, 200, 206);
-    stroke-width: 5px;
+    stroke-width: 20px;
     opacity: 1;
 }
 
@@ -62,20 +62,22 @@ div.mainTip {
     background-color: #bbc8ce;
     color: black;
     font-size: 80%;
-    --x: 70%;
-    --y: 90%;
     height: 3%;
     position: absolute;
     padding: 1px 5px 2px 5px;
     bottom: -1.6em;
     left: var(--xx);
     top: var(--yy);
+    --trans:translate(0,0);
     white-space: nowrap;
     box-shadow: 1px 1px 1px #222222;
     opacity: 0;
     border: 1px solid #111111;
     z-index: 99999;
     visibility: hidden;
+    border-radius: 0 3px 3px 0;
+    border-width:0 2px 2px 0;
+    transform: var(--trans);
 }
 
 [rogue-title] {

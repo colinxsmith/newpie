@@ -8,13 +8,13 @@
 </head>
 
 <div class="mainTip"></div>
-<div *ngIf="DATA" id="histo" title="histogram"  rogue-title="response histogram" style="margin: 2px;">
+<div *ngIf="DATA" id="histo" [title]="title" (mousedown)="divover($event,'Check the border',true)" (mouseleave)="divover($event)" [attr.rogue-title]="title" [style.--xx]="staticPosition.x" [style.--yy]="staticPosition.y" style="margin: 2px;">
     <svg xmlns="http://www.w3.org/2000/svg">
         <text class="title"  [style.font-size]="'large'" [attr.x]="boxsizeH/2" [attr.y]="boxsizeV*9e-2">{{title}}</text>
-        <g >
-            <rect class="position" [style.opacity]="squareBorderOpacity" [attr.width]="boxsizeH"
-                [attr.height]="boxsizeV" [attr.x]="0" [attr.y]="0">
-                <title>border set up</title>
+        <g>
+            <rect class="position" (mousemove)="divover($event,'Check the border',true)" (mouseleave)="divover($event)" [style.opacity]="squareBorderOpacity" [attr.width]="boxsizeH"
+                [attr.height]="boxsizeV" [attr.x]="rim" [attr.y]="rim" >
+                <title>Border check</title>
             </rect>
         </g>
     </svg>
