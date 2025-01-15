@@ -27,18 +27,19 @@ export class HistogramComponent implements OnInit {
     }, 0);
   }
   divover(s: MouseEvent, newtitle = '', inside = false) {
+    const x = s.offsetX;
+    const y = s.offsetY;
     const area = d3.select(this.element.nativeElement).select('#histo');
+    console.log(area)
     const x1 = this.staticPosition.x;
     const y1 = this.staticPosition.y;
     const text1 = this.title;
     console.log(x1, y1);
     if (inside) {
-      const x = s.offsetX;
-      const y = s.offsetY;
       area
         .style('--xx', `${x}px`)
         .style('--yy', `${y}px`)
-        .style('--trans','translate(-50%,0)')
+        .style('--trans','translate(-50%,0%) rotate(90deg)')
         .attr('rogue-title', newtitle)
         ;
       console.log(x, y, newtitle)
@@ -47,7 +48,7 @@ export class HistogramComponent implements OnInit {
       area
         .style('--xx', `${x1}`)
         .style('--yy', `${y1}`)
-        .style('--trans','translate(0,0)')
+        .style('--trans','translate(-100%,0%) rotate(45deg)')
         .attr('rogue-title', text1)
         ;
     }
