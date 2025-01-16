@@ -25,8 +25,8 @@ div.mainTip {
     border-image-width: 1;
     border-image-outset: var(--triangle-height);
     /*   border-image: fill 0 / / var(--triangle-height) conic-gradient(var(--accent-colour) 0 0);*/
-    clip-path: polygon( 0% 100%, 0% 0%, 100% 0%, 100% 100%, min(var(--triangle-left) + var(--triangle-base) / 2, 100%) 100%, var(--triangle-left) calc(100% + var(--triangle-height)), max(var(--triangle-left) - var(--triangle-base) / 2, 0px) 100%);
-    background: rgb(7, 18, 24);
+    clip-path: polygon(0% 100%, 0% 0%, 100% 0%, 100% 100%, min(var(--triangle-left) + var(--triangle-base) / 2, 100%) 100%, var(--triangle-left) calc(100% + var(--triangle-height)), max(var(--triangle-left) - var(--triangle-base) / 2, 0px) 100%);
+    //  background: rgb(7, 18, 24);
     color: white;
     position: absolute;
     left: 0;
@@ -43,7 +43,7 @@ div.mainTip {
     margin-left: -2px;
     z-index: 10;
     opacity: 0;
-    transform: translate(-50%, -20px);
+    transform: translate(-50%, calc(0px - 100% - var(--triangle-height)));
 }
 
 * {
@@ -77,7 +77,7 @@ div.mainTip {
     z-index: 99999;
     visibility: hidden;
     border-radius: 0 3px 3px 0;
-    border-width:0 2px 2px 0;
+    border-width: 0 2px 2px 0;
     transform: var(--trans);
 }
 
@@ -86,7 +86,7 @@ div.mainTip {
 }
 
 svg {
-    width:auto;
+    width: auto;
     height: min-content;
     font-size: 100%;
 }
