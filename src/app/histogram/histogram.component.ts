@@ -23,6 +23,11 @@ export class HistogramComponent implements OnInit {
   ngOnInit(): void {
     console.log(this.DATA)
     setTimeout(() => {
+      d3.select(this.element.nativeElement).select('#histo')
+        .style('--xx', `${this.staticPosition.x}px`)
+        .style('--yy', `${this.staticPosition.y}px`)
+        .style('--trans', 'translate(-10%,0%) rotate(10deg)')
+        ;
       this.newDimensions();
     }, 0);
   }
@@ -33,25 +38,29 @@ export class HistogramComponent implements OnInit {
     console.log(area)
     const x1 = this.staticPosition.x;
     const y1 = this.staticPosition.y;
-    const text1 = this.title;
-    console.log(x1, y1);
-    if (inside) {
-      area
-        .style('--xx', `${x}px`)
-        .style('--yy', `${y}px`)
-        .style('--trans','translate(-50%,0%) rotate(90deg)')
-        .attr('rogue-title', newtitle)
-        ;
-      console.log(x, y, newtitle)
-    }
-    else {
-      area
-        .style('--xx', `${x1}`)
-        .style('--yy', `${y1}`)
-        .style('--trans','translate(-100%,0%) rotate(45deg)')
-        .attr('rogue-title', text1)
-        ;
-    }
+    const text1 = newtitle==''?this.title:newtitle;
+    setTimeout(() => {
+      console.log('====================');
+      if (inside) {
+        area
+          .style('--xx', `${x}px`)
+          .style('--yy', `${y}px`)
+          .style('--trans', 'translate(-50%,0%) rotate(0deg)')
+          .attr('rogue-title', newtitle)
+          ;
+        console.log(x, y, newtitle, inside)
+      }
+      else {
+        area
+          .style('--xx', `${x1}`)
+          .style('--yy', `${y1}`)
+          .style('--trans', 'translate(-10%,0%) rotate(-10deg)')
+          .attr('rogue-title', text1)
+          ;
+        console.log(x1, y1, text1, inside);
+      }
+      console.log('++++++++++++++++++++');
+    }, 0);
   }
   newDimensions() {
     const drawthis = d3.select(this.element.nativeElement);
