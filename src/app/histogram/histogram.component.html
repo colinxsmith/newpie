@@ -8,7 +8,7 @@
 </head>
 
 <div class="mainTip"></div>
-<div *ngIf="DATA" (mouseenter)="divover($event,title)" (mouseleave)="divover($event,title)"  id="histo" [title]="title" [attr.rogue-title]="title" style="margin: 2px;">
+<div (mouseenter)="divover($event,title)" (mouseleave)="divover($event,title)"  id="histo" [title]="title" [attr.rogue-title]="title" style="margin: 2px;">
     <svg xmlns="http://www.w3.org/2000/svg">
         <g (mouseover)="divover($event,'title1',true)" (mouseleave)="divover($event)" >
             <title>title1</title>
