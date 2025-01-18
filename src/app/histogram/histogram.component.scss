@@ -40,17 +40,18 @@ div.mainTip {
     font-family: Open Sans, sans-serif;
     pointer-events: none;
     overflow: none;
-    margin-left: -2px;
     z-index: 10;
     opacity: 0;
     transform: translate(-50%, calc(0px - 100% - var(--triangle-height)));
 }
 
+/*
 * {
     margin: 0px;
     padding: 0px;
     box-sizing: border-box;
 }
+    */
 
 [rogue-title]:hover:after {
     opacity: 1;
