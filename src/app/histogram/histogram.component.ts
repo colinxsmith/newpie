@@ -37,6 +37,7 @@ export class HistogramComponent implements OnInit {
     const area = d3.select(this.element.nativeElement).select('#histo');
     const x = s.offsetX;
     const y = s.offsetY;
+    const screenWidth=(here.node() as HTMLElement).getBoundingClientRect().width;
     const xp = s.pageX;
     const yp = s.pageY;
     const x1 = this.staticPosition.x;
@@ -54,12 +55,12 @@ export class HistogramComponent implements OnInit {
           .style('--accent-colour', 'black')
           .style('opacity', 1)
           .style('transform', `translate(calc(max(0% , (50% - ${x}px)) - 50%) , calc(0px - 100% - var(--triangle-height))) rotate(0deg)`)
-          .html(`offset: (${x} ${y}) and page: (${xp} ${yp}). Difference: (${xp - x} ${yp - y})`)
+          .html(`offset: (${x} ${y}) and page: (${xp} ${yp}). Difference: (${xp - x} ${yp - y}). Screen width: ${screenWidth}, edge conditions: ${x<screenWidth*0.05} ${x>screenWidth*0.95}`)
           ;
         area
           .style('--xx', `${x}px`)
           .style('--yy', `${y}px`)
-          .style('--trans', `translate(calc(max(0% , (50% - ${x}px)) - 50%) , 0%) rotate(0deg)`)
+          .style('--trans', x<screenWidth*0.05?`translate(0%, 0%) rotate(0deg)`:x>screenWidth*0.95?`translate(-100%, 0%) rotate(0deg)`:`translate(-50%, 0%) rotate(0deg)`)
           .attr('rogue-title', newtitle)
           ;
         console.log(x, y, newtitle, inside)
