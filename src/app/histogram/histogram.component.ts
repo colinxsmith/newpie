@@ -43,8 +43,8 @@ export class HistogramComponent implements OnInit {
     const x1 = this.staticPosition.x;
     const y1 = this.staticPosition.y;
     const text1 = newtitle == '' ? this.title : newtitle;
-    console.log(x, y, xp, yp, xp - x, yp - y)
-    console.log((blackTip.node() as HTMLElement)?.getBoundingClientRect());
+  //  console.log(x, y, xp, yp, xp - x, yp - y)
+  //  console.log((blackTip.node() as HTMLElement)?.getBoundingClientRect());
     setTimeout(() => {
       console.log('====================');
       if (inside) {
@@ -63,7 +63,7 @@ export class HistogramComponent implements OnInit {
           .style('--trans', x<screenWidth*0.05?`translate(0%, 0%) rotate(0deg)`:x>screenWidth*0.95?`translate(-100%, 0%) rotate(0deg)`:`translate(-50%, 0%) rotate(0deg)`)
           .attr('rogue-title', newtitle)
           ;
-        console.log(x, y, newtitle, inside)
+    //    console.log(x, y, newtitle, inside)
       }
       else {
         here.style('opacity', 1);
