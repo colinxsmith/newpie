@@ -10,7 +10,6 @@ import * as d3 from 'd3';
 })
 export class HistogramComponent implements OnInit {
   constructor(private element: ElementRef) { }
-  @Input() DATA = {};
   boxsizeV = 900;
   boxsizeH = 900;
   rim = 10;
@@ -21,7 +20,6 @@ export class HistogramComponent implements OnInit {
   staticPosition = { x: '2.5%', y: '5%' };
   squareBorderOpacity = 1;
   ngOnInit(): void {
-    console.log(this.DATA)
     setTimeout(() => {
       d3.select(this.element.nativeElement).select('#histo')
         .style('--xx', `${this.staticPosition.x}px`)
