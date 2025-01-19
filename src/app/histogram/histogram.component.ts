@@ -10,6 +10,7 @@ import * as d3 from 'd3';
 })
 export class HistogramComponent implements OnInit {
   constructor(private element: ElementRef) { }
+  @Input() DATA = {};
   boxsizeV = 900;
   boxsizeH = 900;
   rim = 10;
@@ -20,6 +21,7 @@ export class HistogramComponent implements OnInit {
   staticPosition = { x: '2.5%', y: '5%' };
   squareBorderOpacity = 1;
   ngOnInit(): void {
+    console.log(this.DATA)
     setTimeout(() => {
       d3.select(this.element.nativeElement).select('#histo')
         .style('--xx', `${this.staticPosition.x}px`)
@@ -30,39 +32,42 @@ export class HistogramComponent implements OnInit {
     }, 0);
   }
   divover(s: MouseEvent, newtitle = '', inside = false) {
-    const blackTip=d3.select(this.element.nativeElement).select('div.mainTip');
-    const here=d3.select(s.target as HTMLElement&EventTarget);
+    const blackTip = d3.select(this.element.nativeElement).select('div.mainTip');
+    const here = d3.select(s.target as HTMLElement & EventTarget);
     const area = d3.select(this.element.nativeElement).select('#histo');
     const x = s.offsetX;
     const y = s.offsetY;
-    const xp=s.pageX;
-    const yp=s.pageY;
+    const screenWidth=(here.node() as HTMLElement).getBoundingClientRect().width;
+    const xp = s.pageX;
+    const yp = s.pageY;
     const x1 = this.staticPosition.x;
     const y1 = this.staticPosition.y;
-    const text1 = newtitle==''?this.title:newtitle;
-    console.log(x,y,xp,yp,xp-x,yp-y)
+    const text1 = newtitle == '' ? this.title : newtitle;
+  //  console.log(x, y, xp, yp, xp - x, yp - y)
+  //  console.log((blackTip.node() as HTMLElement)?.getBoundingClientRect());
     setTimeout(() => {
       console.log('====================');
       if (inside) {
-        here.style('opacity',0.5);
+        here.style('opacity', 0.5);
         blackTip
-        .style('left',`${xp}px`)
-        .style('top',`${yp}px`)
-        .style('--accent-colour','black')
-        .style('opacity',1)
-        .html(`offset: (${x} ${y}) and page: (${xp} ${yp}). Difference: (${xp-x} ${yp-y})`)
-        ;
+          .style('left', `${xp}px`)
+          .style('top', `${yp}px`)
+          .style('--accent-colour', 'black')
+          .style('opacity', 1)
+          .style('transform', `translate(calc(max(0% , (50% - ${x}px)) - 50%) , calc(0px - 100% - var(--triangle-height))) rotate(0deg)`)
+          .html(`offset: (${x} ${y}) and page: (${xp} ${yp}). Difference: (${xp - x} ${yp - y}). Screen width: ${screenWidth}, edge conditions: ${x<screenWidth*0.05} ${x>screenWidth*0.95}`)
+          ;
         area
           .style('--xx', `${x}px`)
           .style('--yy', `${y}px`)
-          .style('--trans', 'translate(-50%,0%) rotate(0deg)')
+          .style('--trans', x<screenWidth*0.05?`translate(0%, 0%) rotate(0deg)`:x>screenWidth*0.95?`translate(-100%, 0%) rotate(0deg)`:`translate(-50%, 0%) rotate(0deg)`)
           .attr('rogue-title', newtitle)
           ;
-        console.log(x, y, newtitle, inside)
+    //    console.log(x, y, newtitle, inside)
       }
       else {
-        here.style('opacity',1);
-        blackTip.style('opacity',0);
+        here.style('opacity', 1);
+        blackTip.style('opacity', 0);
         area
           .style('--xx', `${x1}`)
           .style('--yy', `${y1}`)
