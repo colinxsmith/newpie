@@ -1,6 +1,25 @@
 text.title {
-    stroke: black;
-    text-anchor: middle;
+    fill: black;
+    text-anchor: start;
+    font-size: larger;
+}
+
+text.axis {
+    font-size: small;
+    fill: grey
+}
+
+rect.bars {
+    fill: rgb(105, 194, 255);
+}
+
+rect.histbox {
+    fill: black;
+}
+
+line.bars {
+    stroke: rgb(105, 194, 255);
+    stroke-width: 3;
 }
 
 rect.position {
@@ -44,6 +63,7 @@ div.mainTip {
     opacity: 0;
     transform: translate(-50%, calc(0px - 100% - var(--triangle-height)));
 }
+
 
 /*
 * {

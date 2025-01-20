@@ -77,16 +77,16 @@ export class AppComponent implements OnInit {
 
     title = 'New Charts for Charles Stanley';
     responseHistogram={
-        "current_portfolio": {
-          "target_return": 0.02,
-          "expected_risk": 0.03887405205122564,
-          "expected_return": 0.02703045938,
-          "mc.mean": 0.026679098166893442,
-          "mc.std": 0.017572062648104746,
-          "mc.lower": -0.007096018695513916,
-          "mc.upper": 0.06097441020001242,
-          "mc.probability": 0.6419,
-          "fc.area_ids": [
+        'current_portfolio': {
+          'target_return': 0.02,
+          'expected_risk': 0.03887405205122564,
+          'expected_return': 0.02703045938,
+          'mc.mean': 0.026679098166893442,
+          'mc.std': 0.017572062648104746,
+          'mc.lower': -0.007096018695513916,
+          'mc.upper': 0.06097441020001242,
+          'mc.probability': 0.6419,
+          'fc.area_ids': [
             0,
             1,
             2,
@@ -100,7 +100,7 @@ export class AppComponent implements OnInit {
             1,
             0
           ],
-          "fc.area_rgb": [
+          'fc.area_rgb': [
             [
               254,
               230,
@@ -162,7 +162,7 @@ export class AppComponent implements OnInit {
               222
             ]
           ],
-          "fc.area_lines": [
+          'fc.area_lines': [
             [
               100,
               96.93621478569221,
@@ -440,7 +440,7 @@ export class AppComponent implements OnInit {
               134.43877485376058
             ]
           ],
-          "fc.legend_ids": [
+          'fc.legend_ids': [
             0,
             1,
             2,
@@ -453,7 +453,7 @@ export class AppComponent implements OnInit {
             1,
             0
           ],
-          "fc.legend_rgb": [
+          'fc.legend_rgb': [
             [
               254,
               230,
@@ -510,20 +510,20 @@ export class AppComponent implements OnInit {
               222
             ]
           ],
-          "fc.legend_labels": [
-            "2.5 - 5 Percentile",
-            "5 - 15 Percentile",
-            "15 - 25 Percentile",
-            "25 - 35 Percentile",
-            "35 - 45 Percentile",
-            "45 - 55 Percentile",
-            "55 - 65 Percentile",
-            "65 - 75 Percentile",
-            "75 - 85 Percentile",
-            "85 - 95 Percentile",
-            "95 - 97.5 Percentile"
+          'fc.legend_labels': [
+            '2.5 - 5 Percentile',
+            '5 - 15 Percentile',
+            '15 - 25 Percentile',
+            '25 - 35 Percentile',
+            '35 - 45 Percentile',
+            '45 - 55 Percentile',
+            '55 - 65 Percentile',
+            '65 - 75 Percentile',
+            '75 - 85 Percentile',
+            '85 - 95 Percentile',
+            '95 - 97.5 Percentile'
           ],
-          "fc.legend_lower": [
+          'fc.legend_lower': [
             -0.007096018695513916,
             -0.0020032227811582915,
             0.008146522880328078,
@@ -536,7 +536,7 @@ export class AppComponent implements OnInit {
             0.045119968118823135,
             0.05561624447862116
           ],
-          "fc.legend_upper": [
+          'fc.legend_upper': [
             -0.0020032227811582915,
             0.008146522880328078,
             0.01437077183188712,
@@ -549,9 +549,9 @@ export class AppComponent implements OnInit {
             0.05561624447862116,
             0.06097441020001242
           ],
-          "fc.y_min": 80,
-          "fc.y_max": 140,
-          "fc.mean_line": [
+          'fc.y_min': 80,
+          'fc.y_max': 140,
+          'fc.mean_line': [
             100,
             100.73763147967334,
             101.42821793145515,
@@ -574,8 +574,8 @@ export class AppComponent implements OnInit {
             113.32242279670433,
             114.07056752124312
           ],
-          "fc.mean_line_legend_value": 0.026679098166893345,
-          "fc.target_line": [
+          'fc.mean_line_legend_value': 0.026679098166893345,
+          'fc.target_line': [
             100,
             100.49629315732038,
             100.99504938362078,
@@ -598,8 +598,8 @@ export class AppComponent implements OnInit {
             109.86283856974046,
             110.40808032
           ],
-          "fc.target_line_legend_value": 0.02,
-          "fc.base_line": [
+          'fc.target_line_legend_value': 0.02,
+          'fc.base_line': [
             100,
             100,
             100,
@@ -622,8 +622,8 @@ export class AppComponent implements OnInit {
             100,
             100
           ],
-          "fc.base_line_legend_value": 0,
-          "hist.bin_values": [
+          'fc.base_line_legend_value': 0,
+          'hist.bin_values': [
             1,
             3,
             7,
@@ -652,7 +652,7 @@ export class AppComponent implements OnInit {
             3,
             2
           ],
-          "hist.bin_edges": [
+          'hist.bin_edges': [
             -4,
             -3.5,
             -3,
@@ -682,41 +682,41 @@ export class AppComponent implements OnInit {
             9,
             9.5
           ],
-          "hist.base_line": [
+          'hist.base_line': [
             0,
             445
           ],
-          "hist.target_line": [
+          'hist.target_line': [
             0.02,
             445
           ],
-          "hist.mean_line": [
+          'hist.mean_line': [
             2.6679098166893445,
             1117
           ],
-          "hist.lower_line": [
+          'hist.lower_line': [
             -0.7096018695513916,
             170
           ],
-          "hist.upper_line": [
+          'hist.upper_line': [
             6.097441020001242,
             143
           ],
-          "hist.x_min": -4,
-          "hist.x_max": 11,
-          "hist.y_min": 0,
-          "hist.y_max": 1200
+          'hist.x_min': -4,
+          'hist.x_max': 11,
+          'hist.y_min': 0,
+          'hist.y_max': 1200
         },
-        "proposed_portfolio": {
-          "target_return": 0.02,
-          "expected_risk": 0.04000004808145082,
-          "expected_return": 0.03012682825196354,
-          "mc.mean": 0.029815876071933468,
-          "mc.std": 0.018146004340373254,
-          "mc.lower": -0.004980574533153722,
-          "mc.upper": 0.06510315765204944,
-          "mc.probability": 0.6985,
-          "fc.area_ids": [
+        'proposed_portfolio': {
+          'target_return': 0.02,
+          'expected_risk': 0.04000004808145082,
+          'expected_return': 0.03012682825196354,
+          'mc.mean': 0.029815876071933468,
+          'mc.std': 0.018146004340373254,
+          'mc.lower': -0.004980574533153722,
+          'mc.upper': 0.06510315765204944,
+          'mc.probability': 0.6985,
+          'fc.area_ids': [
             0,
             1,
             2,
@@ -730,7 +730,7 @@ export class AppComponent implements OnInit {
             1,
             0
           ],
-          "fc.area_rgb": [
+          'fc.area_rgb': [
             [
               254,
               230,
@@ -792,7 +792,7 @@ export class AppComponent implements OnInit {
               222
             ]
           ],
-          "fc.area_lines": [
+          'fc.area_lines': [
             [
               100,
               96.93906867880597,
@@ -1070,7 +1070,7 @@ export class AppComponent implements OnInit {
               137.0750336212905
             ]
           ],
-          "fc.legend_ids": [
+          'fc.legend_ids': [
             0,
             1,
             2,
@@ -1083,7 +1083,7 @@ export class AppComponent implements OnInit {
             1,
             0
           ],
-          "fc.legend_rgb": [
+          'fc.legend_rgb': [
             [
               254,
               230,
@@ -1140,20 +1140,20 @@ export class AppComponent implements OnInit {
               222
             ]
           ],
-          "fc.legend_labels": [
-            "2.5 - 5 Percentile",
-            "5 - 15 Percentile",
-            "15 - 25 Percentile",
-            "25 - 35 Percentile",
-            "35 - 45 Percentile",
-            "45 - 55 Percentile",
-            "55 - 65 Percentile",
-            "65 - 75 Percentile",
-            "75 - 85 Percentile",
-            "85 - 95 Percentile",
-            "95 - 97.5 Percentile"
+          'fc.legend_labels': [
+            '2.5 - 5 Percentile',
+            '5 - 15 Percentile',
+            '15 - 25 Percentile',
+            '25 - 35 Percentile',
+            '35 - 45 Percentile',
+            '45 - 55 Percentile',
+            '55 - 65 Percentile',
+            '65 - 75 Percentile',
+            '75 - 85 Percentile',
+            '85 - 95 Percentile',
+            '95 - 97.5 Percentile'
           ],
-          "fc.legend_lower": [
+          'fc.legend_lower': [
             -0.004980574533153722,
             0.000012330025135987278,
             0.010757576116425282,
@@ -1166,7 +1166,7 @@ export class AppComponent implements OnInit {
             0.048950592029268956,
             0.05977614776370417
           ],
-          "fc.legend_upper": [
+          'fc.legend_upper': [
             0.000012330025135987278,
             0.010757576116425282,
             0.01717768406424608,
@@ -1179,9 +1179,9 @@ export class AppComponent implements OnInit {
             0.05977614776370417,
             0.06510315765204944
           ],
-          "fc.y_min": 80,
-          "fc.y_max": 140,
-          "fc.mean_line": [
+          'fc.y_min': 80,
+          'fc.y_max': 140,
+          'fc.mean_line': [
             100,
             100.8189504553436,
             101.58602757977295,
@@ -1204,8 +1204,8 @@ export class AppComponent implements OnInit {
             114.97516918673789,
             115.82382791700942
           ],
-          "fc.mean_line_legend_value": 0.02981587607193337,
-          "fc.target_line": [
+          'fc.mean_line_legend_value': 0.02981587607193337,
+          'fc.target_line': [
             100,
             100.49629315732038,
             100.99504938362078,
@@ -1228,8 +1228,8 @@ export class AppComponent implements OnInit {
             109.86283856974046,
             110.40808032
           ],
-          "fc.target_line_legend_value": 0.02,
-          "fc.base_line": [
+          'fc.target_line_legend_value': 0.02,
+          'fc.base_line': [
             100,
             100,
             100,
@@ -1252,8 +1252,8 @@ export class AppComponent implements OnInit {
             100,
             100
           ],
-          "fc.base_line_legend_value": 0,
-          "hist.bin_values": [
+          'fc.base_line_legend_value': 0,
+          'hist.bin_values': [
             1,
             2,
             6,
@@ -1284,7 +1284,7 @@ export class AppComponent implements OnInit {
             3,
             1
           ],
-          "hist.bin_edges": [
+          'hist.bin_edges': [
             -4,
             -3.5,
             -3,
@@ -1316,44 +1316,44 @@ export class AppComponent implements OnInit {
             10,
             10.5
           ],
-          "hist.base_line": [
+          'hist.base_line': [
             0,
             344
           ],
-          "hist.target_line": [
+          'hist.target_line': [
             0.02,
             344
           ],
-          "hist.mean_line": [
+          'hist.mean_line': [
             2.981587607193347,
             1063
           ],
-          "hist.lower_line": [
+          'hist.lower_line': [
             -0.49805745331537227,
             249
           ],
-          "hist.upper_line": [
+          'hist.upper_line': [
             6.510315765204944,
             120
           ],
-          "hist.x_min": -4,
-          "hist.x_max": 11,
-          "hist.y_min": 0,
-          "hist.y_max": 1200
+          'hist.x_min': -4,
+          'hist.x_max': 11,
+          'hist.y_min': 0,
+          'hist.y_max': 1200
         },
-        "active_portfolio": {
-          "target_return": 0.02,
-          "expected_risk": 0.0011259960302251806,
-          "expected_return": 0.0030963688719635417,
-          "mc.mean": 0.003136777905040026,
-          "mc.std": 0.0005739416922685078,
-          "mc.lower": 0.002115444162360194,
-          "mc.upper": 0.004128747452037014,
-          "mc.probability": 0.056599999999999984,
-          "fc.area_ids": [],
-          "fc.area_rgb": [],
-          "fc.area_lines": [],
-          "fc.legend_ids": [
+        'active_portfolio': {
+          'target_return': 0.02,
+          'expected_risk': 0.0011259960302251806,
+          'expected_return': 0.0030963688719635417,
+          'mc.mean': 0.003136777905040026,
+          'mc.std': 0.0005739416922685078,
+          'mc.lower': 0.002115444162360194,
+          'mc.upper': 0.004128747452037014,
+          'mc.probability': 0.056599999999999984,
+          'fc.area_ids': [],
+          'fc.area_rgb': [],
+          'fc.area_lines': [],
+          'fc.legend_ids': [
             0,
             1,
             2,
@@ -1366,7 +1366,7 @@ export class AppComponent implements OnInit {
             1,
             0
           ],
-          "fc.legend_rgb": [
+          'fc.legend_rgb': [
             [
               254,
               230,
@@ -1423,20 +1423,20 @@ export class AppComponent implements OnInit {
               222
             ]
           ],
-          "fc.legend_labels": [
-            "2.5 - 5 Percentile",
-            "5 - 15 Percentile",
-            "15 - 25 Percentile",
-            "25 - 35 Percentile",
-            "35 - 45 Percentile",
-            "45 - 55 Percentile",
-            "55 - 65 Percentile",
-            "65 - 75 Percentile",
-            "75 - 85 Percentile",
-            "85 - 95 Percentile",
-            "95 - 97.5 Percentile"
+          'fc.legend_labels': [
+            '2.5 - 5 Percentile',
+            '5 - 15 Percentile',
+            '15 - 25 Percentile',
+            '25 - 35 Percentile',
+            '35 - 45 Percentile',
+            '45 - 55 Percentile',
+            '55 - 65 Percentile',
+            '65 - 75 Percentile',
+            '75 - 85 Percentile',
+            '85 - 95 Percentile',
+            '95 - 97.5 Percentile'
           ],
-          "fc.legend_lower": [
+          'fc.legend_lower': [
             0.002115444162360194,
             0.0020155528062942786,
             0.0026110532360972046,
@@ -1449,7 +1449,7 @@ export class AppComponent implements OnInit {
             0.003830623910445821,
             0.004159903285083012
           ],
-          "fc.legend_upper": [
+          'fc.legend_upper': [
             0.0020155528062942786,
             0.0026110532360972046,
             0.00280691223235896,
@@ -1462,25 +1462,25 @@ export class AppComponent implements OnInit {
             0.004159903285083012,
             0.004128747452037014
           ],
-          "fc.y_min": 0,
-          "fc.y_max": 0,
-          "fc.mean_line": [],
-          "fc.mean_line_legend_value": 0.003136777905040026,
-          "fc.target_line": [],
-          "fc.target_line_legend_value": 0,
-          "fc.base_line": [],
-          "fc.base_line_legend_value": 0,
-          "hist.bin_values": [],
-          "hist.bin_edges": [],
-          "hist.base_line": [],
-          "hist.target_line": [],
-          "hist.mean_line": [],
-          "hist.lower_line": [],
-          "hist.upper_line": [],
-          "hist.x_min": 0,
-          "hist.x_max": 0,
-          "hist.y_min": 0,
-          "hist.y_max": 0
+          'fc.y_min': 0,
+          'fc.y_max': 0,
+          'fc.mean_line': [],
+          'fc.mean_line_legend_value': 0.003136777905040026,
+          'fc.target_line': [],
+          'fc.target_line_legend_value': 0,
+          'fc.base_line': [],
+          'fc.base_line_legend_value': 0,
+          'hist.bin_values': [],
+          'hist.bin_edges': [],
+          'hist.base_line': [],
+          'hist.target_line': [],
+          'hist.mean_line': [],
+          'hist.lower_line': [],
+          'hist.upper_line': [],
+          'hist.x_min': 0,
+          'hist.x_max': 0,
+          'hist.y_min': 0,
+          'hist.y_max': 0
         }
       };
     fanChart = {
