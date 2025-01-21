@@ -1,7 +1,7 @@
 text.title {
     fill: black;
     text-anchor: start;
-    font-size: 50px;
+    font-size: 25px;
 }
 
 line.outline {
@@ -10,29 +10,29 @@ line.outline {
 
 line.baseline {
     stroke: black;
-    stroke-width: 3px;
+    stroke-width: 5px;
 }
 
 line.meanline {
     stroke: white;
-    stroke-width: 4px;
+    stroke-width: 5px;
 }
 
 line.targetline {
     stroke: rgb(49, 82, 189);
-    stroke-width: 3px;
+    stroke-width: 5px;
     stroke-dasharray: 7;
 }
 
 line.lowerline {
     stroke: white;
-    stroke-width: 3px;
+    stroke-width: 5px;
     stroke-dasharray: 7;
 }
 
 line.upperline {
     stroke: white;
-    stroke-width: 3px;
+    stroke-width: 5px;
     stroke-dasharray: 7;
 }
 

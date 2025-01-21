@@ -29,7 +29,7 @@ export class HistogramComponent implements OnInit {
   boxsizeV = 900;
   boxsizeH = 900;
   rim = 10;
-  edgeRatioX = 0.05;
+  edgeRatioX = 0.15;
   edgeRatioY = 0.2;
   scaleX = d3.scaleLinear();
   scaleY = d3.scaleLinear();
