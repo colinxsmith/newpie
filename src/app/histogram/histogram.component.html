@@ -10,11 +10,11 @@
 <div class="mainTip"></div>
 <div *ngIf="DATA" (mouseenter)="divover($event,title)" (mouseleave)="divover($event,title)" id="histo" [title]="title" [attr.rogue-title]="title" style="margin: 2px;">
     <svg xmlns="http://www.w3.org/2000/svg">
-        <g (mouseover)="divover($event,'title1',true)" (mouseleave)="divover($event)" >
-            <title>title1</title>
-            <text class="title" [style.font-size]="'large'" [attr.x]="4*rim" [attr.y]="boxsizeV*9e-2">{{mainTitle}}</text>
+        <g >
+            <title>{{mainTitle}}</title>
+            <text class="title"  [attr.x]="4*rim" [attr.y]="boxsizeV*9e-2">{{mainTitle}}</text>
         </g>
-        <g (mouseover)="divover($event,'Check the border',true)" (mouseleave)="divover($event)">
+        <g >
             <rect class="position"  [style.opacity]="squareBorderOpacity" [attr.width]="boxsizeH"
                 [attr.height]="boxsizeV" [attr.x]="rim" [attr.y]="rim" >
                 <title>Border check</title>
@@ -24,14 +24,25 @@
         <g *ngFor="let bin of DATA['hist.bin_edges'];let i=index">
             <line *ngIf="i>0"  class="bars" [attr.x1]="scaleX(DATA['hist.bin_edges'][i-1])" [attr.y1]="scaleY(DATA['hist.bin_values'][i-1])"  [attr.x2]="scaleX(DATA['hist.bin_edges'][i])" [attr.y2]="scaleY(DATA['hist.bin_values'][i-1])" ></line>
             <line *ngIf="i>0"  class="bars" [attr.x1]="scaleX(DATA['hist.bin_edges'][i-1])" [attr.y1]="scaleY(DATA['hist.y_min'])"  [attr.x2]="scaleX(DATA['hist.bin_edges'][i])" [attr.y2]="scaleY(DATA['hist.y_min'])" ></line>
-            <rect *ngIf="i>0" (mouseover)="divover($event,'histogram',true)" (mouseleave)="divover($event)" class="bars" [attr.height]="scaleY(DATA['hist.y_min'])-scaleY(DATA['hist.bin_values'][i-1])" [attr.width]="scaleX(DATA['hist.bin_edges'][i])-scaleX(DATA['hist.bin_edges'][i-1])" [attr.x]="scaleX(DATA['hist.bin_edges'][i-1])" [attr.y]="scaleY(DATA['hist.bin_values'][i-1])" ></rect>
+            <rect *ngIf="i>0" (mouseover)="divover($event,'Bin '+i,true)" (mouseleave)="divover($event)" class="bars" [attr.height]="scaleY(DATA['hist.y_min'])-scaleY(DATA['hist.bin_values'][i-1])" [attr.width]="scaleX(DATA['hist.bin_edges'][i])-scaleX(DATA['hist.bin_edges'][i-1])" [attr.x]="scaleX(DATA['hist.bin_edges'][i-1])" [attr.y]="scaleY(DATA['hist.bin_values'][i-1])" >
+                <title>bin:{{i}}</title>
+            </rect>
         </g>
-        <g *ngFor="let bin of DATA['hist.bin_edges'];let i=index">
+        <g *ngFor="let bin of xaxisTicks;let i=index">
             <text class="axis" [attr.y]="scaleY.range()[1]+rim*5" [attr.x]="scaleX(bin)">{{bin}}</text>
         </g>
-        <g *ngFor="let bin of DATA['hist.bin_values'];let i=index">
+        <g *ngFor="let bin of yaxisTicks;let i=index">
             <text class="axis" [attr.y]="scaleY(bin)" [attr.x]="scaleX.range()[0]-4*rim">{{bin}}</text>
         </g>
+        <g *ngFor="let name of ['base','target','mean','lower','upper']">
+            <line (mouseover)="divover($event,name,true)" (mouseleave)="divover($event)" [class]="name+'line'" [attr.x2]="scaleX(DATA[lableGen(name)][0])" [attr.y2]="scaleY(DATA[lableGen(name)][1])" [attr.x1]="scaleX(DATA[lableGen(name)][0])" [attr.y1]="scaleY(0)">
+                <title>{{name}}</title>
+            </line>
+        </g>
+        <line class="outline" [attr.x1]="scaleX.range()[0]" [attr.y1]="scaleY.range()[0]" [attr.x2]="scaleX.range()[1]" [attr.y2]="scaleY.range()[0]"></line>
+        <line class="outline" [attr.x1]="scaleX.range()[1]" [attr.y1]="scaleY.range()[0]" [attr.x2]="scaleX.range()[1]" [attr.y2]="scaleY.range()[1]"></line>
+        <line class="outline" [attr.x1]="scaleX.range()[1]" [attr.y1]="scaleY.range()[1]" [attr.x2]="scaleX.range()[0]" [attr.y2]="scaleY.range()[1]"></line>
+        <line class="outline" [attr.x1]="scaleX.range()[0]" [attr.y1]="scaleY.range()[1]" [attr.x2]="scaleX.range()[0]" [attr.y2]="scaleY.range()[0]"></line>
 
     </svg>
 </div>

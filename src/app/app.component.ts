@@ -687,8 +687,8 @@ export class AppComponent implements OnInit {
             445
           ],
           'hist.target_line': [
-            0.02,
-            445
+            2,
+            970
           ],
           'hist.mean_line': [
             2.6679098166893445,

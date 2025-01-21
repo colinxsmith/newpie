@@ -1,6 +1,21 @@
 import { Component, Input, ElementRef, OnInit, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import * as d3 from 'd3';
+import { portfolio } from '../app.component';
+interface porthist {
+  base_line: Array<number>;
+  bin_edges: Array<number>;
+  bin_values: Array<number>;
+  lower_line: Array<number>;
+  upper_line: Array<number>;
+  x_min: number;
+  x_max: number;
+  y_min: number;
+  y_max: number;
+}
+interface portf {
+  hist: porthist;
+}
 @Component({
   selector: 'app-histogram',
   standalone: true,
@@ -18,10 +33,13 @@ export class HistogramComponent implements OnInit {
   edgeRatioY = 0.2;
   scaleX = d3.scaleLinear();
   scaleY = d3.scaleLinear();
-  heightToWidth = 0.35;
+  lableGen = (name: string) => `hist.${name}_line`;
+  xaxisTicks: Array<number> = [];
+  yaxisTicks: Array<number> = [];
+  @Input() heightToWidth = 0.35;
   title = 'Response Histogram';
-  @Input() mainTitle=this.title;
-  staticPosition = { x: '2.5%', y: '5%' };
+  @Input() mainTitle = this.title;
+  staticPosition = { x: '5%', y: '2%' };
   squareBorderOpacity = 1;
   ngOnInit(): void {
     console.log(this.DATA)
@@ -30,10 +48,38 @@ export class HistogramComponent implements OnInit {
       d3.select(this.element.nativeElement).select('#histo')
         .style('--xx', `${this.staticPosition.x}px`)
         .style('--yy', `${this.staticPosition.y}px`)
-        .style('--trans', 'translate(-10%,0%) rotate(10deg)')
+        .style('--trans', 'translate(-10%,0%) rotate(20deg)')
         ;
       this.newDimensions();
     }, 0);
+    setTimeout(() => {//Must do this last!!!
+      this.update();
+    });
+  }
+  update() {
+    d3.select(this.element.nativeElement).selectAll('rect.bars').nodes().forEach((d) => {
+      const barWidth = +d3.select(d).attr('width').replace('px', '');
+      const barHeight = +d3.select(d).attr('height').replace('px', '');
+      d3.select(d)
+        .transition()
+        .duration(2000)
+        .ease(d3.easeBounce)
+        .attrTween('width', (dd) => (t) => {
+          return `${barWidth * t}`;
+        })
+        .attrTween('height', (dd) => (t) => {
+          return `${barHeight * t}`;
+        })
+        .styleTween('opacity', () => (t) => `${t}`)
+        ;
+    });
+    d3.select(this.element.nativeElement).selectAll('line.bars').nodes().forEach((d) => {
+      d3.select(d)
+        .transition()
+        .duration(2000)
+        .ease(d3.easeBounce)
+        .styleTween('opacity', () => (t) => `${1.0 - t}`);
+    });
   }
   divover(s: MouseEvent, newtitle = '', inside = false) {
     const blackTip = d3.select(this.element.nativeElement).select('div.mainTip');
@@ -50,17 +96,21 @@ export class HistogramComponent implements OnInit {
     //  console.log(x, y, xp, yp, xp - x, yp - y)
     //  console.log((blackTip.node() as HTMLElement)?.getBoundingClientRect());
     setTimeout(() => {
-      console.log('====================');
+    //  console.log('====================');
       if (inside) {
-        here.style('opacity', 0.5);
-        const backOff=x < screenWidth * 0.05?'0%':x > screenWidth * 0.95?'100%':'50%';
-        blackTip
+        here.style('opacity', 0.8);
+        const backOff = x < screenWidth * 0.05 ? '0%' : x > screenWidth * 0.95 ? '100%' : '50%';
+        const writetext=newtitle.replace(/[0-9]/,'number').includes('number');
+        const bin = +newtitle.replace(/[a-z,A-Z]/g, '');
+        const edge = this.DATA['hist.bin_values'][bin];
+        if(writetext)blackTip
           .style('left', `${xp}px`)
           .style('top', `${yp}px`)
           .style('--accent-colour', 'black')
           .style('opacity', 1)
           .style('transform', `translate(calc(max(0% , (50% - ${x}px)) - ${backOff}) , calc(0px - 100% - var(--triangle-height))) rotate(0deg)`)
-          .html(`offset: (${x} ${y}) and page: (${xp} ${yp}). Difference: (${xp - x} ${yp - y}). Screen width: ${screenWidth}, edge conditions: ${x < screenWidth * 0.05} ${x > screenWidth * 0.95}`)
+          //    .html(`offset: (${x} ${y}) and page: (${xp} ${yp}). Difference: (${xp - x} ${yp - y}). Screen width: ${screenWidth}, edge conditions: ${x < screenWidth * 0.05} ${x > screenWidth * 0.95}`)
+          .html(`Bin value: ${edge} for ${bin}`)
           ;
         area
           .style('--xx', `${x}px`)
@@ -79,9 +129,9 @@ export class HistogramComponent implements OnInit {
           .style('--trans', 'translate(-10%,0%) rotate(-10deg)')
           .attr('rogue-title', text1)
           ;
-        console.log(x1, y1, text1, inside);
+   //     console.log(x1, y1, text1, inside);
       }
-      console.log('++++++++++++++++++++');
+     // console.log('++++++++++++++++++++');
     }, 0);
   }
   newDimensions() {
@@ -95,17 +145,19 @@ export class HistogramComponent implements OnInit {
       .attr('width', boxsizeH)
       .attr('height', boxsizeV)
       ;
-    this.boxsizeH = boxsizeH - this.rim;
-    this.boxsizeV = boxsizeV - this.rim;
+    this.boxsizeH = boxsizeH - this.rim * 50;
+    this.boxsizeV = boxsizeV - this.rim * 75;
 
-    console.log('Box dimensions:', boxsizeH, boxsizeV)
-    this.scaleX.range([boxsizeH * this.edgeRatioX, boxsizeH * (1 - this.edgeRatioX)]);
-    this.scaleY.range([boxsizeV * this.edgeRatioY, boxsizeV * (1 - this.edgeRatioY)]);
-    this.scaleX.domain([ this.DATA['hist.x_min'], this.DATA['hist.x_max']]);
-    this.scaleY.domain([ this.DATA['hist.y_max'], this.DATA['hist.y_min']]);
-    console.log(this.scaleX.domain(),this.scaleX.range(),[this.scaleX(this.scaleX.domain()[0]),this.scaleX(this.scaleX.domain()[1])]);
-    console.log(this.scaleY.domain(),this.scaleY.range(),[this.scaleY(this.scaleY.domain()[0]),this.scaleY(this.scaleY.domain()[1])]);
-    console.log(this.DATA['hist.bin_edges'],(this.DATA['hist.bin_edges'] as Array<number>).map((d)=>this.scaleX(d)));
-    console.log(this.DATA['hist.bin_values'],(this.DATA['hist.bin_values'] as Array<number>).map((d)=>this.scaleY(d)));
+ //   console.log('Box dimensions:', boxsizeH, boxsizeV)
+    this.scaleX.range([this.boxsizeH * this.edgeRatioX, this.boxsizeH * (1 - this.edgeRatioX)]);
+    this.scaleY.range([this.boxsizeV * this.edgeRatioY, this.boxsizeV * (1 - this.edgeRatioY)]);
+    this.scaleX.domain([this.DATA['hist.x_min'], this.DATA['hist.x_max']]);
+    this.scaleY.domain([this.DATA['hist.y_max'], this.DATA['hist.y_min']]);
+  /*  console.log(this.scaleX.domain(), this.scaleX.range(), [this.scaleX(this.scaleX.domain()[0]), this.scaleX(this.scaleX.domain()[1])]);
+    console.log(this.scaleY.domain(), this.scaleY.range(), [this.scaleY(this.scaleY.domain()[0]), this.scaleY(this.scaleY.domain()[1])]);
+    console.log(this.DATA['hist.bin_edges'], (this.DATA['hist.bin_edges'] as Array<number>).map((d) => this.scaleX(d)));
+    console.log(this.DATA['hist.bin_values'], (this.DATA['hist.bin_values'] as Array<number>).map((d) => this.scaleY(d)));*/
+    this.xaxisTicks = d3.ticks(this.scaleX.domain()[0], this.scaleX.domain()[1], 10);
+    this.yaxisTicks = d3.ticks(this.scaleY.domain()[0], this.scaleY.domain()[1], 10);
   }
 }

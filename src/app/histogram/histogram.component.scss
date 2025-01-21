@@ -1,7 +1,39 @@
 text.title {
     fill: black;
     text-anchor: start;
-    font-size: larger;
+    font-size: 50px;
+}
+
+line.outline {
+    stroke: grey;
+}
+
+line.baseline {
+    stroke: black;
+    stroke-width: 3px;
+}
+
+line.meanline {
+    stroke: white;
+    stroke-width: 4px;
+}
+
+line.targetline {
+    stroke: rgb(49, 82, 189);
+    stroke-width: 3px;
+    stroke-dasharray: 7;
+}
+
+line.lowerline {
+    stroke: white;
+    stroke-width: 3px;
+    stroke-dasharray: 7;
+}
+
+line.upperline {
+    stroke: white;
+    stroke-width: 3px;
+    stroke-dasharray: 7;
 }
 
 text.axis {
@@ -18,8 +50,8 @@ rect.histbox {
 }
 
 line.bars {
-    stroke: rgb(105, 194, 255);
-    stroke-width: 3;
+    stroke: rgb(123, 32, 172);
+    stroke-width: 6;
 }
 
 rect.position {
