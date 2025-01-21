@@ -115,7 +115,7 @@ export class HistogramComponent implements OnInit {
         area
           .style('--xx', `${x}px`)
           .style('--yy', `${y}px`)
-          .style('--trans', x < screenWidth * 0.05 ? `translate(0%, 0%) rotate(0deg)` : x > screenWidth * 0.95 ? `translate(-100%, 0%) rotate(0deg)` : `translate(-50%, 0%) rotate(0deg)`)
+          .style('--trans', x < screenWidth * 0.05 ? `translate(0%, 50%) rotate(0deg)` : x > screenWidth * 0.95 ? `translate(-100%, 50%) rotate(0deg)` : `translate(-50%, 0%) rotate(0deg)`)
           .attr('rogue-title', newtitle)
           ;
         //    console.log(x, y, newtitle, inside)
