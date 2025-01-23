@@ -146,7 +146,7 @@ export class HistogramComponent implements OnInit {
       .attr('height', boxsizeV)
       ;
     this.boxsizeH = boxsizeH - this.rim * 50;
-    this.boxsizeV = boxsizeV - this.rim * 75;
+    this.boxsizeV = boxsizeV - this.rim * 20;
 
  //   console.log('Box dimensions:', boxsizeH, boxsizeV)
     this.scaleX.range([this.boxsizeH * this.edgeRatioX, this.boxsizeH * (1 - this.edgeRatioX)]);
