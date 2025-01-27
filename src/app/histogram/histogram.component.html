@@ -9,7 +9,7 @@
 
 <div class="mainTip"></div>
 <div *ngIf="DATA" (mouseenter)="divover($event,title)" (mouseleave)="divover($event,title)" id="histo" [title]="title" [attr.rogue-title]="title" style="margin: 2px;">
-    <svg xmlns="http://www.w3.org/2000/svg">
+    <svg>
         <g >
             <title>{{mainTitle}}</title>
             <text class="title"  [attr.x]="4*rim" [attr.y]="boxsizeV*9e-2">{{mainTitle}}</text>

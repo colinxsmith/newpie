@@ -136,17 +136,17 @@ export class HistogramComponent implements OnInit {
   }
   newDimensions() {
     const drawthis = d3.select(this.element.nativeElement);
-    const here = (drawthis.node().parentElement as HTMLElement).getBoundingClientRect();
+    const here = (drawthis.node().parentElement.parentElement as HTMLElement).getBoundingClientRect();
     //  const boxsizeH =((drawthis.select('#histo').node() as HTMLElement).parentElement?.parentElement?.parentElement as HTMLElement).getBoundingClientRect().width;// here.width;
     // const boxsizeV = ((drawthis.select('#histo').node() as HTMLElement).parentElement?.parentElement?.parentElement as HTMLElement).getBoundingClientRect().height;//Math.max(boxsizeH * this.heightToWidth, here.height);
-    const boxsizeH = here.width;
+    const boxsizeH = here.width-100;
     const boxsizeV = Math.max(boxsizeH * this.heightToWidth, here.height);
     drawthis.select('svg')
       .attr('width', boxsizeH)
       .attr('height', boxsizeV)
       ;
     this.boxsizeH = boxsizeH - this.rim * 50;
-    this.boxsizeV = boxsizeV - this.rim * 20;
+    this.boxsizeV = boxsizeV - this.rim *50;
 
  //   console.log('Box dimensions:', boxsizeH, boxsizeV)
     this.scaleX.range([this.boxsizeH * this.edgeRatioX, this.boxsizeH * (1 - this.edgeRatioX)]);
